@@ -1,21 +1,21 @@
 var START = {
   position: {
-    x: 0,
-    y: 410,
+    x: 250,
+    y: 0,
   },
   velocity: {
-    x: 5,
-    y: 0,
+    x: 0,
+    y: 5,
   },
 };
 
 var END = {
   position: {
-    x: 500,
-    y: 410,
+    x: 0,
+    y: 290,
   },
   velocity: {
-    x: 5,
+    x: 3,
     y: 0,
   },
 };
