@@ -10756,3 +10756,8 @@ var Common = __webpack_require__(0);
 /***/ })
 /******/ ]);
 });
+
+
+/* I ADDED THESE IN */
+var { Engine, Render, Runner, Bodies, Composite, Body, Events, Detector } =
+  Matter;

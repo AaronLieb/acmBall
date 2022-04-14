@@ -20,20 +20,35 @@ var END = {
   },
 };
 
-function setupFunction(tile) {
-  tile.ground = Bodies.rectangle(
+// setup()
+// onBallEnter()
+// run()
+// runBackground()
+
+// This function will run once when the tile loads for the first time
+function setup() {
+  let ground = Bodies.rectangle(
     250,
-    tile.render.canvas.height,
-    tile.render.canvas.width,
+    game.render.canvas.height,
+    game.render.canvas.width,
     100,
     { isStatic: true, render: { fillStyle: "gray" } }
   );
-  b = new ConveyorBelt(
-    tile,
+  let b = new ConveyorBelt(
+    game,
     250,
-    tile.render.canvas.height - 40,
-    tile.render.canvas.width / 4,
+    game.render.canvas.height - 40,
+    game.render.canvas.width / 4,
     5
   );
-  Composite.add(tile.engine.world, [tile.ground, b.belt]);
+  Composite.add(game.engine.world, [ground, b.belt]);
 }
+
+// This function will run when the ball enters your tile
+function onBallEnter() {}
+
+// This function will run once every tick while the ball is in your tile
+function onTick() {}
+
+// This function will run once everey tick, even if the ball is not in your tile
+function onTickBackground() {}
