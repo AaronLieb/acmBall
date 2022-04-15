@@ -5,43 +5,32 @@
 
     Camera:
     Keep track of the activeTile, and use the position of the ball to translate the grid, no overflow
+    add smoothing algorithm
 
     Look into the engine and see what cool options there are to wrap
 
-    Allow ball to re-enter the tile
 
-    Dynamically choose the tile that a square will enter based off the exit 
 */
 
-const NUM_TILES_X = 4;
-const NUM_TILES_Y = 4;
-const TILE_HEIGHT = 500;
-const TILE_WIDTH = 500;
-const CANVAS_HEIGHT = TILE_HEIGHT * NUM_TILES_Y;
-const CANVAS_WIDTH = TILE_WIDTH * NUM_TILES_X;
+import Game from "./Game.js";
 
-const TOTAL_SCRIPTS = 1;
+// Fetches the /tiles directory, parses the html to get number of scripts
+const TOTAL_SCRIPTS = await fetch("/tiles")
+  .then((res) => res.text())
+  .then((text) => [...text.matchAll(/\.js/g)].length / 3);
 
-const loadScript = async id => {
+const loadScript = async (id) => {
   return new Promise((res, rej) => {
     let script = document.createElement("script");
-    script.src = `./tiles/${id}.js`; 
-    script.onerror = () => { rej() };
-    script.onload = () => {
-      new Tile(id, setup, onBallEnter, onTick, onTickBackground, END, START);
-      res();
-    };
+    script.src = `./tiles/${id}.js`;
+    script.type = "module";
+    script.onerror = rej;
+    script.onload = res;
     document.head.appendChild(script);
-  })
-}
+  });
+};
 
-const main = async () => {
-  for(let i = 0; i < TOTAL_SCRIPTS; i++) {
-    await loadScript(i);
-  }
-  game.setup();
-  game.run();
-}
+for (let i = 0; i < TOTAL_SCRIPTS; i++) await loadScript(i);
 
-var game = new Game();
-main();
+Game.setup();
+Game.run();

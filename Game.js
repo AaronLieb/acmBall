@@ -1,58 +1,80 @@
-function Game() {
-  this.engine = Engine.create();
-  this.runner = Runner.create();
-  this.render = Render.create({
-    element: document.body,
-    engine: this.engine,
-    options: {
-      wireframes: false,
-      width: CANVAS_HEIGHT,
-      height: CANVAS_WIDTH,
-    },
-  });
-  this.tiles = [];
-  this.activeTile = 0;
-  this.ball = Bodies.circle(0, 0, 40, {
-    frictionAir: 0,
-    restitution: 1,
-    friction: 0,
-    render: {
-      fillStyle: "#f99",
-    },
-  });
+import { testExit } from "./tests.js";
+import { positionToTile } from "./helpers.js";
+import "./matter.js";
+let { Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } =
+  Matter;
 
-  this.setup = () => {
-    Render.run(this.render);
-    Runner.run(this.runner, this.engine);
-    for (let tile of game.tiles) {
-      tile.setup();
+let Game = {};
+
+Game.NUM_TILES_X = 4;
+Game.NUM_TILES_Y = 4;
+Game.TILE_HEIGHT = 500;
+Game.TILE_WIDTH = 500;
+Game.HEIGHT = Game.TILE_HEIGHT * Game.NUM_TILES_Y;
+Game.WIDTH = Game.TILE_WIDTH * Game.NUM_TILES_X;
+
+Game.engine = Engine.create();
+Game.runner = Runner.create();
+Game.render = Render.create({
+  element: document.body,
+  engine: Game.engine,
+  options: {
+    wireframes: false,
+    width: Game.HEIGHT,
+    height: Game.WIDTH,
+  },
+});
+
+Game.tiles = [];
+Game.activeTile = 0;
+
+Game.ball = Bodies.circle(0, 0, 40, {
+  frictionAir: 0,
+  restitution: 1,
+  friction: 0,
+  render: { fillStyle: "#f99" },
+});
+
+Game.setup = () => {
+  Render.run(Game.render);
+  Runner.run(Game.runner, Game.engine);
+  for (let tile of Game.tiles) {
+    tile.setup();
+  }
+  let stop = () => {
+    Game.stop();
+    Events.off(Game.runner, "tick", stop);
+  };
+  Events.on(Game.runner, "tick", stop);
+};
+
+Game.detector = Detector.create({
+  bodies: [Game.ball],
+});
+
+Game.run = () => {
+  Body.setPosition(Game.ball, Game.tiles[0].ballStart.position);
+  Body.setVelocity(Game.ball, Game.tiles[0].ballStart.velocity);
+  Render.run(Game.render);
+  Runner.run(Game.runner, Game.engine);
+  Composite.add(Game.engine.world, [Game.ball]);
+
+  Events.on(Game.runner, "tick", () => {
+    for (let pair of Detector.collisions(Game.detector)) {
+      pair.bodyB.speedUp(pair.bodyA);
     }
-    let stop = () => {
-      this.stop();
-      Events.off(this.runner, "tick", stop);
-    };
-    Events.on(this.runner, "tick", stop);
-  };
-
-  this.detector = Detector.create({
-    bodies: [this.ball],
+    let oldActiveTile = Game.activeTile;
+    Game.activeTile = positionToTile(Game.ball.position);
+    if (oldActiveTile != Game.activeTile) {
+      //console.log(`Switching from ${oldActiveTile} to ${Game.activeTile}`);
+      Game.tiles[Game.activeTile]?.onBallEnter();
+    }
   });
+};
 
-  this.run = () => {
-    Body.setPosition(this.ball, this.tiles[0].start.position);
-    Body.setVelocity(this.ball, this.tiles[0].start.velocity);
-    Render.run(this.render);
-    Runner.run(this.runner, this.engine);
-    Composite.add(this.engine.world, [this.ball]);
-    Events.on(this.runner, "tick", () => {
-      for (let pair of Detector.collisions(this.detector)) {
-        pair.bodyB.speedUp(pair.bodyA);
-      }
-    });
-  };
+Game.stop = () => {
+  Runner.stop(Game.runner);
+  Render.stop(Game.render);
+};
 
-  this.stop = () => {
-    Runner.stop(this.runner);
-    Render.stop(this.render);
-  };
-}
+export default Game;
