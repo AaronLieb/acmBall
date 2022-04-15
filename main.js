@@ -1,14 +1,11 @@
 /* TODO 
     Add a mouse to see coordinates, for easier placement
 
+    Use velocity of ball to get x intercept when overshooting tile transition test case
+
     Create a spring composition, with constraints
 
-    Camera:
-    Keep track of the activeTile, and use the position of the ball to translate the grid, no overflow
-    add smoothing algorithm
-
     Look into the engine and see what cool options there are to wrap
-
 
 */
 
