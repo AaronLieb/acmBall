@@ -39,9 +39,9 @@ function Tile() {
     return body;
   };
 
-  this.createCircle = (x, y, width, height, options) => {
+  this.createCircle = (x, y, radius, options) => {
     options = parseOptions(options);
-    let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
+    let body = Bodies.circle(this.left + x, this.top + y, radius, options);
     Composite.add(Game.engine.world, body);
     return body;
   };
