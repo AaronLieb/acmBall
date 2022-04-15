@@ -1,6 +1,7 @@
 import { testExit } from "./tests.js";
 import { positionToTile } from "./helpers.js";
 import "./matter.js";
+import Camera from "./Camera.js";
 let { Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } =
   Matter;
 
@@ -16,7 +17,7 @@ Game.WIDTH = Game.TILE_WIDTH * Game.NUM_TILES_X;
 Game.engine = Engine.create();
 Game.runner = Runner.create();
 Game.render = Render.create({
-  element: document.body,
+  element: document.getElementById("gameView"),
   engine: Game.engine,
   options: {
     wireframes: false,
@@ -60,6 +61,7 @@ Game.run = () => {
   Composite.add(Game.engine.world, [Game.ball]);
 
   Events.on(Game.runner, "tick", () => {
+    Camera.updateCamera();
     for (let pair of Detector.collisions(Game.detector)) {
       pair.bodyB.speedUp(pair.bodyA);
     }
