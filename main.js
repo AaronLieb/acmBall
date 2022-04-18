@@ -1,7 +1,7 @@
 /* TODO 
     Add a mouse to see coordinates, for easier placement
 
-    Use velocity of ball to get x intercept when overshooting tile transition test case
+    Write a custom renderer
 
     Create a spring composition, with constraints
 

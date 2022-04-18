@@ -1,18 +1,20 @@
+import { sleep } from "../helpers.js";
 import Tile from "../Tile.js";
 
 let tile = new Tile();
 let { ballStart, ballEnd } = tile;
 
-ballStart.position = { x: 0, y: 290 };
-ballStart.velocity = { x: 3, y: 0 };
+ballStart.position = { x: 0, y: 420 };
+ballStart.velocity = { x: 1, y: 0 };
 
-ballEnd.position = { x: 500, y: 410 };
+ballEnd.position = { x: 500, y: 420 };
 ballEnd.velocity = { x: 5, y: 0 };
 
 // This function will run once when the tile loads for the first time
 tile.setup = function () {
   let ground = tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
   ground.isStatic = true;
+  tile.createConveyorBelt(tile.width / 2, tile.height - 20, tile.width / 3, 40, 5);
 };
 
 // This function will run when the ball enters your tile

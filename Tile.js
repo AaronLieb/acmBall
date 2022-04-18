@@ -1,5 +1,5 @@
 import "./matter.js";
-let { Bodies, Composite } = Matter;
+let { Bodies, Body, Composite } = Matter;
 import Game from "./Game.js";
 import { parseOptions } from "./helpers.js";
 
@@ -32,6 +32,14 @@ function Tile() {
 
   /*  Member Functions */
 
+  this.setBackgroundColor = (color) => {
+    // Currently sets the background for the WHOLE canvas, needs to be for an individual tile
+    // two ways to do this, CSS with bounds, or draw to canvas manually
+    Game.render.options.background = color;
+  };
+
+  /*  createObject Member Functions */
+
   this.createRectangle = (x, y, width, height, options = {}) => {
     parseOptions(options);
     let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
@@ -39,9 +47,22 @@ function Tile() {
     return body;
   };
 
-  this.createCircle = (x, y, radius, options) => {
-    options = parseOptions(options);
+  this.createCircle = (x, y, radius, options = {}) => {
+    parseOptions(options);
     let body = Bodies.circle(this.left + x, this.top + y, radius, options);
+    Composite.add(Game.engine.world, body);
+    return body;
+  };
+
+  this.createConveyorBelt = (x, y, width, height, speed, options = {}) => {
+    parseOptions(options);
+    options.render.fillStyle = "green";
+    let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
+    body.isStatic = true;
+    body.speedUp = (ball) => {
+      Body.setVelocity(ball, { x: speed, y: 0 });
+    };
+    Game.detector.bodies.push(body);
     Composite.add(Game.engine.world, body);
     return body;
   };

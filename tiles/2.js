@@ -18,9 +18,7 @@ tile.setup = function () {
 
 // This function will run when the ball enters your tile
 tile.onBallEnter = async function () {
-  tile.createRectangle(100, 20, 50, 40);
-  await sleep(200);
-  tile.createRectangle(150, 20, 50, 40);
+  // Game.ball.isStatic = true;
 };
 
 // This function will run once every tick while the ball is in your tile

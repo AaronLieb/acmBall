@@ -1,7 +1,12 @@
 #gameView {
-  width: 800px;
-  height: 800px;
-  max-width: 800px;
-  max-height: 800px;
+  border: 2vw solid rgb(168, 168, 168);
+  border-width: 2vh 2vw;
+  border-radius: 15px;
   overflow: hidden;
+  /* box-shadow: 5px 10px 10px 5px rgba(0, 0, 0, 0.2); */
+}
+
+canvas {
+  background: radial-gradient(#ccc 4px, #eee 5px) !important;
+  background-size: 50px 50px !important;
 }
