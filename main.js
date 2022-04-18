@@ -1,5 +1,5 @@
 /* TODO 
-    Add a mouse to see coordinates, for easier placement
+    Add mouse to see coordinates, for easier placement
 
     Write a custom renderer
 

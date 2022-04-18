@@ -4,6 +4,10 @@ import "./matter.js";
 import Camera from "./Camera.js";
 let { Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } = Matter;
 
+// Default: 60
+// 120 FPS increased velocity accuracy by more than 10x
+const FPS = 120;
+
 let Game = {};
 
 Game.NUM_TILES_X = 4;
@@ -16,7 +20,7 @@ Game.TILES = Game.NUM_TILES_X * Game.NUM_TILES_Y;
 
 Game.engine = Engine.create();
 Game.runner = Runner.create({
-  delta: 1000 / 120, // increases velocity accuracy by a ton
+  delta: 1000 / FPS, 
 });
 Game.render = Render.create({
   element: document.getElementById("gameView"),
