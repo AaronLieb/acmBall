@@ -4,10 +4,10 @@ import { sleep } from "../helpers.js";
 
 let tile = new Tile();
 
-tile.ballStart.position = { x: 0, y: 290 };
-tile.ballStart.velocity = { x: 3, y: 0 };
+tile.ballStart.position = { x: 0, y: 420 };
+tile.ballStart.velocity = { x: 5, y: 0 };
 
-tile.ballEnd.position = { x: 500, y: 410 };
+tile.ballEnd.position = { x: 500, y: 420 };
 tile.ballEnd.velocity = { x: 5, y: 0 };
 
 // This function will run once when the tile loads for the first time

@@ -8,12 +8,20 @@
     <link rel="icon" href="/favicon.png" />
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <script type="module" src="matter.js"></script>
-    <script type="module" src="CustomBodies.js"></script>
     <script type="module" src="Game.js"></script>
     <script type="module" src="Tile.js"></script>
     <script type="module" src="tests.js"></script>
     <script type="module" src="helpers.js"></script>
     <script type="module" src="main.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <div id="gameView"></div>
+    <div id="debug">
+      <span id="coords"></span>
+      <div id="tests">
+        <div id="testbox"></div>
+        <div id="testlogs"></div>
+      </div>
+    </div>
+  </body>
 </html>
