@@ -1,4 +1,8 @@
 /* TODO 
+
+
+    Use sensors?
+
     Add mouse to see coordinates, for easier placement
 
     Write a custom renderer:
@@ -45,3 +49,4 @@ for (let i = 0; i < TOTAL_SCRIPTS; i++) await loadScript(i);
 
 Game.setup();
 Game.run();
+Game.pause();
