@@ -1,3 +1,4 @@
+import { testExitPosition, testExitVelocity } from "./tests.js";
 import "./matter.js";
 let { Bodies, Body, Composite } = Matter;
 import Game from "./Game.js";
@@ -17,6 +18,7 @@ function Tile() {
   this.top = Math.floor(this.id / Game.NUM_TILES_Y) * Game.TILE_WIDTH;
   this.right = this.left + Game.TILE_WIDTH;
   this.bottom = this.right + Game.TILE_HEIGHT;
+  this.testsPassed = 0;
 
   /* User Defined Member Variables */
 
@@ -29,6 +31,13 @@ function Tile() {
   this.onBallEnter;
   this.onTick;
   this.onTickBackground;
+
+  /* Testing */
+
+  this.testExit = () => {
+    this.testsPassed += testExitPosition(Game.ball, this.ballEnd)    
+    this.testsPassed += testExitVelocity(Game.ball, this.ballEnd)    
+  }
 
   /*  Member Functions */
 
@@ -59,6 +68,7 @@ function Tile() {
     options.render.fillStyle = "green";
     let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
     body.isStatic = true;
+    body.isSensor = true;
     body.speedUp = (ball) => {
       Body.setVelocity(ball, { x: speed, y: 0 });
     };
