@@ -32,11 +32,6 @@
 
 import Game from "./Game.js";
 
-// Fetches the /tiles directory, parses the html to get number of scripts
-const TOTAL_SCRIPTS = await fetch("/tiles")
-  .then((res) => res.text())
-  .then((text) => [...text.matchAll(/\.js/g)].length / 3);
-
 const loadScript = async (id) => {
   return new Promise((res, rej) => {
     let script = document.createElement("script");
@@ -48,8 +43,14 @@ const loadScript = async (id) => {
   });
 };
 
-//for (let i = 0; i < TOTAL_SCRIPTS; i++) await loadScript(i);
-for (let i = 0; i < 2; i++) await loadScript(i);
+for (let i = 0; ; i++) {
+  try {
+    await loadScript(i);
+  } catch (err) {
+    console.log(`stopping loading: ${err}`);
+    break;
+  }
+}
 
 // starts the game, and then pauses is, waiting for user to press "start"
 Game.setup();
