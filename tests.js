@@ -1,4 +1,4 @@
-import { findIntersection } from "./helpers.js";
+import { sleep, findIntersection } from "./helpers.js";
 import Game from "./Game.js";
 
 const POSITION_DELTA = 0.5;
@@ -43,4 +43,48 @@ export const testExitVelocity = (ball, end) => {
     assertEqual(ball.velocity.y, end.velocity.y, VELOCITY_DELTA, "Ball Velocity Y") &&
     flag;
   return flag;
-}
+};
+
+const reqJSONBin = async (method, body) => {
+  const urlSuffix = method == "get" ? "latest" : "";
+  const data = {
+    method: method,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "X-Master-key": "$2b$10$BfSdlGY7.T2MK8eNEgBqx.ZDgA9oto5l2NO6PogwTLk27MQeiWRpC",
+      "X-Bin-Meta": false,
+    },
+  };
+  if (body) data.body = JSON.stringify(body);
+  return new Promise((res, rej) => {
+    fetch(`https://api.jsonbin.io/v3/b/626daf2125069545a32b655a/${urlSuffix}`, data)
+      .then((response) => res(response.json()))
+      .catch((err) => rej(err));
+  });
+};
+
+export const sendTestResults = async (tile) => {
+  console.log("Sending test results...");
+  const result = tile.numTests == tile.testsPassed;
+  while (1) {
+    let curr = await reqJSONBin("get");
+    console.log(curr);
+    if (curr.results[tile.id] === result) break;
+    if (curr.locked) {
+      await sleep(100);
+      break;
+    }
+    curr.locked = true;
+    await reqJSONBin("put", curr);
+    curr = await reqJSONBin("get");
+    console.log(curr);
+    if (!curr.locked) {
+      await sleep(100);
+      break;
+    }
+    curr.results[tile.id] = result;
+    curr.locked = false;
+    await reqJSONBin("put", curr);
+  }
+};

@@ -1,7 +1,11 @@
 /* TODO 
 
+    Documentation:
+      code block example, gif showing the result
 
-    Use sensors?
+    Use sensors
+
+    Call test cases even if there is one tile
 
     Add mouse to see coordinates, for easier placement
 
@@ -15,16 +19,15 @@
       add smoothing algorithm
       disable camera
     
-    Game:
-      add start button
-    
     Create a spring composition, with constraints
 
     Look into the engine and see what cool options there are to wrap
 
     Backend: 
-      Create CI infastructure
-      Only send successful test case attempts
+      upload test results to json bin
+      create bash script to read from json bin
+      run bash script on github workflow
+      pass fail depending on json bin results 
 */
 
 import Game from "./Game.js";
@@ -45,8 +48,10 @@ const loadScript = async (id) => {
   });
 };
 
-for (let i = 0; i < TOTAL_SCRIPTS; i++) await loadScript(i);
+//for (let i = 0; i < TOTAL_SCRIPTS; i++) await loadScript(i);
+for (let i = 0; i < 2; i++) await loadScript(i);
 
+// starts the game, and then pauses is, waiting for user to press "start"
 Game.setup();
 Game.run();
 Game.pause();

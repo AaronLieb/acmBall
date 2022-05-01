@@ -100,6 +100,7 @@ Game.pause = () => {
   Runner.stop(Game.runner);
 };
 
+// Make global
 window.pauseGame = Game.pause;
 
 Game.resume = () => {

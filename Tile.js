@@ -1,4 +1,4 @@
-import { testExitPosition, testExitVelocity } from "./tests.js";
+import { sendTestResults, testExitPosition, testExitVelocity } from "./tests.js";
 import "./matter.js";
 let { Bodies, Body, Composite } = Matter;
 import Game from "./Game.js";
@@ -19,6 +19,7 @@ function Tile() {
   this.right = this.left + Game.TILE_WIDTH;
   this.bottom = this.right + Game.TILE_HEIGHT;
   this.testsPassed = 0;
+  this.numTests = 2;
 
   /* User Defined Member Variables */
 
@@ -35,9 +36,10 @@ function Tile() {
   /* Testing */
 
   this.testExit = () => {
-    this.testsPassed += testExitPosition(Game.ball, this.ballEnd)    
-    this.testsPassed += testExitVelocity(Game.ball, this.ballEnd)    
-  }
+    this.testsPassed += testExitPosition(Game.ball, this.ballEnd);
+    this.testsPassed += testExitVelocity(Game.ball, this.ballEnd);
+    sendTestResults(this);
+  };
 
   /*  Member Functions */
 
@@ -73,6 +75,14 @@ function Tile() {
       Body.setVelocity(ball, { x: speed, y: 0 });
     };
     Game.detector.bodies.push(body);
+    Composite.add(Game.engine.world, body);
+    return body;
+  };
+
+  this.createSpring = (x, y, width, height, launchVelocity, options = {}) => {
+    parseOptions(options);
+    let base = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
+    let spring = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
     Composite.add(Game.engine.world, body);
     return body;
   };
