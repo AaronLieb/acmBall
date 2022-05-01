@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   workflow_dispatch:
 
@@ -13,6 +13,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: run testResults.sh 
-        run: testResults.sh 0
-
+      - name: run testResults.sh
+        run: ./testResults.sh 0
