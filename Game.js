@@ -1,4 +1,3 @@
-import { testExit } from "./tests.js";
 import { positionToTile, parseOptions } from "./helpers.js";
 import "./matter.js";
 import Camera from "./Camera.js";
@@ -20,7 +19,7 @@ Game.TILES = Game.NUM_TILES_X * Game.NUM_TILES_Y;
 
 Game.engine = Engine.create();
 Game.runner = Runner.create({
-  delta: 1000 / FPS, 
+  delta: 1000 / FPS,
 });
 Game.render = Render.create({
   element: document.getElementById("gameView"),
@@ -35,7 +34,10 @@ Game.render = Render.create({
 Game.tiles = [];
 Game.activeTile = 0;
 
-Game.ball = Bodies.circle( 0, 0, 40,
+Game.ball = Bodies.circle(
+  0,
+  0,
+  40,
   parseOptions({
     frictionAir: 0,
     restitution: 1,
@@ -84,13 +86,40 @@ Game.run = () => {
     Game.activeTile = positionToTile(Game.ball.position);
     if (Game.activeTile >= Game.tiles.length || oldActiveTile == Game.activeTile) return;
     Game.tiles[Game.activeTile].onBallEnter();
-    testExit(Game.ball, Game.tiles[oldActiveTile].ballEnd);
+    Game.tiles[oldActiveTile].testExit();
   });
 };
 
 Game.stop = () => {
   Runner.stop(Game.runner);
   Render.stop(Game.render);
+};
+
+Game.pause = () => {
+  Game.engine.enabled = false;
+  Runner.stop(Game.runner);
+};
+
+// Make global
+window.pauseGame = Game.pause;
+
+Game.resume = () => {
+  Game.engine.enabled = true;
+  Runner.run(Game.runner, Game.engine);
+};
+
+// Make global
+window.resumeGame = Game.resume;
+
+Game.start = () => {
+  Game.run();
+};
+
+// Make global
+window.startGame = Game.start;
+
+window.restartGame = () => {
+  window.location.reload();
 };
 
 export default Game;

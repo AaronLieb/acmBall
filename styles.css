@@ -49,3 +49,30 @@ canvas {
   margin: 20px;
   background-color: lime;
 }
+
+#controls {
+  margin: 50px 0;
+}
+
+.button {
+  border: 2px solid gray;
+  border-radius: 5px;
+  padding: 25px;
+  margin: 10px;
+}
+
+#play {
+  background-color: rgb(178, 255, 178);
+}
+
+#pause {
+  background-color: rgb(243, 255, 178);
+}
+
+#resume {
+  background-color: rgb(178, 255, 242);
+}
+
+#restart {
+  background-color: rgb(255, 169, 169);
+}

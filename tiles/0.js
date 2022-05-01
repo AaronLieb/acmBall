@@ -5,7 +5,7 @@ let tile = new Tile();
 let { ballStart, ballEnd } = tile;
 
 ballStart.position = { x: 0, y: 420 };
-ballStart.velocity = { x: 3, y: -5 };
+ballStart.velocity = { x: 1, y: 0 };
 
 ballEnd.position = { x: 500, y: 420 };
 ballEnd.velocity = { x: 5, y: 0 };
