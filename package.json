@@ -1,0 +1,19 @@
+{
+  "name": "acmball",
+  "version": "1.0.0",
+  "description": "A collaborative Rube Goldberg machine.",
+  "main": "main.js",
+  "scripts": {
+    "test": "./testResults.sh 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AaronLieb/RubeGolbergEvent.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AaronLieb/RubeGolbergEvent/issues"
+  },
+  "homepage": "https://github.com/AaronLieb/RubeGolbergEvent#readme"
+}
