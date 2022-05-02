@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Usage: ./testResults.sh
-
 id=$(jq ".tile_id" config.json)
 
 r=$(curl \
