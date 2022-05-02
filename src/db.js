@@ -1,6 +1,6 @@
 if (typeof window === "undefined") {
   var { default: fetch } = await import("node-fetch");
-  window = {};
+  var window = {};
 }
 window.fetch ||= fetch;
 
