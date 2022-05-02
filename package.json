@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "A collaborative Rube Goldberg machine.",
   "main": "main.js",
+  "type": "module",
   "scripts": {
-    "test": "./testResults.sh 0"
+    "test": "node src/testResults.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/AaronLieb/RubeGolbergEvent/issues"
   },
-  "homepage": "https://github.com/AaronLieb/RubeGolbergEvent#readme"
+  "homepage": "https://github.com/AaronLieb/RubeGolbergEvent#readme",
+  "dependencies": {
+    "node-fetch": "^3.2.4"
+  }
 }
