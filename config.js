@@ -3,7 +3,7 @@ const config = {
   "tests": {
     "bounds": {
       "position": true,
-      "velocity": false
+      "velocity": true
     }
   }
 }

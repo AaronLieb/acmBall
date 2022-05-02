@@ -20,6 +20,7 @@ export let assertEqual = (a, b, delta, msg) => {
   return true;
 };
 
+
 export const testExitPosition = (ball, end) => {
   let flag = true;
   let est_pos = findIntersection("y", ball);
