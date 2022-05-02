@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A collaborative Rube Goldberg machine.",
   "main": "main.js",
+  "type": "module",
   "scripts": {
     "test": "node src/testResults.js"
   },
