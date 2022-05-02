@@ -1,4 +1,4 @@
-import { reqJSONBin } from "../helpers";
+import { reqJSONBin } from "./db.js";
 import config from "../config.js";
 
 const res = await reqJSONBin("get", config.tile_id);

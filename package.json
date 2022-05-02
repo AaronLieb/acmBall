@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/AaronLieb/RubeGolbergEvent/issues"
   },
-  "homepage": "https://github.com/AaronLieb/RubeGolbergEvent#readme"
+  "homepage": "https://github.com/AaronLieb/RubeGolbergEvent#readme",
+  "dependencies": {
+    "node-fetch": "^3.2.4"
+  }
 }

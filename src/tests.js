@@ -1,4 +1,5 @@
-import { reqJSONBin, sleep, findIntersection } from "./helpers.js";
+import { findIntersection } from "./helpers.js";
+import { reqJSONBin } from "./db.js";
 import Game from "./Game.js";
 
 const POSITION_DELTA = 0.5;

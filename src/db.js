@@ -1,3 +1,7 @@
+if (typeof window === "undefined") {
+  var { default: fetch } = await import("node-fetch");
+}
+
 const bins = [
   "627060dd019db4679694d8d7",
   "627060da38be296761fb5a66",
@@ -26,4 +30,22 @@ const bins = [
   "6270608d38be296761fb5a3f",
 ];
 
-export default bins;
+export const reqJSONBin = async (method, binNum, body) => {
+  const urlSuffix = method == "get" ? "latest" : "";
+  const bin = bins[binNum];
+  const data = {
+    method: method,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "X-Master-key": "$2b$10$BfSdlGY7.T2MK8eNEgBqx.ZDgA9oto5l2NO6PogwTLk27MQeiWRpC",
+      "X-Bin-Meta": false,
+    },
+  };
+  if (body) data.body = JSON.stringify(body);
+  return new Promise((res, rej) => {
+    fetch(`https://api.jsonbin.io/v3/b/${bin}/${urlSuffix}`, data)
+      .then((response) => res(response.json()))
+      .catch((err) => rej(err));
+  });
+};
