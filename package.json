@@ -4,7 +4,7 @@
   "description": "A collaborative Rube Goldberg machine.",
   "main": "main.js",
   "scripts": {
-    "test": "./testResults.sh 0"
+    "test": "node src/testResults.js"
   },
   "repository": {
     "type": "git",

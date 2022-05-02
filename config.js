@@ -1,4 +1,4 @@
-{
+const config = {
   "tile_id": 0,
   "tests": {
     "bounds": {
@@ -7,3 +7,5 @@
     }
   }
 }
+
+export default config; 

@@ -1,5 +1,5 @@
-import { sleep } from "../helpers.js";
-import Tile from "../Tile.js";
+import { sleep } from "../src/helpers.js";
+import Tile from "../src/Tile.js";
 
 let tile = new Tile();
 let { ballStart, ballEnd } = tile;

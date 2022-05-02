@@ -84,8 +84,8 @@ Game.run = () => {
     }
     let oldActiveTile = Game.activeTile;
     Game.activeTile = positionToTile(Game.ball.position);
-    if (Game.activeTile >= Game.tiles.length || oldActiveTile == Game.activeTile) return;
-    Game.tiles[Game.activeTile].onBallEnter();
+    if (oldActiveTile == Game.activeTile || Game.activeTile > Game.tiles.length ) return;
+    if(Game.activeTile != Game.tiles.length) Game.tiles[Game.activeTile].onBallEnter();
     Game.tiles[oldActiveTile].testExit();
   });
 };

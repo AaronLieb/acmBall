@@ -1,6 +1,6 @@
-import Game from "../Game.js";
-import Tile from "../Tile.js";
-import { sleep } from "../helpers.js";
+import Game from "./src/Game.js";
+import Tile from "./src/Tile.js";
+import { sleep } from "./src/helpers.js";
 
 let tile = new Tile();
 
