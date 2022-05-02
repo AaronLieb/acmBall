@@ -1,5 +1,4 @@
 import Game from "./Game.js";
-import bins from "./bins.js";
 
 export const unitVector = (vec) => {
   let mag = Math.sqrt(vec.x ** 2 + vec.y ** 2);
@@ -43,4 +42,3 @@ export const parseOptions = (options = {}) => {
 };
 
 export const sleep = (t) => new Promise((r) => setTimeout(r, t));
-
