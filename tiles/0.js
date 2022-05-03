@@ -5,7 +5,7 @@ let tile = new Tile();
 let { ballStart, ballEnd } = tile;
 
 ballStart.position = { x: 0, y: 420 };
-ballStart.velocity = { x: 1, y: 0 };
+ballStart.velocity = { x: 2, y: 0 };
 
 ballEnd.position = { x: 500, y: 420 };
 ballEnd.velocity = { x: 5, y: 0 };
@@ -14,10 +14,19 @@ ballEnd.velocity = { x: 5, y: 0 };
 tile.setup = function () {
   tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
   let wall = tile.createRectangle(550, 250, 50, 400, true);
-  wall.setMass(0.1);
-  tile.createConveyorBelt(tile.width / 2, tile.height - 20, tile.width / 3, 40, 5);
+  wall.setMass(0.04);
+  tile.createConveyorBelt(tile.width / 2 + 225, tile.height - 20, 100, 40, 5);
+  let button1 = tile.createButton(tile.width / 2,
+    tile.height - 20, tile.width / 3, 40,
+    () => { console.log('started press') },
+    () => { console.log('ended press') }, { isStatic: true, pressedColor: 'yellow' });
+  [1, 2].forEach(i => {
+    let s = tile.createRectangle(tile.width / 2, tile.height - (300 + i * 80), 50, 50, true);
+    s.setMass(0.02);
+  })
 
-  tile.game.ball.render.fillStyle = "#004521"; /* example changing visible property */
+
+  // tile.game.ball.render.fillStyle = "#004521"; /* example changing visible property */
 };
 
 // This function will run when the ball enters your tile

@@ -6,7 +6,7 @@ import {
   testBallSize,
   testBallRender,
 } from "./tests.js";
-let { Bodies, Body, Composite } = Matter;
+let { Bodies, Body, Composite, Engine } = Matter;
 import Game from "./Game.js";
 import { parseOptions } from "./helpers.js";
 import config from "../config.js";
@@ -72,11 +72,12 @@ function Tile() {
     return this._editable(body);
   };
 
-  this.createCircle = (x, y, radius, options = { isStatic: true }) => {
+  this.createCircle = (x, y, radius, moveable = false, options = {}) => {
+    options.isStatic = !moveable;
     parseOptions(options);
     let body = Bodies.circle(this.left + x, this.top + y, radius, options);
     Composite.add(Game.engine.world, body);
-    return body;
+    return this._editable(body);
   };
 
   this.createConveyorBelt = (
@@ -115,11 +116,35 @@ function Tile() {
     return this._editable(spring);
   };
 
+  /*
+    callback is triggered when button pressed
+    endCallback is triggered when button becomes unpressed
+    options.pressedColor (color when button is being collided with)
+    options.unpressed (color when button is not being collided with)
+    options.trigger_threshold (amount of mass required to trigger a button)
+  */
+  this.createButton = (x, y, width, height, callback, endCallback = () => { }, options = { isStatic: true }) => {
+    /* Trigger callback when button is pushed by object */
+    parseOptions(options);
+    let unpressedColor = options.unpressedColor || 'red'
+    let pressedColor = options.pressedColor || 'green'
+    options.render.fillStyle = unpressedColor;
+    let button_body = Bodies.rectangle(this.left + x, this.top + y, width, height, options)
+    let startCollide = () => { callback(); button_body.render.fillStyle = pressedColor }
+    let endCollide = () => { endCallback(); button_body.render.fillStyle = unpressedColor }
+    button_body.callback = startCollide;
+    button_body.endCallback = endCollide;
+    button_body.label = 'button'
+    button_body.trigger_threshold = 0.1; // amount of mass needed to trigger
+    button_body.current_mass = 0.0;
+    Composite.add(Game.engine.world, button_body);
+    return this._editable(button_body);
+  }
+
   this._editable = (obj) => {
     obj.setMass = (mass) => {
       Body.setMass(obj, mass);
     };
-
     return obj;
   };
 }
