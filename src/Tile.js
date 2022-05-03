@@ -28,6 +28,8 @@ function Tile() {
   this.numTests = 5;
   this.game = Game;
   this.ball = this.game.ball;
+  this.matter = Matter; // for advanced users
+  this.objects = []; // list of objects in this tile
 
   /* User Defined Member Variables */
 
@@ -98,7 +100,7 @@ function Tile() {
     };
     Game.detector.bodies.push(body);
     Composite.add(Game.engine.world, body);
-    return body;
+    return this._editable(body);
   };
 
   this.createSpring = (
@@ -141,7 +143,13 @@ function Tile() {
     return this._editable(button_body);
   }
 
+  this.clear = () => {
+    /* removes non-static objects */
+    Composite.remove(this.game.engine.world, this.objects)
+  }
+
   this._editable = (obj) => {
+    !obj.isStatic && this.objects.push(obj)
     obj.setMass = (mass) => {
       Body.setMass(obj, mass);
     };

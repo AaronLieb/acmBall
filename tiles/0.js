@@ -18,7 +18,7 @@ tile.setup = function () {
   tile.createConveyorBelt(tile.width / 2 + 225, tile.height - 20, 100, 40, 5);
   let button1 = tile.createButton(tile.width / 2,
     tile.height - 20, tile.width / 3, 40,
-    () => { console.log('started press') },
+    () => { tile.clear() },
     () => { console.log('ended press') }, { isStatic: true, pressedColor: 'yellow' });
   [1, 2].forEach(i => {
     let s = tile.createRectangle(tile.width / 2, tile.height - (300 + i * 80), 50, 50, true);
