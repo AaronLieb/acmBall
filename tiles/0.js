@@ -17,7 +17,7 @@ tile.setup = function () {
   wall.setMass(0.1);
   tile.createConveyorBelt(tile.width / 2, tile.height - 20, tile.width / 3, 40, 5);
 
-  tile.game.ball.render.fillStyle = '#004521' /* example changing visible property */
+  tile.game.ball.render.fillStyle = "#004521"; /* example changing visible property */
 };
 
 // This function will run when the ball enters your tile
@@ -25,7 +25,6 @@ tile.onBallEnter = async function () {};
 
 // This function will run once every tick while the ball is in your tile
 tile.onTick = function () {};
-
 
 // This function will run once everey tick, even if the ball is not in your tile
 tile.onTickBackground = function () {};

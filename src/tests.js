@@ -1,7 +1,6 @@
-import { findIntersection } from "./helpers.js";
+import { findIntersection, hash } from "./helpers.js";
 import { reqJSONBin } from "./db.js";
 import Game from "./Game.js";
-import "./matter.js";
 let { Vertices } = Matter;
 
 const POSITION_DELTA = 0.5;
@@ -79,7 +78,7 @@ export const testBallRender = (ball) => {
 
 export const sendTestResults = async (tile) => {
   console.log(`Sending test results for tile ${tile.id}`);
-
   const result = tile.numTests == tile.testsPassed;
-  await reqJSONBin("put", tile.id, { result: result });
+  const h = hash([ tile.ballStart, tile.ballEnd, tile.setup, tile.onBallEnter, tile.onTick, tile.onTickBackground ]);
+  await reqJSONBin("put", tile.id, { result: result, hash: h });
 };

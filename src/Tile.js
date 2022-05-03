@@ -6,7 +6,6 @@ import {
   testBallSize,
   testBallRender,
 } from "./tests.js";
-import "./matter.js";
 let { Bodies, Body, Composite } = Matter;
 import Game from "./Game.js";
 import { parseOptions } from "./helpers.js";

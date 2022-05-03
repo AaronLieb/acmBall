@@ -1,8 +1,7 @@
 import { positionToTile, parseOptions } from "./helpers.js";
-import "./matter.js";
 import Camera from "./Camera.js";
 import config from "../config.js";
-let { Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } =
+let { Mouse, Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } =
   Matter;
 
 // Expirement with this
@@ -22,10 +21,13 @@ Game.engine = Engine.create();
 Game.runner = Runner.create({
   delta: 1000 / FPS,
 });
+Game.mouse = Mouse.create(document.getElementById("gameView"))
 Game.render = Render.create({
   element: document.getElementById("gameView"),
   engine: Game.engine,
+  mouse: Game.mouse,
   options: {
+    showMousePosition: true,
     wireframes: false,
     width: (Game.HEIGHT / Game.WIDTH) * Camera.WIDTH,
     height: (Game.WIDTH / Game.HEIGHT) * Camera.HEIGHT,
@@ -103,7 +105,7 @@ Game.run = () => {
 
     if (oldActiveTile == Game.activeTile || !Game.tiles[Game.activeTile]) return;
     Game.tiles[Game.activeTile].onBallEnter();
-    Body.set(Game.ball, Game.defaultBallState);
+    //Body.set(Game.ball, Game.defaultBallState);
 
     if (oldActiveTile != config.tile_id || !Game.tiles[oldActiveTile]) return;
     Game.tiles[oldActiveTile].testExit();
