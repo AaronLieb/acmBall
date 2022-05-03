@@ -79,6 +79,7 @@ export const testBallRender = (ball) => {
 
 export const sendTestResults = async (tile) => {
   console.log(`Sending test results for tile ${tile.id}`);
+
   const result = tile.numTests == tile.testsPassed;
   await reqJSONBin("put", tile.id, { result: result });
 };
