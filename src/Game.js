@@ -1,6 +1,7 @@
 import { positionToTile, parseOptions } from "./helpers.js";
 import "./matter.js";
 import Camera from "./Camera.js";
+import config from "../config.js";
 let { Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } =
   Matter;
 
@@ -41,6 +42,7 @@ Game.centerBody = Bodies.circle(Game.WIDTH / 2, Game.HEIGHT / 2, 0.1, {
 Game.defaultBallState = {
   frictionAir: 0,
   restitution: 0.9,
+  restitution: 1,
   // friction: 0.0008,
   friction: 0,
   inertia: Infinity,
@@ -94,11 +96,15 @@ Game.run = () => {
     for (let pair of Detector.collisions(Game.detector)) {
       pair.bodyB.speedUp(pair.bodyA);
     }
+
     let oldActiveTile = Game.activeTile;
     Game.activeTile = positionToTile(Game.ball.position);
-    if (oldActiveTile == Game.activeTile || Game.activeTile > Game.tiles.length) return;
-    Game.tiles[Game.activeTile]?.onBallEnter();
-    Game.tiles[oldActiveTile]?.testExit();
+
+    if (oldActiveTile == Game.activeTile || !Game.tiles[Game.activeTile]) return;
+    Game.tiles[Game.activeTile].onBallEnter();
+
+    if (oldActiveTile != config.tile_id || !Game.tiles[oldActiveTile]) return;
+    Game.tiles[oldActiveTile].testExit();
   });
 };
 

@@ -2,7 +2,7 @@ if (typeof window === "undefined") {
   var { default: fetch } = await import("node-fetch");
 }
 
-fetch ||= window.fetch
+fetch ||= window.fetch;
 
 const bins = [
   "627060dd019db4679694d8d7",
@@ -46,7 +46,6 @@ export const reqJSONBin = async (method, binNum, body) => {
   };
   if (body) data.body = JSON.stringify(body);
   return new Promise((res, rej) => {
-    console.log(window);
     fetch(`https://api.jsonbin.io/v3/b/${bin}/${urlSuffix}`, data)
       .then((response) => res(response.json()))
       .catch((err) => rej(err));

@@ -5,9 +5,22 @@ import "./matter.js";
 let { Vertices } = Matter;
 
 const POSITION_DELTA = 0.5;
-const VELOCITY_DELTA = 0.1;
+const VELOCITY_DELTA = 0.5;
 
-export let assertEqual = (a, b, delta, msg) => {
+export let assertEqual = (a, b, msg) => {
+  if (a !== b) {
+    let fail = `[${msg}] TEST CASE FAILED ${a} != ${b}`;
+    console.log(fail);
+    let ele = document.createElement("p");
+    ele.innerHTML = fail;
+    document.getElementById("testlogs").appendChild(ele);
+    document.getElementById("testbox").style.backgroundColor = "red";
+    return false;
+  }
+  return true;
+};
+
+export let assertDiff = (a, b, delta, msg) => {
   if (Math.abs(a - b) > delta) {
     let fail = `[${msg}] TEST CASE FAILED ${
       Math.round(a * 100) / 100
@@ -19,11 +32,10 @@ export let assertEqual = (a, b, delta, msg) => {
     document.getElementById("testbox").style.backgroundColor = "red";
     return false;
   }
-  //console.log(`[${msg}] TEST CASE PASSED ${a} == ${b} | delta = ${delta}`);
   return true;
 };
 
-export const testExitPosition = (ball, end) => {
+export const testBallPosition = (ball, end) => {
   let flag = true;
   let est_pos = findIntersection("y", ball);
   let rel_est_pos = {
@@ -31,27 +43,37 @@ export const testExitPosition = (ball, end) => {
     y: ((est_pos.y - 1) % Game.TILE_HEIGHT) + 1,
   };
   flag =
-    assertEqual(rel_est_pos.x, end.position.x, POSITION_DELTA, "Ball Position X") && flag;
+    assertDiff(rel_est_pos.x, end.position.x, POSITION_DELTA, "Ball Position X") && flag;
   flag =
-    assertEqual(rel_est_pos.y, end.position.y, POSITION_DELTA, "Ball Position Y") && flag;
+    assertDiff(rel_est_pos.y, end.position.y, POSITION_DELTA, "Ball Position Y") && flag;
   return flag;
 };
 
-export const testExitVelocity = (ball, end) => {
+export const testBallVelocity = (ball, end) => {
   let flag = true;
   flag =
-    assertEqual(ball.velocity.x, end.velocity.x, VELOCITY_DELTA, "Ball Velocity X") &&
+    assertDiff(ball.velocity.x, end.velocity.x, VELOCITY_DELTA, "Ball Velocity X") &&
     flag;
   flag =
-    assertEqual(ball.velocity.y, end.velocity.y, VELOCITY_DELTA, "Ball Velocity Y") &&
+    assertDiff(ball.velocity.y, end.velocity.y, VELOCITY_DELTA, "Ball Velocity Y") &&
     flag;
   return flag;
 };
 
-export const testBallState = (ball) => {
+export const testBallSize = (ball) => {
+  return assertDiff(Vertices.area(ball.vertices, false), 4977.756, 0.01, "Ball Area");
+}
+
+export const testBallShape = (ball) => {
+  return assertEqual(ball.vertices.length, 26, "Ball Shape");
+}
+
+export const testBallRender = (ball) => {
   let flag = true;
-  flag = assertEqual(Vertices.area(ball, false), 26, 0, "Ball Area") && flag;
-  flag = assertEqual(ball.vertices.length, 0, 0, "Number of Ball Vertices") && flag;
+  let render = Game.defaultBallState.render;
+  flag = assertEqual(ball.render.fillStyle, render.fillStyle, "fillStyle") && flag;
+  flag = assertEqual(ball.render.lineWidth, render.lineWidth, "lineWidth") && flag;
+  flag = assertEqual(ball.render.strokeStyle, render.strokeStyle, "lineWidth") && flag;
   return flag;
 };
 

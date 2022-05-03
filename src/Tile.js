@@ -1,8 +1,9 @@
-import { sendTestResults, testExitPosition, testExitVelocity } from "./tests.js";
+import { sendTestResults, testBallSize, testBallShape, testBallRender, testBallPosition, testBallVelocity } from "./tests.js";
 import "./matter.js";
-let { Bodies, Body, Composite } = Matter;
 import Game from "./Game.js";
 import { parseOptions } from "./helpers.js";
+import config from "../config.js";
+let { Bodies, Body, Composite } = Matter;
 
 function Tile() {
   /* Constructor */
@@ -19,7 +20,7 @@ function Tile() {
   this.right = this.left + Game.TILE_WIDTH;
   this.bottom = this.right + Game.TILE_HEIGHT;
   this.testsPassed = 0;
-  this.numTests = 2;
+  this.numTests = 5;
 
   /* User Defined Member Variables */
 
@@ -36,8 +37,12 @@ function Tile() {
   /* Testing */
 
   this.testExit = () => {
-    this.testsPassed += testExitPosition(Game.ball, this.ballEnd);
-    this.testsPassed += testExitVelocity(Game.ball, this.ballEnd);
+    let c = config.tests.exit
+    this.testsPassed += c.position || testBallPosition(Game.ball, this.ballEnd);
+    this.testsPassed += c.velocity || testBallVelocity(Game.ball, this.ballEnd);
+    this.testsPassed += c.size || testBallSize(Game.ball);
+    this.testsPassed += c.shape || testBallShape(Game.ball);
+    this.testsPassed += c.render || testBallRender(Game.ball);
     sendTestResults(this);
   };
 
