@@ -50,7 +50,7 @@ export const testExitVelocity = (ball, end) => {
 
 export const testBallState = (ball) => {
   let flag = true;
-  flag = assertEqual(trueVertices.area(ball, false), 26, 0, "Ball Area") && flag;
+  flag = assertEqual(Vertices.area(ball, false), 26, 0, "Ball Area") && flag;
   flag = assertEqual(ball.vertices.length, 0, 0, "Number of Ball Vertices") && flag;
   return flag;
 };

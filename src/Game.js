@@ -1,7 +1,7 @@
 import { positionToTile, parseOptions } from "./helpers.js";
 import "./matter.js";
 import Camera from "./Camera.js";
-let { Vertices, Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } =
+let { Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } =
   Matter;
 
 const FPS = 120;
@@ -41,17 +41,18 @@ Game.centerBody = Bodies.circle(Game.WIDTH / 2, Game.HEIGHT / 2, 0.1, {
 Game.defaultBallState = {
   frictionAir: 0,
   restitution: 0.9,
-  friction: 0.0008,
+  // friction: 0.0008,
+  friction: 0,
   inertia: Infinity,
   inverseInertia: 0,
   render: {
     fillStyle: "#f99",
     lineWidth: 5,
     strokeStyle: "black",
-  }
+  },
 };
 
-Game.ball = Bodies.circle( 0, 0, 40, Game.defaultBallState);
+Game.ball = Bodies.circle(0, 0, 40, Game.defaultBallState);
 
 Game.ball.getRelative = function () {
   return { x: this.position.x % Game.TILE_WIDTH, y: this.position.y % Game.TILE_HEIGHT };
@@ -64,7 +65,7 @@ Game.setup = () => {
 
   Resolver._restingThresh = 0.001;
 
-  Game.tiles.forEach(tile => tile.setup());
+  Game.tiles.forEach((tile) => tile.setup());
 
   // Render a single tick
   let stop = () => {
