@@ -5,7 +5,8 @@ import config from "../config.js";
 let { Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } =
   Matter;
 
-const FPS = 120;
+// Expirement with this
+const FPS = 60;
 
 let Game = {};
 
