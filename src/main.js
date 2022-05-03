@@ -3,24 +3,23 @@
     Documentation:
       code block example, gif showing the result
 
-    fix my jank ass database
-    
     *Create a spring composition, with constraints
+    *Add mouse to see coordinates, for easier placement
+    Add timer with ms
 
-    *Write a custom renderer:
-      pick beter names for color, border, width
-      make borders inside rather than outside
-      remove borders on same-type shapes that share verticies? (might be too hard on performance)
+    Hash the module object, source code or github commit id and test it against 
+
+    Tests:
+      Ball state (size, restitution, color, etc...)
+      set ball state 
     
-    Camera:
-      change canvas size easily
-      add smoothing algorithm
-      disable camera
+    Body bounds, don't let objects created in a tile leave that Tile
+    .bounds.max / .bounds.min
     
 
     Extra:
-
-    Add mouse to see coordinates, for easier placement
+    Camera:
+      add smoothing algorithm
     Look into the engine and see what cool options there are to wrap
 */
 

@@ -1,18 +1,17 @@
 import Game from "./Game.js";
+let { Render } = Matter;
 
 /* TODO:
-have camera control frame size
 implement a smoothing algorithm
 */
-
-const transformWithinRange = (pos, min, max) => {
-  return -1 * Math.min(Math.max(pos, min), max - min) + min;
-};
 
 const Camera = {
   WIDTH: window.innerWidth * 0.95,
   HEIGHT: window.innerHeight * 0.95,
-  ZOOM: 1,
+  // WIDTH: 500 * 0.95,
+  // HEIGHT: 500 * 0.95,
+  zoom: 1,
+  fullScreen: false,
 };
 
 Camera.setup = () => {
@@ -25,11 +24,18 @@ Camera.setup = () => {
 };
 
 Camera.updateCamera = () => {
-  // TODO: Fix camera when zoom > 1
-  document.getElementsByTagName("canvas")[0].style.transform = `translate(
-    ${transformWithinRange(Game.ball.position.x, Camera.WIDTH / 2, Game.WIDTH)}px,
-    ${transformWithinRange(Game.ball.position.y, Camera.HEIGHT / 2, Game.HEIGHT)}px
-  )`;
+  let body = Camera.fullScreen ? Game.centerBody : Game.ball;
+  let divisor = Camera.fullScreen
+    ? { x: Game.WIDTH / 2, y: Game.HEIGHT / 2 }
+    : { x: Game.TILE_WIDTH / Camera.zoom, y: Game.TILE_HEIGHT / Camera.zoom };
+  Render.lookAt(Game.render, body, divisor, true);
 };
+
+Camera.switchView = () => {
+  Camera.fullScreen = !Camera.fullScreen;
+};
+
+// Make global
+window.switchView = Camera.switchView;
 
 export default Camera;

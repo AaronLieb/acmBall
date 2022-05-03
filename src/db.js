@@ -2,6 +2,8 @@ if (typeof window === "undefined") {
   var { default: fetch } = await import("node-fetch");
 }
 
+fetch ||= window.fetch
+
 const bins = [
   "627060dd019db4679694d8d7",
   "627060da38be296761fb5a66",
