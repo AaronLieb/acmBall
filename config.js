@@ -4,6 +4,11 @@ const config = {
     "bounds": {
       "position": true,
       "velocity": true
+    },
+    "ballState": {
+      "size": true,
+      "shape": true,
+      "render": true,
     }
   }
 }

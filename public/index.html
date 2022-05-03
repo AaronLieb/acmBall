@@ -7,12 +7,12 @@
     <title>acmBall</title>
     <link rel="icon" href="/favicon.png" />
     <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script type="module" src="../src/db.js"></script>
     <script type="module" src="../src/matter.js"></script>
     <script type="module" src="../src/Game.js"></script>
     <script type="module" src="../src/Tile.js"></script>
     <script type="module" src="../src/tests.js"></script>
     <script type="module" src="../src/helpers.js"></script>
-    <script type="module" src="../src/db.js"></script>
     <script type="module" src="../src/main.js" defer></script>
   </head>
   <body>
@@ -22,6 +22,7 @@
       <a class="button" id="pause" onclick="pauseGame()"> Pause </a>
       <a class="button" id="resume" onclick="resumeGame()"> Resume </a>
       <a class="button" id="restart" onclick="restartGame()"> Restart </a>
+      <a class="button" id="view" onclick="switchView()"> switchView </a>
     </div>
     <div id="debug">
       <span id="coords"></span>

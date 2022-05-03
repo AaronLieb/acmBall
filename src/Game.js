@@ -1,10 +1,9 @@
 import { positionToTile, parseOptions } from "./helpers.js";
 import "./matter.js";
 import Camera from "./Camera.js";
-let { Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } = Matter;
+let { Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } =
+  Matter;
 
-// Default: 60
-// 120 FPS increased velocity accuracy by more than 10x
 const FPS = 120;
 
 let Game = {};
@@ -26,37 +25,49 @@ Game.render = Render.create({
   engine: Game.engine,
   options: {
     wireframes: false,
-    width: Game.HEIGHT,
-    height: Game.WIDTH,
+    width: (Game.HEIGHT / Game.WIDTH) * Camera.WIDTH,
+    height: (Game.WIDTH / Game.HEIGHT) * Camera.HEIGHT,
   },
 });
 
 Game.tiles = [];
 Game.activeTile = 0;
 
-Game.ball = Bodies.circle(
-  0,
-  0,
-  40,
-  parseOptions({
-    frictionAir: 0,
-    restitution: 1,
-    friction: 0,
-    render: { fillStyle: "#f99" },
-  })
-);
+Game.centerBody = Bodies.circle(Game.WIDTH / 2, Game.HEIGHT / 2, 0.1, {
+  isStatic: true,
+  isSensor: true,
+});
+
+Game.defaultBallState = {
+  frictionAir: 0,
+  restitution: 0.9,
+  // friction: 0.0008,
+  friction: 0,
+  inertia: Infinity,
+  inverseInertia: 0,
+  render: {
+    fillStyle: "#f99",
+    lineWidth: 5,
+    strokeStyle: "black",
+  },
+};
+
+Game.ball = Bodies.circle(0, 0, 40, Game.defaultBallState);
 
 Game.ball.getRelative = function () {
   return { x: this.position.x % Game.TILE_WIDTH, y: this.position.y % Game.TILE_HEIGHT };
 };
 
 Game.setup = () => {
-  Camera.setup();
+  // Camera.setup(); // TODO: check if this is even needed
   Render.run(Game.render);
   Runner.run(Game.runner, Game.engine);
-  for (let tile of Game.tiles) {
-    tile.setup();
-  }
+
+  Resolver._restingThresh = 0.001;
+
+  Game.tiles.forEach((tile) => tile.setup());
+
+  // Render a single tick
   let stop = () => {
     Game.stop();
     Events.off(Game.runner, "tick", stop);
@@ -70,12 +81,13 @@ Game.detector = Detector.create({
 
 Game.run = () => {
   // TODO Change to ball.setup()
-  Body.setPosition(Game.ball, Game.tiles[0].ballStart.position);
-  Body.setVelocity(Game.ball, Game.tiles[0].ballStart.velocity);
   Composite.add(Game.engine.world, [Game.ball]);
 
   Render.run(Game.render);
   Runner.run(Game.runner, Game.engine);
+
+  Body.setPosition(Game.ball, Game.tiles[0].ballStart.position);
+  Body.setVelocity(Game.ball, Game.tiles[0].ballStart.velocity);
 
   Events.on(Game.runner, "tick", () => {
     Camera.updateCamera();
@@ -84,9 +96,9 @@ Game.run = () => {
     }
     let oldActiveTile = Game.activeTile;
     Game.activeTile = positionToTile(Game.ball.position);
-    if (oldActiveTile == Game.activeTile || Game.activeTile > Game.tiles.length ) return;
-    if(Game.activeTile != Game.tiles.length) Game.tiles[Game.activeTile].onBallEnter();
-    Game.tiles[oldActiveTile].testExit();
+    if (oldActiveTile == Game.activeTile || Game.activeTile > Game.tiles.length) return;
+    Game.tiles[Game.activeTile]?.onBallEnter();
+    Game.tiles[oldActiveTile]?.testExit();
   });
 };
 

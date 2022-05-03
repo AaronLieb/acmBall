@@ -1,6 +1,8 @@
 import { findIntersection } from "./helpers.js";
 import { reqJSONBin } from "./db.js";
 import Game from "./Game.js";
+import "./matter.js";
+let { Vertices } = Matter;
 
 const POSITION_DELTA = 0.5;
 const VELOCITY_DELTA = 0.1;
@@ -20,7 +22,6 @@ export let assertEqual = (a, b, delta, msg) => {
   //console.log(`[${msg}] TEST CASE PASSED ${a} == ${b} | delta = ${delta}`);
   return true;
 };
-
 
 export const testExitPosition = (ball, end) => {
   let flag = true;
@@ -47,8 +48,15 @@ export const testExitVelocity = (ball, end) => {
   return flag;
 };
 
+export const testBallState = (ball) => {
+  let flag = true;
+  flag = assertEqual(Vertices.area(ball, false), 26, 0, "Ball Area") && flag;
+  flag = assertEqual(ball.vertices.length, 0, 0, "Number of Ball Vertices") && flag;
+  return flag;
+};
+
 export const sendTestResults = async (tile) => {
   console.log(`Sending test results for tile ${tile.id}`);
   const result = tile.numTests == tile.testsPassed;
-  await reqJSONBin("put", tile.id, { result: result })
+  await reqJSONBin("put", tile.id, { result: result });
 };
