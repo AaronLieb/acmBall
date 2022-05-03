@@ -103,7 +103,7 @@ Game.run = () => {
 
     if (oldActiveTile == Game.activeTile || !Game.tiles[Game.activeTile]) return;
     Game.tiles[Game.activeTile].onBallEnter();
-    Body.set(Game.ball, defaultBallState);
+    Body.set(Game.ball, Game.defaultBallState);
 
     if (oldActiveTile != config.tile_id || !Game.tiles[oldActiveTile]) return;
     Game.tiles[oldActiveTile].testExit();

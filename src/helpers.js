@@ -1,5 +1,29 @@
 import Game from "./Game.js";
 
+// From: https://stackoverflow.com/questions/5559712/how-to-reliably-hash-javascript-objects
+function sortObjectKeys(obj){
+    if(obj == null || obj == undefined) return obj;
+    if(typeof obj != 'object') return obj;
+    return Object.keys(obj).sort().reduce((acc,key)=>{
+        if (Array.isArray(obj[key]))
+            acc[key]=obj[key].map(sortObjectKeys);
+        else if (typeof obj[key] === 'object')
+            acc[key]=sortObjectKeys(obj[key]);
+        else
+            acc[key]=obj[key];
+        return acc;
+    },{});
+}
+export const xxhash64_ObjectToUniqueStringNoWhiteSpace = (Obj) => {
+    let SortedObject = sortObjectKeys(Obj);
+    let jsonstring = JSON.stringify(SortedObject, function(k, v) { return v === undefined ? "undef" : v; });
+
+    let jsonstringNoWhitespace = jsonstring.replace(/\s+/g, '');
+
+    let JSONBuffer = Buffer.from(jsonstringNoWhitespace,'binary');   // encoding: encoding to use, optional.  Default is 'utf8'
+    return xxhash.hash64(JSONBuffer, 0xCAFEBABE, "hex");
+}
+
 export const unitVector = (vec) => {
   let mag = Math.sqrt(vec.x ** 2 + vec.y ** 2);
   return { x: vec.x / mag, y: vec.y / mag };
