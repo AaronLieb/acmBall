@@ -21,10 +21,14 @@ tile.setup = function () {
 };
 
 // This function will run when the ball enters your tile
-tile.onBallEnter = async function () {};
+tile.onBallEnter = async function () {
+};
 
 // This function will run once every tick while the ball is in your tile
-tile.onTick = function () {};
+tile.onTick = function () {
+
+};
+
 
 
 // This function will run once everey tick, even if the ball is not in your tile
