@@ -64,7 +64,7 @@ Game.ball.getRelative = function () {
 };
 
 Game.setup = () => {
-  // Camera.setup(); // TODO: check if this is even needed
+  Camera.setup(); // TODO: check if this is even needed
   Render.run(Game.render);
   Runner.run(Game.runner, Game.engine);
 
