@@ -1,6 +1,8 @@
 if (typeof window === "undefined") {
   var { default: fetch } = await import("node-fetch");
+  var window = {};
 }
+window.fetch ||= fetch;
 
 fetch ||= window.fetch
 
@@ -46,7 +48,8 @@ export const reqJSONBin = async (method, binNum, body) => {
   };
   if (body) data.body = JSON.stringify(body);
   return new Promise((res, rej) => {
-    fetch(`https://api.jsonbin.io/v3/b/${bin}/${urlSuffix}`, data)
+    console.log(window);
+    window.fetch(`https://api.jsonbin.io/v3/b/${bin}/${urlSuffix}`, data)
       .then((response) => res(response.json()))
       .catch((err) => rej(err));
   });
