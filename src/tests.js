@@ -16,6 +16,7 @@ export let assertEqual = (a, b, msg) => {
     document.getElementById("testbox").style.backgroundColor = "red";
     return false;
   }
+  console.log(`[${msg}] TEST CASE PASSED ${a} = ${b}`);
   return true;
 };
 
@@ -31,6 +32,7 @@ export let assertDiff = (a, b, delta, msg) => {
     document.getElementById("testbox").style.backgroundColor = "red";
     return false;
   }
+  console.log(`[${msg}] TEST CASE PASSED ${a} = ${b}, delta = ${delta}`);
   return true;
 };
 
@@ -61,24 +63,32 @@ export const testBallVelocity = (ball, end) => {
 
 export const testBallSize = (ball) => {
   return assertDiff(Vertices.area(ball.vertices, false), 4977.756, 0.01, "Ball Area");
-}
+};
 
 export const testBallShape = (ball) => {
   return assertEqual(ball.vertices.length, 26, "Ball Shape");
-}
+};
 
 export const testBallRender = (ball) => {
   let flag = true;
   let render = Game.defaultBallState.render;
   flag = assertEqual(ball.render.fillStyle, render.fillStyle, "fillStyle") && flag;
   flag = assertEqual(ball.render.lineWidth, render.lineWidth, "lineWidth") && flag;
-  flag = assertEqual(ball.render.strokeStyle, render.strokeStyle, "lineWidth") && flag;
+  flag = assertEqual(ball.render.strokeStyle, render.strokeStyle, "strokeStyle") && flag;
+  flag = assertEqual(ball.render.visible, render.visible, "visible") && flag;
   return flag;
 };
 
 export const sendTestResults = async (tile) => {
   console.log(`Sending test results for tile ${tile.id}`);
   const result = tile.numTests == tile.testsPassed;
-  const h = hash([ tile.ballStart, tile.ballEnd, tile.setup, tile.onBallEnter, tile.onTick, tile.onTickBackground ]);
+  const h = hash([
+    tile.ballStart,
+    tile.ballEnd,
+    tile.setup,
+    tile.onBallEnter,
+    tile.onTick,
+    tile.onTickBackground,
+  ]);
   await reqJSONBin("put", tile.id, { result: result, hash: h });
 };

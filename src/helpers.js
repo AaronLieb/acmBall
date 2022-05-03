@@ -26,6 +26,10 @@ export const findIntersection = (axis, ball) => {
   return estimated_pos;
 };
 
+export const relPosition = (p) => {
+  return { x: p.x % Game.TILE_WIDTH, y: p.y % Game.TILE_HEIGHT };
+}
+
 export const positionToTile = (pos) => {
   return (
     Math.floor(pos.x / Game.TILE_WIDTH) +

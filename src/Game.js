@@ -1,8 +1,18 @@
-import { positionToTile, parseOptions } from "./helpers.js";
+import { positionToTile, parseOptions, relPosition } from "./helpers.js";
 import Camera from "./Camera.js";
 import config from "../config.js";
-let { Mouse, Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } =
-  Matter;
+let {
+  Mouse,
+  Resolver,
+  Body,
+  Bodies,
+  Runner,
+  Render,
+  Composite,
+  Detector,
+  Engine,
+  Events,
+} = Matter;
 
 // Expirement with this
 const FPS = 60;
@@ -21,7 +31,19 @@ Game.engine = Engine.create();
 Game.runner = Runner.create({
   delta: 1000 / FPS,
 });
-Game.mouse = Mouse.create(document.getElementById("gameView"))
+Game.mouse = Mouse.create(document.getElementById("gameView"));
+
+Render.mousePosition = function (_, mouse, ctx) {
+  ctx.fillStyle = "rgba(0,0,0,1)";
+  ctx.font = "30px Arial";
+  let rp = relPosition(mouse.position);
+  ctx.fillText(
+    positionToTile(mouse.position) + ": " + Math.floor(rp.x) + ", " + Math.floor(rp.y),
+    mouse.position.x - 30,
+    mouse.position.y - 30
+  );
+};
+
 Game.render = Render.create({
   element: document.getElementById("gameView"),
   engine: Game.engine,
@@ -44,23 +66,25 @@ Game.centerBody = Bodies.circle(Game.WIDTH / 2, Game.HEIGHT / 2, 0.1, {
 
 Game.defaultBallState = {
   frictionAir: 0,
+  friction: 0,
   // restitution: 0.9,
   restitution: 1,
   // friction: 0.0008,
-  friction: 0,
   inertia: Infinity,
   inverseInertia: 0,
   render: {
     fillStyle: "#f99",
     lineWidth: 5,
     strokeStyle: "black",
+    visible: true,
   },
 };
 
-Game.ball = Bodies.circle(0, 0, 40, Game.defaultBallState);
+const BALL_RADIUS = 40;
+Game.ball = Bodies.circle(0, 0, BALL_RADIUS, Game.defaultBallState);
 
 Game.ball.getRelative = function () {
-  return { x: this.position.x % Game.TILE_WIDTH, y: this.position.y % Game.TILE_HEIGHT };
+  return relPosition(this.position);
 };
 
 Game.setup = () => {
@@ -105,10 +129,11 @@ Game.run = () => {
 
     if (oldActiveTile == Game.activeTile || !Game.tiles[Game.activeTile]) return;
     Game.tiles[Game.activeTile].onBallEnter();
-    //Body.set(Game.ball, Game.defaultBallState);
 
     if (oldActiveTile != config.tile_id || !Game.tiles[oldActiveTile]) return;
     Game.tiles[oldActiveTile].testExit();
+    Body.set(Game.ball, Game.defaultBallState);
+
   });
 };
 

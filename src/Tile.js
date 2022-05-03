@@ -26,8 +26,8 @@ function Tile() {
   this.bottom = this.right + Game.TILE_HEIGHT;
   this.testsPassed = 0;
   this.numTests = 5;
-  this.game = Game
-  this.ball = this.game.ball
+  this.game = Game;
+  this.ball = this.game.ball;
 
   /* User Defined Member Variables */
 
@@ -45,11 +45,12 @@ function Tile() {
 
   this.testExit = () => {
     let c = config.tests.exit;
-    this.testsPassed += c.position || testBallPosition(Game.ball, this.ballEnd);
-    this.testsPassed += c.velocity || testBallVelocity(Game.ball, this.ballEnd);
-    this.testsPassed += c.shape || testBallShape(Game.ball, this.ballEnd);
-    this.testsPassed += c.size || testBallSize(Game.ball, this.ballEnd);
-    this.testsPassed += c.render || testBallRender(Game.ball, this.ballEnd);
+    console.log(Game.ball.render);
+    this.testsPassed += !c.position || testBallPosition(Game.ball, this.ballEnd);
+    this.testsPassed += !c.velocity || testBallVelocity(Game.ball, this.ballEnd);
+    this.testsPassed += !c.shape || testBallShape(Game.ball);
+    this.testsPassed += !c.size || testBallSize(Game.ball);
+    this.testsPassed += !c.render || testBallRender(Game.ball);
     sendTestResults(this);
   };
 
