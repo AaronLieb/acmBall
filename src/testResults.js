@@ -3,7 +3,7 @@ import config from "../config.js";
 import { hash } from "./helpers.js";
 import Game from "./Game.js";
 
-const tile = tiles[config.tile_id];
+const tile = Game.tiles[config.tile_id];
 const h = hash([
   tile.ballStart,
   tile.ballEnd,
