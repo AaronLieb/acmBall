@@ -1,10 +1,17 @@
 import { reqJSONBin } from "./db.js";
 import config from "../config.js";
 import { hash } from "./helpers.js";
-import { tiles } from "./Game.js";
+import Game from "./Game.js";
 
 const tile = tiles[config.tile_id];
-const h = hash([ tile.ballStart, tile.ballEnd, tile.setup, tile.onBallEnter, tile.onTick, tile.onTickBackground ]);
+const h = hash([
+  tile.ballStart,
+  tile.ballEnd,
+  tile.setup,
+  tile.onBallEnter,
+  tile.onTick,
+  tile.onTickBackground,
+]);
 const res = await reqJSONBin("get", config.tile_id);
 if (h != res.hash) {
   console.log("Hash check failed, please try running the simulation and trying again");
