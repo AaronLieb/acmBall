@@ -1,9 +1,9 @@
-import { sendTestResults, testBallSize, testBallShape, testBallRender, testBallPosition, testBallVelocity } from "./tests.js";
+import { sendTestResults, testExitPosition, testExitVelocity } from "./tests.js";
 import "./matter.js";
+let { Bodies, Body, Composite } = Matter;
 import Game from "./Game.js";
 import { parseOptions } from "./helpers.js";
-import config from "../config.js";
-let { Bodies, Body, Composite } = Matter;
+
 
 function Tile() {
   /* Constructor */
@@ -11,7 +11,6 @@ function Tile() {
   Game.tiles.push(this);
 
   /* Member Variables */
-
   this.id = Game.tiles.length - 1;
   this.height = Game.TILE_HEIGHT;
   this.width = Game.TILE_WIDTH;
@@ -20,7 +19,7 @@ function Tile() {
   this.right = this.left + Game.TILE_WIDTH;
   this.bottom = this.right + Game.TILE_HEIGHT;
   this.testsPassed = 0;
-  this.numTests = 5;
+  this.numTests = 2;
 
   /* User Defined Member Variables */
 
@@ -37,12 +36,8 @@ function Tile() {
   /* Testing */
 
   this.testExit = () => {
-    let c = config.tests.exit
-    this.testsPassed += c.position || testBallPosition(Game.ball, this.ballEnd);
-    this.testsPassed += c.velocity || testBallVelocity(Game.ball, this.ballEnd);
-    this.testsPassed += c.size || testBallSize(Game.ball);
-    this.testsPassed += c.shape || testBallShape(Game.ball);
-    this.testsPassed += c.render || testBallRender(Game.ball);
+    this.testsPassed += testExitPosition(Game.ball, this.ballEnd);
+    this.testsPassed += testExitVelocity(Game.ball, this.ballEnd);
     sendTestResults(this);
   };
 
@@ -56,21 +51,21 @@ function Tile() {
 
   /*  createObject Member Functions */
 
-  this.createRectangle = (x, y, width, height, options = {}) => {
+  this.createRectangle = (x, y, width, height, moveable = false, options = {}) => {
     parseOptions(options);
     let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
     Composite.add(Game.engine.world, body);
-    return body;
+    return this._editable(body);
   };
 
-  this.createCircle = (x, y, radius, options = {}) => {
+  this.createCircle = (x, y, radius, options = { isStatic: true }) => {
     parseOptions(options);
     let body = Bodies.circle(this.left + x, this.top + y, radius, options);
     Composite.add(Game.engine.world, body);
     return body;
   };
 
-  this.createConveyorBelt = (x, y, width, height, speed, options = {}) => {
+  this.createConveyorBelt = (x, y, width, height, speed, options = { isStatic: true }) => {
     parseOptions(options);
     options.render.fillStyle = "green";
     let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
@@ -84,13 +79,22 @@ function Tile() {
     return body;
   };
 
-  this.createSpring = (x, y, width, height, launchVelocity, options = {}) => {
+  this.createSpring = (x, y, width, height, launchVelocity, options = { isStatic: true }) => {
     parseOptions(options);
     let base = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
     let spring = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
     Composite.add(Game.engine.world, body);
-    return body;
+    return this._editable(spring);
   };
+
+
+  this._editable = (obj) => {
+    obj.setMass = (mass) => {
+      Body.setMass(obj, mass)
+    };
+
+    return obj
+  }
 }
 
 export default Tile;
