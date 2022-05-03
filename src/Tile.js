@@ -63,6 +63,7 @@ function Tile() {
   /*  createObject Member Functions */
 
   this.createRectangle = (x, y, width, height, moveable = false, options = {}) => {
+    options.isStatic = !moveable;
     parseOptions(options);
     let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
     Composite.add(Game.engine.world, body);
