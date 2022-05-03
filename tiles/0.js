@@ -12,9 +12,9 @@ ballEnd.velocity = { x: 5, y: 0 };
 
 // This function will run once when the tile loads for the first time
 tile.setup = function () {
-  tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40, {
-    isStatic: true,
-  });
+  tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
+  let wall = tile.createRectangle(550, 250, 50, 400, true);
+  wall.setMass(0.1);
   tile.createConveyorBelt(tile.width / 2, tile.height - 20, tile.width / 3, 40, 5);
 };
 
