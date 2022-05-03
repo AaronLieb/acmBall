@@ -42,7 +42,7 @@ Game.centerBody = Bodies.circle(Game.WIDTH / 2, Game.HEIGHT / 2, 0.1, {
 
 Game.defaultBallState = {
   frictionAir: 0,
-  restitution: 0.9,
+  // restitution: 0.9,
   restitution: 1,
   // friction: 0.0008,
   friction: 0,
@@ -103,6 +103,7 @@ Game.run = () => {
 
     if (oldActiveTile == Game.activeTile || !Game.tiles[Game.activeTile]) return;
     Game.tiles[Game.activeTile].onBallEnter();
+    Body.set(Game.ball, defaultBallState);
 
     if (oldActiveTile != config.tile_id || !Game.tiles[oldActiveTile]) return;
     Game.tiles[oldActiveTile].testExit();
@@ -130,15 +131,11 @@ Game.resume = () => {
 // Make global
 window.resumeGame = Game.resume;
 
-Game.start = () => {
-  Game.run();
-};
+Game.start = () => Game.run();
 
 // Make global
 window.startGame = Game.start;
 
-window.restartGame = () => {
-  window.location.reload();
-};
+window.restartGame = () => window.location.reload();
 
 export default Game;
