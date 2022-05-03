@@ -27,6 +27,8 @@ function Tile() {
   this.bottom = this.right + Game.TILE_HEIGHT;
   this.testsPassed = 0;
   this.numTests = 5;
+  this.game = Game
+  this.ball = this.game.ball
 
   /* User Defined Member Variables */
 
