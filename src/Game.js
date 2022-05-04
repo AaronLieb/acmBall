@@ -107,16 +107,19 @@ class Game {
 
     this.tiles.forEach((tile) => tile.setup());
 
-    // Render a single tick
+    this.oneTick();
+
+    Events.on(this.engine, "collisionStart", this._handleCollisions);
+    Events.on(this.engine, "collisionEnd", this._handleCollisions);
+  }
+
+  oneTick = () => {
     let stop = () => {
       this.stop();
       Events.off(this.runner, "tick", stop);
     };
     Events.on(this.runner, "tick", stop);
-
-    Events.on(this.engine, "collisionStart", this._handleCollisions);
-    Events.on(this.engine, "collisionEnd", this._handleCollisions);
-  }
+  };
 
   run() {
     Render.run(this.render);

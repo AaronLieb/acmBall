@@ -4,11 +4,19 @@ html {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
+my-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #gameView {
   border: 2vw solid rgb(168, 168, 168);
   border-width: 2vh 2vw;
   border-radius: 15px;
   overflow: hidden;
+  display: inline-block;
 }
 
 canvas {

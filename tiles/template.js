@@ -10,7 +10,9 @@ tile.ballEnd.position = { x: 0, y: 0 };
 tile.ballEnd.velocity = { x: 0, y: 0 };
 
 // This function will run once when the tile loads for the first time
-tile.setup = function () {};
+tile.setup = function () {
+  tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
+};
 
 // This function will run when the ball enters your tile
 tile.onBallEnter = async function () {};

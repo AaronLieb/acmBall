@@ -13,20 +13,22 @@
   </head>
 
   <body>
-    <div id="gameView"></div>
-    <div id="controls">
-      <a class="button" id="play" onclick="resumeGame()"> Start </a>
-      <a class="button" hidden id="pause" onclick="pauseGame()"> Pause </a>
-      <a class="button" hidden id="resume" onclick="resumeGame()"> Resume </a>
-      <a class="button" id="restart" onclick="restartGame()"> Restart </a>
-      <a class="button" id="view" onclick="switchView()"> switchView </a>
-    </div>
-    <div id="debug">
-      <span id="coords"></span>
-      <div id="tests">
-        <div id="testbox"></div>
-        <div id="testlogs"></div>
+    <my-game>
+      <div id="gameView"></div>
+      <div id="controls">
+        <a class="button" id="play" onclick="resumeGame()"> Start </a>
+        <a class="button" hidden id="pause" onclick="pauseGame()"> Pause </a>
+        <a class="button" hidden id="resume" onclick="resumeGame()"> Resume </a>
+        <a class="button" id="restart" onclick="restartGame()"> Restart </a>
+        <a class="button" id="view" onclick="switchView()"> switchView </a>
       </div>
-    </div>
+    </my-game>
+      <div id="debug">
+        <span id="coords"></span>
+        <div id="tests">
+          <div id="testbox"></div>
+          <div id="testlogs"></div>
+        </div>
+      </div>
   </body>
 </html>

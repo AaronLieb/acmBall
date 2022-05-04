@@ -1,8 +1,8 @@
 let { Bodies, Render } = Matter;
 
 const Camera = {
-  WIDTH: window.innerWidth * 0.8,
-  HEIGHT: window.innerHeight * 0.8,
+  WIDTH: 500 * (16 / 9),
+  HEIGHT: 500,
   zoom: 1,
   fullScreen: false,
   lerp_coefficient: 0.03,
