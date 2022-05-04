@@ -145,6 +145,12 @@ class Game {
 
     Events.on(this.runner, "tick", () => {
       Camera.updateCamera();
+
+      this.tiles.forEach((tile) => {
+        tile.onTickBackround();
+        if (tile.id == this.activeTile) tile.onTick();
+      });
+
       for (let pair of Detector.collisions(this.detector)) {
         pair.bodyB.speedUp(pair.bodyA);
       }

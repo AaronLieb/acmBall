@@ -31,24 +31,28 @@ const loadScript = async (id) => {
   });
 };
 
-var game = new Game();
-window.game = game;
+var game;
 
-for (let i = 0; ; i++) {
-  try {
-    await loadScript(i);
-  } catch (err) {
-    break;
+const start = async () => {
+  game = new Game();
+  window.game = game;
+
+  for (let i = 0; ; i++) {
+    try {
+      await loadScript(i);
+    } catch (err) {
+      break;
+    }
   }
-}
 
-game.setup();
-game.run();
-game.pause();
+  game.setup();
+  game.run();
+  game.pause();
+};
+
+await start();
 
 window.startGame = game.start;
 window.resumeGame = game.resume;
 window.pauseGame = game.pause;
-window.restartGame = () => window.location.reload();
-
-export default game;
+window.restartGame = window.location.reload;

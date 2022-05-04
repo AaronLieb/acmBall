@@ -66,8 +66,8 @@ class Tile {
 
   /**
    * @method createRectangle
-   * @param {number} x
-   * @param {number} y
+   * @param {number} x - the center x value
+   * @param {number} y - the center y value
    * @param {number} width
    * @param {number} height
    * @param {bool} moveable
@@ -84,8 +84,8 @@ class Tile {
 
   /**
    * @method createCircle
-   * @param {number} x
-   * @param {number} y
+   * @param {number} x - the center x value
+   * @param {number} y - the center y value
    * @param {number} radius
    * @param {bool} moveable
    * @param {Object} options
@@ -101,8 +101,8 @@ class Tile {
 
   /**
    * @method createConveyorBelt
-   * @param {number} x
-   * @param {number} y
+   * @param {number} x - the center x value
+   * @param {number} y - the center y value
    * @param {number} width
    * @param {number} height
    * @param {number} speed
@@ -128,8 +128,8 @@ class Tile {
    * endCallback is triggered when button becomes unpressed.
    * options.trigger_threshold (amount of mass required to trigger a button)
    * @method createButton
-   * @param {number} x
-   * @param {number} y
+   * @param {number} x - the center x value
+   * @param {number} y - the center y value
    * @param {number} width
    * @param {number} height
    * @param {function} callback
@@ -177,8 +177,8 @@ class Tile {
 
   /**
    * @method createSpring
-   * @param {number} x
-   * @param {number} y
+   * @param {number} x - the center x value
+   * @param {number} y - the center y value
    * @param {number} width
    * @param {number} height
    * @param {vector} launchVelocity
