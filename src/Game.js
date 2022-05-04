@@ -1,6 +1,7 @@
 import { positionToTile, parseOptions, relPosition } from "./helpers.js";
 import Camera from "./Camera.js";
 import config from "../config.js";
+import { buttonLogic } from './button.js'
 let {
   Mouse,
   Resolver,
@@ -33,6 +34,7 @@ Game.runner = Runner.create({
 });
 Game.mouse = Mouse.create(document.getElementById("gameView"));
 
+
 Render.mousePosition = function (_, mouse, ctx) {
   ctx.fillStyle = "rgba(0,0,0,1)";
   ctx.font = "30px Arial";
@@ -44,12 +46,24 @@ Render.mousePosition = function (_, mouse, ctx) {
   );
 };
 
+Render.objectMasses = function (render, bodies = Composite.allBodies(Game.engine.world), context) {
+  var c = context;
+  c.font = "20px Arial";
+  c.fillStyle = "rgba(240, 248, 255, 1)"
+  bodies.forEach((b) => {
+    c.fillText(
+      b.mass.toFixed(2), b.position.x - 20, b.position.y
+    );
+  });
+};
+
 Game.render = Render.create({
   element: document.getElementById("gameView"),
   engine: Game.engine,
   mouse: Game.mouse,
   options: {
     showMousePosition: true,
+    showObjectMasses: true,
     wireframes: false,
     width: (Game.HEIGHT / Game.WIDTH) * Camera.WIDTH,
     height: (Game.WIDTH / Game.HEIGHT) * Camera.HEIGHT,
@@ -86,7 +100,7 @@ Game.ball.getRelative = function () {
 };
 
 Game.setup = () => {
-  Camera.setup(); // TODO: check if this is even needed
+  Camera.setup();
   Render.run(Game.render);
   Runner.run(Game.runner, Game.engine);
 
@@ -134,7 +148,24 @@ Game.run = () => {
     Game.tiles[oldActiveTile].testExit();
     Body.set(Game.ball, Game.defaultBallState);
   });
+
+  Events.on(Game.engine, "collisionStart", Game._handleCollisions);
+  Events.on(Game.engine, "collisionEnd", Game._handleCollisions);
+
 };
+
+Game._handleCollisions = (event) => {
+  let i, pair, length = event.pairs.length;
+
+  for (i = 0; i < length; i++) {
+    pair = event.pairs[i];
+    let a = pair.bodyA
+    let b = pair.bodyB
+    /* allow callback-enabled collisions with objects with label 'button' only */
+    if (a.label === 'button' || b.label === 'button') buttonLogic(a, b, event);
+    // if (a.position.y > b.position.y) b.mass += a.mass;
+  }
+}
 
 Game.stop = () => {
   Runner.stop(Game.runner);

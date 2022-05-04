@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>acmBall</title>
-    <link rel="icon" href="./favicon.png" />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-    <script src="../lib/matter.js"></script>
-    <script src="../lib/xxhash.js"></script>
-    <script type="module" src="../src/main.js" defer></script>
-  </head>
-  <body>
-    <div id="gameView"></div>
-    <div id="controls">
-      <a class="button" id="play" onclick="resumeGame()"> Start </a>
-      <a class="button" id="pause" onclick="pauseGame()"> Pause </a>
-      <a class="button" id="resume" onclick="resumeGame()"> Resume </a>
-      <a class="button" id="restart" onclick="restartGame()"> Restart </a>
-      <a class="button" id="view" onclick="switchView()"> switchView </a>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>acmBall</title>
+  <link rel="icon" href="/favicon.png" />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <script type="module" src="../src/db.js"></script>
+  <script type="module" src="../src/Game.js"></script>
+  <script type="module" src="../src/Tile.js"></script>
+  <script type="module" src="../src/tests.js"></script>
+  <script type="module" src="../src/helpers.js"></script>
+  <script src="../lib/matter.js"></script>
+  <script src="../lib/matter-collision-events.js"></script>
+  <script src="../lib/xxhash.js"></script>
+  <script type="module" src="../src/main.js" defer></script>
+</head>
+
+<body>
+  <div id="gameView"></div>
+  <div id="controls">
+    <a class="button" id="play" onclick="resumeGame()"> Start </a>
+    <a class="button" id="pause" onclick="pauseGame()"> Pause </a>
+    <a class="button" id="resume" onclick="resumeGame()"> Resume </a>
+    <a class="button" id="restart" onclick="restartGame()"> Restart </a>
+    <a class="button" id="view" onclick="switchView()"> switchView </a>
+  </div>
+  <div id="debug">
+    <span id="coords"></span>
+    <div id="tests">
+      <div id="testbox"></div>
+      <div id="testlogs"></div>
     </div>
-    <div id="debug">
-      <span id="coords"></span>
-      <div id="tests">
-        <div id="testbox"></div>
-        <div id="testlogs"></div>
-      </div>
-    </div>
-  </body>
+  </div>
+</body>
+
 </html>
