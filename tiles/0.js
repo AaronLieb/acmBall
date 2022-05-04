@@ -11,8 +11,9 @@ ballEnd.position = { x: 500, y: 420 };
 ballEnd.velocity = { x: 3, y: 0 };
 
 // This function will run once when the tile loads for the first time
+let floor;
 tile.setup = function () {
-  tile.createRectangle(tile.width / 4, 320, tile.width / 2, 40);
+  floor = tile.createRectangle(tile.width / 4, 320, tile.width / 2, 40);
   tile.createRectangle(tile.width * 0.75, 480, tile.width / 2, 40);
   tile.createConveyorBelt(tile.width * 0.75, 480, tile.width / 2, 40, 3);
 };

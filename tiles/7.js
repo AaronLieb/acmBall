@@ -12,8 +12,8 @@ tile.ballEnd.velocity = { x: 5, y: 0 };
 
 // This function will run once when the tile loads for the first time
 tile.setup = function () {
+  let wall = tile.createRectangle(475, 250, 50, 400);
   let ground = tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
-  ground.isStatic = true;
 };
 
 // This function will run when the ball enters your tile
