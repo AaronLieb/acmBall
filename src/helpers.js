@@ -28,13 +28,13 @@ export const findIntersection = (axis, ball) => {
 
 export const relPosition = (p) => {
   return { x: p.x % Game.TILE_WIDTH, y: p.y % Game.TILE_HEIGHT };
-}
+};
 
 export const positionToTile = (pos) => {
-  return (
-    Math.floor(pos.x / Game.TILE_WIDTH) +
-    Math.floor(pos.y / Game.TILE_HEIGHT) * Game.NUM_TILES_X
-  );
+  let x = Math.floor(pos.x / Game.TILE_WIDTH);
+  let y = Math.floor(pos.y / Game.TILE_HEIGHT);
+  if (x < 0 || x >= Game.NUM_TILES_X || y < 0 || y >= Game.NUM_TILES_Y) return -1;
+  return x +y * Game.NUM_TILES_X;
 };
 
 const defaultRender = {

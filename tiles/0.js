@@ -24,9 +24,6 @@ tile.setup = function () {
     let s = tile.createRectangle(tile.width / 2, tile.height - (300 + i * 80), 50, 50, true);
     s.setMass(0.02);
   })
-
-
-  // tile.game.ball.render.fillStyle = "#004521"; /* example changing visible property */
 };
 
 // This function will run when the ball enters your tile

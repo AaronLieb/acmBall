@@ -1,4 +1,4 @@
-if (typeof window === "undefined") {
+if (false) {
   var { default: fetch } = await import("node-fetch");
 }
 

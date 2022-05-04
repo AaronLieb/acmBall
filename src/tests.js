@@ -16,7 +16,7 @@ export let assertEqual = (a, b, msg) => {
     document.getElementById("testbox").style.backgroundColor = "red";
     return false;
   }
-  console.log(`[${msg}] TEST CASE PASSED ${a} = ${b}`);
+  //console.log(`[${msg}] TEST CASE PASSED ${a} = ${b}`);
   return true;
 };
 

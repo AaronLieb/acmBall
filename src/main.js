@@ -4,23 +4,17 @@
       code block example, gif showing the result
 
     *Create a spring composition, with constraints
-    *Add mouse to see coordinates, for easier placement
     Add timer with ms
 
-    Hash the module object, source code or github commit id and test it against 
-
-    Tests:
-      Ball state (size, restitution, color, etc...)
-      set ball state 
-    
     Body bounds, don't let objects created in a tile leave that Tile
     .bounds.max / .bounds.min
+    test cases
     
 
     Extra:
-    Camera:
-      add smoothing algorithm
     Look into the engine and see what cool options there are to wrap
+    gravity
+    time
 */
 
 import Game from "./Game.js";

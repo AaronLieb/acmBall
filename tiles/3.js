@@ -12,16 +12,10 @@ tile.ballEnd.velocity = { x: 5, y: 0 };
 
 // This function will run once when the tile loads for the first time
 tile.setup = function () {
-  let ground = tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
-  ground.isStatic = true;
 };
 
 // This function will run when the ball enters your tile
-tile.onBallEnter = async function () {
-  tile.createRectangle(100, 20, 50, 40);
-  await sleep(200);
-  tile.createRectangle(150, 20, 50, 40);
-};
+tile.onBallEnter = async function () {};
 
 // This function will run once every tick while the ball is in your tile
 tile.onTick = function () {};

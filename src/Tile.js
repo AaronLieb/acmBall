@@ -10,6 +10,7 @@ let { Bodies, Body, Composite, Engine } = Matter;
 import Game from "./Game.js";
 import { parseOptions } from "./helpers.js";
 import config from "../config.js";
+import Entity from "./Entity.js";
 
 function Tile() {
   /* Constructor */
@@ -30,6 +31,7 @@ function Tile() {
   this.ball = this.game.ball;
   this.matter = Matter; // for advanced users
   this.objects = []; // list of objects in this tile
+
 
   /* User Defined Member Variables */
 
@@ -71,7 +73,7 @@ function Tile() {
     parseOptions(options);
     let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
     Composite.add(Game.engine.world, body);
-    return this._editable(body);
+    return new Entity(body, this);
   };
 
   this.createCircle = (x, y, radius, moveable = false, options = {}) => {
