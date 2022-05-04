@@ -2,13 +2,12 @@ import { sleep } from "../src/helpers.js";
 import Tile from "../src/Tile.js";
 
 let tile = new Tile();
-let { ballStart, ballEnd } = tile;
 
-ballStart.position = { x: 0, y: 0 };
-ballStart.velocity = { x: 0, y: 0 };
+tile.ballStart.position = { x: 0, y: 0 };
+tile.ballStart.velocity = { x: 0, y: 0 };
 
-ballEnd.position = { x: 0, y: 0 };
-ballEnd.velocity = { x: 0, y: 0 };
+tile.ballEnd.position = { x: 0, y: 0 };
+tile.ballEnd.velocity = { x: 0, y: 0 };
 
 // This function will run once when the tile loads for the first time
 tile.setup = function () {};
