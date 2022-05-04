@@ -10,6 +10,7 @@
     .bounds.max / .bounds.min
     test cases
     
+    fix conveyor belt to have sending velocity be parrallell to the conveyor belt
 
     Extra:
     Look into the engine and see what cool options there are to wrap

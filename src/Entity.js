@@ -5,17 +5,23 @@ class Entity {
     this.body = body;
     this.tile = tile;
 
-    this.tile.bodies.push(this);
+    tile.bodies.push(this);
   }
 
-  setMass(mass) {
-    Body.setMass(obj, mass);
+  /**
+   * @param {number} mass
+   */
+  set mass(mass) {
+    Matter.Body.setMass(this.body, mass);
   }
 
-  set position(p) {
+  /**
+   * @param {Object} pos
+   */
+  set position(pos) {
     Matter.Body.setPosition(this.body, {
-      x: this.tile.left + p.x,
-      y: this.tile.top + p.y,
+      x: this.tile.left + pos.x,
+      y: this.tile.top + pos.y,
     });
   }
 

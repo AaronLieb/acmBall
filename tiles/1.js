@@ -14,7 +14,7 @@ ballEnd.velocity = { x: 5, y: 0 };
 tile.setup = function () {
   tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
   let wall = tile.createRectangle(550, 250, 50, 400, true);
-  wall.setMass(0.04);
+  wall.mass = 0.04;
   let convey = tile.createConveyorBelt(tile.width / 2 + 225, tile.height - 20, 100, 40, 5);
   let button1 = tile.createButton(tile.width / 2,
     tile.height - 20, tile.width / 3, 40,
@@ -22,7 +22,7 @@ tile.setup = function () {
     () => { console.log('ended press') }, { isStatic: true, pressedColor: 'yellow' });
   [1, 2].forEach(i => {
     let s = tile.createRectangle(tile.width / 2, tile.height - (300 + i * 80), 50, 50, true);
-    s.setMass(0.02);
+    s.mass = 0.02;
   })
 
   // tile.game.ball.render.fillStyle = "#004521"; /* example changing visible property */
