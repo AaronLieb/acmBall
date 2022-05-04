@@ -46,7 +46,6 @@ class Tile {
 
   testExit() {
     let c = config.tests.exit;
-    console.log(game.ball.render);
     this.testsPassed += !c.position || testBallPosition(game.ball.body, this.ballEnd);
     this.testsPassed += !c.velocity || testBallVelocity(game.ball.body, this.ballEnd);
     this.testsPassed += !c.shape || testBallShape(game.ball.body);

@@ -16,7 +16,7 @@ const res = await reqJSONBin("get", config.tile_id);
 //   console.log("Hash check failed, please try running the simulation and trying again");
 //   process.exit(1);
 // }
-if (res.result) {
+if (!res.result) {
   // TODO: show which test cases failed
   console.log("Tile test cases failed");
   process.exit(1);

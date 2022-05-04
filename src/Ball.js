@@ -27,6 +27,7 @@ class Ball extends Entity {
   constructor(tile) {
     let ball = Matter.Bodies.circle(0, 0, BALL_RADIUS, defaultState);
     super(ball, tile, false);
+    this.defaultRender = defaultState.render;
   }
 
   resetState() {

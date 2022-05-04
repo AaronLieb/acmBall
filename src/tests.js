@@ -1,6 +1,5 @@
 import { findIntersection, hash } from "./helpers.js";
 import { reqJSONBin } from "./db.js";
-import Game from "./Game.js";
 let { Vertices } = Matter;
 
 const POSITION_DELTA = 0.5;
@@ -40,8 +39,8 @@ export const testBallPosition = (ball, end) => {
   let flag = true;
   let est_pos = findIntersection("y", ball);
   let rel_est_pos = {
-    x: ((est_pos.x - 1) % Game.TILE_WIDTH) + 1,
-    y: ((est_pos.y - 1) % Game.TILE_HEIGHT) + 1,
+    x: ((est_pos.x - 1) % game.TILE_WIDTH) + 1,
+    y: ((est_pos.y - 1) % game.TILE_HEIGHT) + 1,
   };
   flag =
     assertDiff(rel_est_pos.x, end.position.x, POSITION_DELTA, "Ball Position X") && flag;
@@ -71,7 +70,7 @@ export const testBallShape = (ball) => {
 
 export const testBallRender = (ball) => {
   let flag = true;
-  let render = Game.defaultBallState.render;
+  let render = game.ball.defaultRender;
   flag = assertEqual(ball.render.fillStyle, render.fillStyle, "fillStyle") && flag;
   flag = assertEqual(ball.render.lineWidth, render.lineWidth, "lineWidth") && flag;
   flag = assertEqual(ball.render.strokeStyle, render.strokeStyle, "strokeStyle") && flag;
