@@ -125,8 +125,8 @@ class Game {
     Render.run(this.render);
     Runner.run(this.runner, this.engine);
 
-    this.ball.position = this.tiles[0].ballStart.position;
-    this.ball.velocity = this.tiles[0].ballStart.velocity;
+    this.ball.position = this.tiles[config.tile_id].ballStart.position;
+    this.ball.velocity = this.tiles[config.tile_id].ballStart.velocity;
 
     this.activeTile = -1;
 
