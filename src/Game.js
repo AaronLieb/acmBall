@@ -66,10 +66,8 @@ Game.centerBody = Bodies.circle(Game.WIDTH / 2, Game.HEIGHT / 2, 0.1, {
 
 Game.defaultBallState = {
   frictionAir: 0,
-  friction: 0,
-  // restitution: 0.9,
-  restitution: 1,
-  // friction: 0.0008,
+  friction: 0.0006,
+  restitution: 0.8,
   inertia: Infinity,
   inverseInertia: 0,
   render: {
@@ -118,6 +116,8 @@ Game.run = () => {
   Body.setPosition(Game.ball, Game.tiles[0].ballStart.position);
   Body.setVelocity(Game.ball, Game.tiles[0].ballStart.velocity);
 
+  Game.activeTile = -1;
+
   Events.on(Game.runner, "tick", () => {
     Camera.updateCamera();
     for (let pair of Detector.collisions(Game.detector)) {
@@ -127,13 +127,12 @@ Game.run = () => {
     let oldActiveTile = Game.activeTile;
     Game.activeTile = positionToTile(Game.ball.position);
 
-    if (oldActiveTile == Game.activeTile || !Game.tiles[Game.activeTile]) return;
+    if ( oldActiveTile == Game.activeTile || !Game.tiles[Game.activeTile] || Game.activeTile < 0) return;
     Game.tiles[Game.activeTile].onBallEnter();
 
     if (oldActiveTile != config.tile_id || !Game.tiles[oldActiveTile]) return;
     Game.tiles[oldActiveTile].testExit();
     Body.set(Game.ball, Game.defaultBallState);
-
   });
 };
 
@@ -158,7 +157,9 @@ Game.resume = () => {
 // Make global
 window.resumeGame = Game.resume;
 
-Game.start = () => Game.run();
+Game.start = () => {
+  Game.run();
+};
 
 // Make global
 window.startGame = Game.start;
