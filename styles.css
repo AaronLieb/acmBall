@@ -8,7 +8,7 @@ html {
   border: 2vw solid rgb(168, 168, 168);
   border-width: 2vh 2vw;
   border-radius: 15px;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 canvas {
