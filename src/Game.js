@@ -1,8 +1,19 @@
 import { positionToTile, parseOptions, relPosition } from "./helpers.js";
 import Camera from "./Camera.js";
 import config from "../config.js";
-import { buttonLogic } from './button.js'
-let { Mouse, Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events, } = Matter;
+import { buttonLogic } from "./button.js";
+let {
+  Mouse,
+  Resolver,
+  Body,
+  Bodies,
+  Runner,
+  Render,
+  Composite,
+  Detector,
+  Engine,
+  Events,
+} = Matter;
 
 // TODO: MOVE THESE TO MATTER
 Render.mousePosition = function (_, mouse, ctx) {
@@ -15,17 +26,18 @@ Render.mousePosition = function (_, mouse, ctx) {
     mouse.position.y - 30
   );
 };
-Render.objectMasses = function (render, bodies = Composite.allBodies(Game.engine.world), context) {
+Render.objectMasses = function (
+  render,
+  bodies = Composite.allBodies(Game.engine.world),
+  context
+) {
   var c = context;
   c.font = "20px Arial";
-  c.fillStyle = "rgba(240, 248, 255, 1)"
+  c.fillStyle = "rgba(240, 248, 255, 1)";
   bodies.forEach((b) => {
-    c.fillText(
-      b.mass.toFixed(2), b.position.x - 20, b.position.y
-    );
+    c.fillText(b.mass.toFixed(2), b.position.x - 20, b.position.y);
   });
 };
-
 
 const FPS = 60;
 
@@ -37,7 +49,7 @@ class Game {
     this.TILE_WIDTH = 500;
     this.HEIGHT = this.TILE_HEIGHT * this.NUM_TILES_Y;
     this.WIDTH = this.TILE_WIDTH * this.NUM_TILES_X;
-    this.TILES = this.NUM_TILES_X * this.NUM_TILES_Y;
+    this.NUM_TILES = this.NUM_TILES_X * this.NUM_TILES_Y;
     this.engine = Engine.create();
     this.runner = Runner.create({
       delta: 1000 / FPS,
@@ -88,8 +100,16 @@ class Game {
       bodies: [this.ball],
     });
 
+    /* 
+      These functions are passed as arguments
+      The reference to "this" is lost when passed
+      so we bind this to the function to prevent that
+    */
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
+    this.pause = this.pause.bind(this);
+    this.resume = this.resume.bind(this);
   }
-
 
   setup() {
     Camera.setup();
@@ -109,8 +129,7 @@ class Game {
 
     Events.on(this.engine, "collisionStart", this._handleCollisions);
     Events.on(this.engine, "collisionEnd", this._handleCollisions);
-  };
-
+  }
 
   run() {
     // TODO Change to ball.setup()
@@ -133,24 +152,36 @@ class Game {
       let oldActiveTile = this.activeTile;
       this.activeTile = positionToTile(this.ball.position);
 
-      if ( oldActiveTile == this.activeTile || !this.tiles[this.activeTile] || this.activeTile < 0) return;
+      if (
+        oldActiveTile == this.activeTile ||
+        !this.tiles[this.activeTile] ||
+        this.activeTile < 0
+      )
+        return;
       this.tiles[this.activeTile].onBallEnter();
 
       if (oldActiveTile != config.tile_id || !this.tiles[oldActiveTile]) return;
       this.tiles[oldActiveTile].testExit();
       Body.set(this.ball, this.defaultBallState);
     });
-  };
+  }
 
+  /**
+   * @private
+   * @param {event} event
+   * @returns {void}
+   */
   _handleCollisions(event) {
-    let i, pair, length = event.pairs.length;
+    let i,
+      pair,
+      length = event.pairs.length;
 
     for (i = 0; i < length; i++) {
       pair = event.pairs[i];
-      let a = pair.bodyA
-      let b = pair.bodyB
+      let a = pair.bodyA;
+      let b = pair.bodyB;
       /* allow callback-enabled collisions with objects with label 'button' only */
-      if (a.label === 'button' || b.label === 'button') buttonLogic(a, b, event);
+      if (a.label === "button" || b.label === "button") buttonLogic(a, b, event);
       // if (a.position.y > b.position.y) b.mass += a.mass;
     }
   }
@@ -158,21 +189,21 @@ class Game {
   stop() {
     Runner.stop(this.runner);
     Render.stop(this.render);
-  };
+  }
 
   pause() {
     this.engine.enabled = false;
     Runner.stop(this.runner);
-  };
+  }
 
   resume() {
     this.engine.enabled = true;
     Runner.run(this.runner, this.engine);
-  };
+  }
 
   start() {
     this.run();
-  };
+  }
 }
 
 export default Game;

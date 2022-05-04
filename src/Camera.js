@@ -1,4 +1,3 @@
-import Game from "./Game.js";
 let { Bodies, Render } = Matter;
 
 const Camera = {
@@ -15,28 +14,28 @@ const Camera = {
 };
 
 Camera.setup = () => {
-  Camera.focusBody.position.x = Game.ball.position.x;
-  Camera.focusBody.position.y = Game.ball.position.y;
+  Camera.focusBody.position.x = game.ball.position.x;
+  Camera.focusBody.position.y = game.ball.position.y;
 };
 
 Camera.lerp = () => {
   /* linearly interpolates camera focus by lerp_coefficient */
-  let x = (Game.ball.position.x - Camera.focusBody.position.x) * Camera.lerp_coefficient;
-  let y = (Game.ball.position.y - Camera.focusBody.position.y) * Camera.lerp_coefficient
+  let x = (game.ball.position.x - Camera.focusBody.position.x) * Camera.lerp_coefficient;
+  let y = (game.ball.position.y - Camera.focusBody.position.y) * Camera.lerp_coefficient
   Camera.focusBody.position.x += x;
   Camera.focusBody.position.y += y;
 }
 
 Camera.updateCamera = () => {
   /* Choose the focus target */
-  let body = Camera.fullScreen ? Game.centerBody : Camera.focusBody;
+  let body = Camera.fullScreen ? game.centerBody : Camera.focusBody;
   /* Linear Interpolation only if NOT fullscreen */
   Camera.fullScreen || Camera.lerp();
   /* Adjust padding of viewport */
   let divisor = Camera.fullScreen
-    ? { x: Game.WIDTH / 2, y: Game.HEIGHT / 2 }
-    : { x: Game.TILE_WIDTH / Camera.zoom, y: Game.TILE_HEIGHT / Camera.zoom };
-  Render.lookAt(Game.render, {
+    ? { x: game.WIDTH / 2, y: game.HEIGHT / 2 }
+    : { x: game.TILE_WIDTH / Camera.zoom, y: game.TILE_HEIGHT / Camera.zoom };
+  Render.lookAt(game.render, {
     x: body.position.x,
     y: body.position.y
   }, divisor, true);

@@ -1,5 +1,3 @@
-import Game from "./Game.js";
-
 export const hash = (Obj) => {
   return XXH.h32(JSON.stringify(Obj), 0xcafebabe).toString(16);
 };
@@ -27,14 +25,14 @@ export const findIntersection = (axis, ball) => {
 };
 
 export const relPosition = (p) => {
-  return { x: p.x % Game.TILE_WIDTH, y: p.y % Game.TILE_HEIGHT };
+  return { x: p.x % game.TILE_WIDTH, y: p.y % game.TILE_HEIGHT };
 };
 
 export const positionToTile = (pos) => {
-  let x = Math.floor(pos.x / Game.TILE_WIDTH);
-  let y = Math.floor(pos.y / Game.TILE_HEIGHT);
-  if (x < 0 || x >= Game.NUM_TILES_X || y < 0 || y >= Game.NUM_TILES_Y) return -1;
-  return x +y * Game.NUM_TILES_X;
+  let x = Math.floor(pos.x / game.TILE_WIDTH);
+  let y = Math.floor(pos.y / game.TILE_HEIGHT);
+  if (x < 0 || x >= game.NUM_TILES_X || y < 0 || y >= game.NUM_TILES_Y) return -1;
+  return x + y * game.NUM_TILES_X;
 };
 
 const defaultRender = {

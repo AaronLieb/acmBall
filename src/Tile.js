@@ -7,7 +7,6 @@ import {
   testBallRender,
 } from "./tests.js";
 let { Bodies, Body, Composite } = Matter;
-import Game from "./Game.js";
 import { parseOptions } from "./helpers.js";
 import config from "../config.js";
 import Entity from "./Entity.js";
@@ -18,18 +17,18 @@ import Entity from "./Entity.js";
  */
 class Tile {
   constructor() {
-    Game.tiles.push(this);
+    game.tiles.push(this);
 
-    this.id = Game.tiles.length - 1;
-    this.height = Game.TILE_HEIGHT;
-    this.width = Game.TILE_WIDTH;
-    this.left = (this.id % Game.NUM_TILES_X) * Game.TILE_WIDTH;
-    this.top = Math.floor(this.id / Game.NUM_TILES_Y) * Game.TILE_WIDTH;
-    this.right = this.left + Game.TILE_WIDTH;
-    this.bottom = this.right + Game.TILE_HEIGHT;
+    this.id = game.tiles.length - 1;
+    this.height = game.TILE_HEIGHT;
+    this.width = game.TILE_WIDTH;
+    this.left = (this.id % game.NUM_TILES_X) * game.TILE_WIDTH;
+    this.top = Math.floor(this.id / game.NUM_TILES_Y) * game.TILE_WIDTH;
+    this.right = this.left + game.TILE_WIDTH;
+    this.bottom = this.right + game.TILE_HEIGHT;
     this.testsPassed = 0;
     this.numTests = 5;
-    this.game = Game;
+    this.game = game;
     this.ball = this.game.ball;
     this.matter = Matter; // for advanced users
     this.bodies = []; // list of objects in this tile
@@ -47,22 +46,22 @@ class Tile {
 
   testExit() {
     let c = config.tests.exit;
-    console.log(Game.ball.render);
-    this.testsPassed += !c.position || testBallPosition(Game.ball, this.ballEnd);
-    this.testsPassed += !c.velocity || testBallVelocity(Game.ball, this.ballEnd);
-    this.testsPassed += !c.shape || testBallShape(Game.ball);
-    this.testsPassed += !c.size || testBallSize(Game.ball);
-    this.testsPassed += !c.render || testBallRender(Game.ball);
+    console.log(game.ball.render);
+    this.testsPassed += !c.position || testBallPosition(game.ball, this.ballEnd);
+    this.testsPassed += !c.velocity || testBallVelocity(game.ball, this.ballEnd);
+    this.testsPassed += !c.shape || testBallShape(game.ball);
+    this.testsPassed += !c.size || testBallSize(game.ball);
+    this.testsPassed += !c.render || testBallRender(game.ball);
     sendTestResults(this);
   }
 
   /**
    * @method setBackgroundColor
-   * @param {string} color 
+   * @param {string} color
    * @returns {void}
    */
   setBackgroundColor(color) {
-    Game.render.options.background = color;
+    game.render.options.background = color;
   }
 
   /**
@@ -79,7 +78,7 @@ class Tile {
     options.isStatic = !moveable;
     parseOptions(options);
     let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
-    Composite.add(Game.engine.world, body);
+    Composite.add(game.engine.world, body);
     return new Entity(body, this);
   }
 
@@ -96,18 +95,18 @@ class Tile {
     options.isStatic = !moveable;
     parseOptions(options);
     let body = Bodies.circle(this.left + x, this.top + y, radius, options);
-    Composite.add(Game.engine.world, body);
+    Composite.add(game.engine.world, body);
     return new Entity(body, this);
   }
 
   /**
    * @method createConveyorBelt
-   * @param {number} x 
-   * @param {number} y 
-   * @param {number} width 
-   * @param {number} height 
-   * @param {number} speed 
-   * @param {Object} options 
+   * @param {number} x
+   * @param {number} y
+   * @param {number} width
+   * @param {number} height
+   * @param {number} speed
+   * @param {Object} options
    * @returns {Entity}
    */
   createConveyorBelt(x, y, width, height, speed, options = { isStatic: true }) {
@@ -119,8 +118,8 @@ class Tile {
     body.speedUp = (ball) => {
       Body.setVelocity(ball, { x: speed, y: 0 });
     };
-    Game.detector.bodies.push(body);
-    Composite.add(Game.engine.world, body);
+    game.detector.bodies.push(body);
+    Composite.add(game.engine.world, body);
     return new Entity(body, this);
   }
 
@@ -129,13 +128,13 @@ class Tile {
    * endCallback is triggered when button becomes unpressed.
    * options.trigger_threshold (amount of mass required to trigger a button)
    * @method createButton
-   * @param {number} x 
-   * @param {number} y 
-   * @param {number} width 
-   * @param {number} height 
-   * @param {function} callback 
-   * @param {function} endCallback 
-   * @param {Object} options 
+   * @param {number} x
+   * @param {number} y
+   * @param {number} width
+   * @param {number} height
+   * @param {function} callback
+   * @param {function} endCallback
+   * @param {Object} options
    * @returns {Entity}
    */
   createButton(
@@ -172,30 +171,30 @@ class Tile {
     button_body.label = "button";
     button_body.trigger_threshold = 0.1; // amount of mass needed to trigger
     button_body.current_mass = 0.0;
-    Composite.add(Game.engine.world, button_body);
+    Composite.add(game.engine.world, button_body);
     return new Entity(button_body, this);
   }
 
   /**
    * @method createSpring
-   * @param {number} x 
-   * @param {number} y 
-   * @param {number} width 
-   * @param {number} height 
-   * @param {vector} launchVelocity 
-   * @param {Object} options 
+   * @param {number} x
+   * @param {number} y
+   * @param {number} width
+   * @param {number} height
+   * @param {vector} launchVelocity
+   * @param {Object} options
    * @returns {Entity}
    */
   createSpring(x, y, width, height, launchVelocity, options = { isStatic: true }) {
     parseOptions(options);
     let base = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
     let spring = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
-    Composite.add(Game.engine.world, spring);
+    Composite.add(game.engine.world, spring);
     return new Entity(spring, this);
   }
 
   /**
-   * Removes all non-static objects in the tile 
+   * Removes all non-static objects in the tile
    * @method clear
    * @returns {void}
    */

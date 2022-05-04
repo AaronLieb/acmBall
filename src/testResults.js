@@ -1,9 +1,9 @@
 import { reqJSONBin } from "./db.js";
 import config from "../config.js";
 import { hash } from "./helpers.js";
-import Game from "./Game.js";
+import game from "./main.js";
 
-const tile = Game.tiles[config.tile_id];
+const tile = game.tiles[config.tile_id];
 const h = hash([
   tile.ballStart,
   tile.ballEnd,

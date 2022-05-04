@@ -31,6 +31,9 @@ const loadScript = async (id) => {
   });
 };
 
+var game = new Game();
+window.game = game;
+
 for (let i = 0; ; i++) {
   try {
     await loadScript(i);
@@ -39,13 +42,13 @@ for (let i = 0; ; i++) {
   }
 }
 
-var game = new Game();
-
 game.setup();
 game.run();
 game.pause();
 
 window.startGame = game.start;
-window.resumeGame = this.resume;
-window.pauseGame = this.pause;
+window.resumeGame = game.resume;
+window.pauseGame = game.pause;
 window.restartGame = () => window.location.reload();
+
+export default game;
