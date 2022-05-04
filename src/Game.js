@@ -46,8 +46,8 @@ class Game {
   constructor() {
     this.running = false;
     this.paused = false;
-    this.NUM_TILES_X = 4;
-    this.NUM_TILES_Y = 4;
+    this.NUM_TILES_X = 2;
+    this.NUM_TILES_Y = 2;
     this.TILE_HEIGHT = 500;
     this.TILE_WIDTH = 500;
     this.HEIGHT = this.TILE_HEIGHT * this.NUM_TILES_Y;
