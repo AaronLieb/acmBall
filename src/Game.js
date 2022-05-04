@@ -1,4 +1,5 @@
 import { positionToTile, parseOptions, relPosition } from "./helpers.js";
+import Ball from "./Ball.js";
 import Camera from "./Camera.js";
 import config from "../config.js";
 import { buttonLogic } from "./button.js";
@@ -43,6 +44,8 @@ const FPS = 60;
 
 class Game {
   constructor() {
+    this.running = false;
+    this.paused = false;
     this.NUM_TILES_X = 4;
     this.NUM_TILES_Y = 4;
     this.TILE_HEIGHT = 500;
@@ -77,29 +80,6 @@ class Game {
       isSensor: true,
     });
 
-    this.defaultBallState = {
-      frictionAir: 0,
-      friction: 0.0006,
-      restitution: 0.8,
-      inertia: Infinity,
-      inverseInertia: 0,
-      render: {
-        fillStyle: "#f99",
-        lineWidth: 5,
-        strokeStyle: "black",
-        visible: true,
-      },
-    };
-
-    this.ball = Bodies.circle(0, 0, 40, this.defaultBallState);
-    this.ball.getRelative = function () {
-      return relPosition(this.position);
-    };
-
-    this.detector = Detector.create({
-      bodies: [this.ball],
-    });
-
     /* 
       These functions are passed as arguments
       The reference to "this" is lost when passed
@@ -112,7 +92,14 @@ class Game {
   }
 
   setup() {
+    this.ball = new Ball(this.tiles[config.tile_id]);
+
     Camera.setup();
+
+    this.detector = Detector.create({
+      bodies: [this.ball.body],
+    });
+
     Render.run(this.render);
     Runner.run(this.runner, this.engine);
 
@@ -132,14 +119,11 @@ class Game {
   }
 
   run() {
-    // TODO Change to ball.setup()
-    Composite.add(this.engine.world, [this.ball]);
-
     Render.run(this.render);
     Runner.run(this.runner, this.engine);
 
-    Body.setPosition(this.ball, this.tiles[0].ballStart.position);
-    Body.setVelocity(this.ball, this.tiles[0].ballStart.velocity);
+    this.ball.position = this.tiles[0].ballStart.position;
+    this.ball.velocity = this.tiles[0].ballStart.velocity;
 
     this.activeTile = -1;
 
@@ -147,7 +131,7 @@ class Game {
       Camera.updateCamera();
 
       this.tiles.forEach((tile) => {
-        tile.onTickBackround();
+        tile.onTickBackground();
         if (tile.id == this.activeTile) tile.onTick();
       });
 
@@ -168,7 +152,7 @@ class Game {
 
       if (oldActiveTile != config.tile_id || !this.tiles[oldActiveTile]) return;
       this.tiles[oldActiveTile].testExit();
-      Body.set(this.ball, this.defaultBallState);
+      this.ball.resetState();
     });
   }
 
@@ -193,22 +177,26 @@ class Game {
   }
 
   stop() {
+    this.running = false;
     Runner.stop(this.runner);
     Render.stop(this.render);
   }
 
   pause() {
+    this.paused = true;
     this.engine.enabled = false;
     Runner.stop(this.runner);
   }
 
   resume() {
+    this.paused = false;
     this.engine.enabled = true;
     Runner.run(this.runner, this.engine);
   }
 
   start() {
-    this.run();
+    this.running = true;
+    this.resume();
   }
 }
 
