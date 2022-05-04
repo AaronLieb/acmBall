@@ -14,6 +14,22 @@
 
     Camera:
       use canvas.style.backgroundPosition to move background when camera moves
+    
+
+    ball scale function in wrapper
+
+    Top left everything 
+
+  Duc:
+    Sprites
+
+  Justin:
+    apply force
+    Borders around tiles
+    fix cursor being offset 
+  
+  Duc:
+    sprites
 
     Extra:
     Look into the engine and see what cool options there are to wrap
@@ -65,6 +81,8 @@ window.switchView = Camera.switchView;
 let resumeButton = document.getElementById("resume");
 let pauseButton = document.getElementById("pause");
 let startButton = document.getElementById("play");
+
+Math.random.seed
 
 window.addEventListener(
   "keydown",

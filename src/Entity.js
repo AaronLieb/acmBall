@@ -74,7 +74,7 @@ class Entity {
    * @param {Number} yV - the y velocity
    */
   setVelocity(xV, yV) {
-    Matter.Body.setPosition(this.body, { x: xV, y: yV });
+    Matter.Body.setVelocity(this.body, { x: xV, y: yV });
   }
 
   /**
