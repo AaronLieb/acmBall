@@ -1,8 +1,8 @@
 let { Bodies, Render } = Matter;
 
 const Camera = {
-  WIDTH: window.innerWidth * 0.95,
-  HEIGHT: window.innerHeight * 0.95,
+  WIDTH: window.innerWidth * 0.8,
+  HEIGHT: window.innerHeight * 0.8,
   zoom: 1,
   fullScreen: false,
   lerp_coefficient: 0.03,
@@ -14,17 +14,19 @@ const Camera = {
 };
 
 Camera.setup = () => {
-  Camera.focusBody.position.x = game.ball.position.x;
-  Camera.focusBody.position.y = game.ball.position.y;
+  Camera.focusBody.position.x = game.ball.body.position.x;
+  Camera.focusBody.position.y = game.ball.body.position.y;
 };
 
 Camera.lerp = () => {
   /* linearly interpolates camera focus by lerp_coefficient */
-  let x = (game.ball.position.x - Camera.focusBody.position.x) * Camera.lerp_coefficient;
-  let y = (game.ball.position.y - Camera.focusBody.position.y) * Camera.lerp_coefficient
+  let x =
+    (game.ball.body.position.x - Camera.focusBody.position.x) * Camera.lerp_coefficient;
+  let y =
+    (game.ball.body.position.y - Camera.focusBody.position.y) * Camera.lerp_coefficient;
   Camera.focusBody.position.x += x;
   Camera.focusBody.position.y += y;
-}
+};
 
 Camera.updateCamera = () => {
   /* Choose the focus target */
@@ -35,17 +37,19 @@ Camera.updateCamera = () => {
   let divisor = Camera.fullScreen
     ? { x: game.WIDTH / 2, y: game.HEIGHT / 2 }
     : { x: game.TILE_WIDTH / Camera.zoom, y: game.TILE_HEIGHT / Camera.zoom };
-  Render.lookAt(game.render, {
-    x: body.position.x,
-    y: body.position.y
-  }, divisor, true);
+  Render.lookAt(
+    game.render,
+    {
+      x: body.position.x,
+      y: body.position.y,
+    },
+    divisor,
+    true
+  );
 };
 
 Camera.switchView = () => {
   Camera.fullScreen = !Camera.fullScreen;
 };
-
-// Make global
-window.switchView = Camera.switchView;
 
 export default Camera;
