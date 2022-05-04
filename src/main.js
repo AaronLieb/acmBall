@@ -39,7 +39,13 @@ for (let i = 0; ; i++) {
   }
 }
 
-// starts the game, and then pauses is, waiting for user to press "start"
-Game.setup();
-Game.run();
-Game.pause();
+var game = new Game();
+
+game.setup();
+game.run();
+game.pause();
+
+window.startGame = game.start;
+window.resumeGame = this.resume;
+window.pauseGame = this.pause;
+window.restartGame = () => window.location.reload();

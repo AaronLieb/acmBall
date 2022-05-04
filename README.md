@@ -13,7 +13,6 @@ If you use VSCode, install the "Live Server" extension, and click "Go Live" in t
 Alternatively, you can use python to quickly start up an http server
 
 `python -m http.server`
-asdfasdf
 ## Documentation
 
 WIP
