@@ -25,6 +25,8 @@ tile.onBallEnter = async function () {
   tile.game.ball.position.x = 250;
 };
 
+tile.onBallLeave = async function () { };
+
 // This function will run once every tick while the ball is in your tile
 tile.onTick = function () { };
 
