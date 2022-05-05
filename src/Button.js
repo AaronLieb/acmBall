@@ -13,19 +13,10 @@ class Button extends Rectangle {
 
     this.color = this.unpressedColor;
     this.ballOnly = options.ballOnly ?? false;
-    this.callback = startCollide;
-    this.endCallback = endCollide;
+    this.body.callback = () => {this.color = this.pressedColor; startCollide();};
+    this.body.endCallback = () => {this.color = this.unpressedColor; endCollide();};
+    
     this.body.label = "button";
-  }
-
-  startCollide() {
-    this.color = this.pressedColor;
-    this.callback();
-  }
-
-  endCollide() {
-    this.color = this.unpressedColor;
-    this.endCallback();
   }
 
   static buttonLogic(a, b, event) {

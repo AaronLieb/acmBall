@@ -16,8 +16,9 @@ tile.setup = function () {
   tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
   let r = tile.createRectangle(100, 100, 50, 50, true);
   r.velocity = { x: 20, y: 0 };
-  t = tile.createRectangle(100, 100, 50, 50, true);
-  t.color = "blue";
+  t = tile.createConveyorBelt(300, 375, 200, 50, 15);
+  // t = tile.createButton(300, 375, 200, 50, ()=>{console.log('start button')});
+  t.angle = -70;
 };
 
 // This function will run when the ball enters your tile
