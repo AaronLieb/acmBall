@@ -4,7 +4,7 @@ import Tile from "../src/Tile.js";
 let tile = new Tile();
 
 tile.ballStart.position = { x: 0, y: 0 };
-tile.ballStart.velocity = { x: 0, y: 0 };
+tile.ballStart.velocity = { x: 5, y: 0 };
 
 tile.ballEnd.position = { x: 0, y: 0 };
 tile.ballEnd.velocity = { x: 0, y: 0 };
