@@ -21,6 +21,7 @@ tile.setup = function () {
   t.color = "blue";
   // tile.createLine(0, 250, 500, 500, 5);
   tile.createRamp(0, 500, 500, 250);
+  t = tile.createButton(100, 425, 200, 50, 15);
 };
 
 // This function will run when the ball enters your tile
