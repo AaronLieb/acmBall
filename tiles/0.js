@@ -16,7 +16,11 @@ tile.setup = function () {
   tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
   let r = tile.createRectangle(100, 100, 50, 50, true);
   r.velocity = { x: 20, y: 0 };
-  t = tile.createButton(100, 425, 200, 50, 15);
+
+  t = tile.createRectangle(100, 100, 50, 50, true);
+  t.color = "blue";
+  // tile.createLine(0, 250, 500, 500, 5);
+  tile.createRamp(0, 500, 500, 250);
 };
 
 // This function will run when the ball enters your tile

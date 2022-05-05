@@ -41,6 +41,7 @@
 
 import Game from "./Game.js";
 import Camera from "./Camera.js";
+import config from "../config.js";
 import { logErr } from "./helpers.js";
 
 const loadScript = async (id) => {
@@ -53,6 +54,8 @@ const loadScript = async (id) => {
     document.head.appendChild(script);
   });
 };
+
+Matter.Common.logLevel = config.logging.matter;
 
 var game;
 
