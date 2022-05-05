@@ -129,6 +129,10 @@ class Entity {
   get angle() {
     return this.body.angle;
   }
+
+  rotate(degrees) {
+    Matter.Body.rotate(this.body, degrees)
+  }
 }
 
 export default Entity;
