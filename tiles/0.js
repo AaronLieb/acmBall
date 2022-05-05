@@ -8,7 +8,7 @@ let game = tile.game;
 tile.ballStart.position = { x: 0, y: 0 };
 tile.ballStart.velocity = { x: 1, y: 0 };
 
-tile.ballEnd.position = { x: 0, y: 0 };
+tile.ballEnd.position = { x: 500, y: 417 };
 tile.ballEnd.velocity = { x: 0, y: 0 };
 
 let t;
@@ -20,10 +20,10 @@ tile.setup = function () {
   let ground1 = tile.createRectangle(250 / 2, 100, 250, groundThickness);
   ground1.angle += 10;
 
-  let ground2 = tile.createRectangle(315, 215, 250, groundThickness);
+  let ground2 = tile.createRectangle(315, 230, 250, groundThickness);
   ground2.angle -= 10;
 
-  let ground2Barrier = tile.createRectangle(tile.width - 100 / 2, 155, 100, groundThickness / 2);
+  let ground2Barrier = tile.createRectangle(tile.width - 100 / 2, 170, 100, groundThickness / 2);
   ground2Barrier.angle -= 75;
 
   let greenCircle = tile.createCircle(tile.width - 100, 40, 20);
