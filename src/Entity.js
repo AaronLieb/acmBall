@@ -121,14 +121,14 @@ class Entity {
    * @param {Number} degrees
    */
   set angle(degrees) {
-    Matter.Body.setAngle(this.body, degrees);
+    Matter.Body.setAngle(this.body, degrees * (Math.PI / 180));
   }
 
   /**
    * @returns {Number}
    */
   get angle() {
-    return this.body.angle;
+    return this.body.angle * (180 / Math.PI);
   }
 
   /**
