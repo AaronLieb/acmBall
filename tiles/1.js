@@ -17,7 +17,6 @@ tile.setup = function () {
   let r1 = tile.createRectangle(451, 151, 50, 50, true);
 
   let r2 = tile.createRectangle(452, 153, 50, 50, true);
-
 };
 
 // This function will run when the ball enters your tile
@@ -25,10 +24,10 @@ tile.onBallEnter = async function () {
   tile.game.ball.position.x = 250;
 };
 
-tile.onBallLeave = async function () { };
+tile.onBallLeave = async function () {};
 
 // This function will run once every tick while the ball is in your tile
-tile.onTick = function () { };
+tile.onTick = function () {};
 
 // This function will run once everey tick, even if the ball is not in your tile
-tile.onTickBackground = function () { };
+tile.onTickBackground = function () {};

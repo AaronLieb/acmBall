@@ -21,9 +21,7 @@ export let assertEqual = (a, b, msg) => {
 
 export let assertDiff = (a, b, delta, msg) => {
   if (Math.abs(a - b) > delta) {
-    let fail = `[${msg}] TEST CASE FAILED ${
-      Math.round(a * 100) / 100
-    } != ${b} | delta = ${delta}`;
+    let fail = `[${msg}] TEST CASE FAILED ${Math.round(a * 100) / 100} != ${b} | delta = ${delta}`;
     console.log(fail);
     let ele = document.createElement("p");
     ele.innerHTML = fail;
@@ -42,21 +40,15 @@ export const testBallPosition = (ball, end) => {
     x: ((est_pos.x - 1) % game.TILE_WIDTH) + 1,
     y: ((est_pos.y - 1) % game.TILE_HEIGHT) + 1,
   };
-  flag =
-    assertDiff(rel_est_pos.x, end.position.x, POSITION_DELTA, "Ball Position X") && flag;
-  flag =
-    assertDiff(rel_est_pos.y, end.position.y, POSITION_DELTA, "Ball Position Y") && flag;
+  flag = assertDiff(rel_est_pos.x, end.position.x, POSITION_DELTA, "Ball Position X") && flag;
+  flag = assertDiff(rel_est_pos.y, end.position.y, POSITION_DELTA, "Ball Position Y") && flag;
   return flag;
 };
 
 export const testBallVelocity = (ball, end) => {
   let flag = true;
-  flag =
-    assertDiff(ball.velocity.x, end.velocity.x, VELOCITY_DELTA, "Ball Velocity X") &&
-    flag;
-  flag =
-    assertDiff(ball.velocity.y, end.velocity.y, VELOCITY_DELTA, "Ball Velocity Y") &&
-    flag;
+  flag = assertDiff(ball.velocity.x, end.velocity.x, VELOCITY_DELTA, "Ball Velocity X") && flag;
+  flag = assertDiff(ball.velocity.y, end.velocity.y, VELOCITY_DELTA, "Ball Velocity Y") && flag;
   return flag;
 };
 
@@ -81,13 +73,6 @@ export const testBallRender = (ball) => {
 export const sendTestResults = async (tile) => {
   console.log(`Sending test results for tile ${tile.id}`);
   const result = tile.numTests == tile.testsPassed;
-  const h = hash([
-    tile.ballStart,
-    tile.ballEnd,
-    tile.setup,
-    tile.onBallEnter,
-    tile.onTick,
-    tile.onTickBackground,
-  ]);
+  const h = hash([tile.ballStart, tile.ballEnd, tile.setup, tile.onBallEnter, tile.onTick, tile.onTickBackground]);
   await reqJSONBin("put", tile.id, { result: result, hash: h });
 };

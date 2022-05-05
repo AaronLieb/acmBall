@@ -16,8 +16,7 @@ export const findIntersection = (axis, ball) => {
   let unit_vector = unitVector(ball.velocity);
   let ratio = d / unit_vector[opposite];
   let estimated_axis = ball.position[axis] + ratio * unit_vector[axis];
-  if (ball.velocity[axis] < 0 && ball.velocity[axis] > -0.5)
-    estimated_axis = ball.position[axis];
+  if (ball.velocity[axis] < 0 && ball.velocity[axis] > -0.5) estimated_axis = ball.position[axis];
   let estimated_pos = {};
   estimated_pos[opposite] = target;
   estimated_pos[axis] = estimated_axis;

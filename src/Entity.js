@@ -149,7 +149,7 @@ class Entity {
   }
 
   applyForce(x, y) {
-    Matter.Body.applyForce(this.body, this.body.position, {x: x, y: y})
+    Matter.Body.applyForce(this.body, this.body.position, { x: x, y: y });
   }
 }
 
