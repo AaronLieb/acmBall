@@ -1,9 +1,9 @@
 import Entity from "./Entity.js";
 
-const BALL_RADIUS = 40;
+const BALL_RADIUS = 20;
 
 const defaultState = {
-  label: 'ball',
+  label: "ball",
   frictionAir: 0,
   friction: 0.0006,
   restitution: 0.8,
@@ -25,7 +25,7 @@ class Ball extends Entity {
    *
    * @param {Tile} tile - the tile you want the ball to start in
    */
-  constructor(tile) {
+  constructor(tile = undefined) {
     let ball = Matter.Bodies.circle(0, 0, BALL_RADIUS, defaultState);
     super(ball, tile, false);
     this.defaultRender = defaultState.render;

@@ -18,7 +18,6 @@ class Entity {
     this.body.collisionFilter.mask = 0;
 
     if (!body.isStatic && addToTile) tile.bodies.push(body);
-
     Matter.Composite.add(game.engine.world, [this.body]);
   }
 
@@ -66,7 +65,9 @@ class Entity {
     let that = this;
 
     let result = {
-      x: rpos.x,
+      get x() {
+        return rpos.x;
+      },
       /**
        * @param {Number} x
        */
@@ -77,7 +78,9 @@ class Entity {
         });
       },
 
-      y: rpos.y,
+      get y() {
+        return rpos.y;
+      },
       /**
        * @param {Number} y
        */
@@ -122,17 +125,26 @@ class Entity {
   }
 
   /**
+   * The shapes angle. Use .rotate() to change the angle relatively.
    * @param {Number} degrees
    */
   set angle(degrees) {
-    Matter.Body.setAngle(this.body, degrees);
+    Matter.Body.setAngle(this.body, degrees * (Math.PI / 180));
   }
 
   /**
    * @returns {Number}
    */
   get angle() {
-    return this.body.angle;
+    return this.body.angle * (180 / Math.PI);
+  }
+
+  /**
+   * Rotates the shape. Use .angle for absolute angle.
+   * @param {Number} degrees
+   */
+  rotate(degrees) {
+    Matter.Body.rotate(this.body, degrees);
   }
 }
 
