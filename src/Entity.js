@@ -61,7 +61,9 @@ class Entity {
     let that = this;
 
     let result = {
-      x: rpos.x,
+      get x() {
+        return rpos.x;
+      },
       /**
        * @param {Number} x
        */
@@ -72,7 +74,9 @@ class Entity {
         });
       },
 
-      y: rpos.y,
+      get y() {
+        return rpos.y;
+      },
       /**
        * @param {Number} y
        */
