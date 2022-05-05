@@ -3,6 +3,7 @@ import Entity from "./Entity.js";
 const BALL_RADIUS = 40;
 
 const defaultState = {
+  label: 'ball',
   frictionAir: 0,
   friction: 0.0006,
   restitution: 0.8,

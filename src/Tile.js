@@ -142,7 +142,7 @@ class Tile {
     width,
     height,
     callback,
-    endCallback = (_) => {},
+    endCallback = (_) => { },
     options = { isStatic: true }
   ) {
     /* Trigger callback when button is pushed by object */
@@ -150,6 +150,7 @@ class Tile {
     let unpressedColor = options.unpressedColor || "red";
     let pressedColor = options.pressedColor || "green";
     options.render.fillStyle = unpressedColor;
+    let ballOnly = options.ballOnly ?? false;
     let button_body = Bodies.rectangle(
       this.left + x,
       this.top + y,
@@ -158,18 +159,17 @@ class Tile {
       options
     );
     let startCollide = () => {
-      callback();
       button_body.render.fillStyle = pressedColor;
+      callback();
     };
     let endCollide = () => {
-      endCallback();
       button_body.render.fillStyle = unpressedColor;
+      endCallback();
     };
+    button_body.ballOnly = ballOnly;
     button_body.callback = startCollide;
     button_body.endCallback = endCollide;
     button_body.label = "button";
-    button_body.trigger_threshold = 0.1; // amount of mass needed to trigger
-    button_body.current_mass = 0.0;
     Composite.add(game.engine.world, button_body);
     return new Entity(button_body, this);
   }
