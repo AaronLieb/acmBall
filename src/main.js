@@ -3,25 +3,11 @@
     Documentation:
       code block example, gif showing the result
 
-    *Create a spring composition, with constraints
-
-
-    curvs
-
-    portals
-
-    Charlie:
-      make sleep work with events instead of settimeout
-    
     Camera:
       use canvas.style.backgroundPosition to move background when camera moves
 
+    Fix buttons, they suck still
 
-  Justin:
-    Borders around tiles
-  
-    Extra:
-    Look into the engine and see what cool options there are to wrap
 */
 
 import Game from "./Game.js";

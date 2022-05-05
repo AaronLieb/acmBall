@@ -53,4 +53,14 @@ export const logErr = (msg) => {
   document.getElementById("testbox").style.backgroundColor = "red";
 };
 
-export const sleep = (t) => new Promise((r) => setTimeout(r, t));
+// TODO: attach sleep to a tile, clear the events, rej the promise when the tile changes
+export const sleep = async (t) => {
+  return new Promise((r) => {
+    const endTime = game.engine.timing.timestamp + t;
+    Matter.Events.on(game.engine, "beforeUpdate", () => {
+      if (game.engine.timing.timestamp >= endTime) {
+        r();
+      }
+    });
+  });
+};

@@ -158,11 +158,12 @@ class Entity {
   }
 
   /**
-   * Scales an Entity's shape and mass by the ratio
-   * @param {Number} ratio
+   * Scales an Entity's shape and mass by the ratio. If you only provide one argument, scale x and y equally.
+   * @param {Number} xRatio
+   * @param {Number} yRatio - Optional, defaults to xRatio
    */
-  scale(ratio) {
-    Matter.Body.scale(this.body, ratio, ratio);
+  scale(xRatio, yRatio = xRatio) {
+    Matter.Body.scale(this.body, xRatio, yRatio);
   }
 
   /**
