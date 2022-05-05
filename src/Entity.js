@@ -13,6 +13,10 @@ class Entity {
     this.body = body;
     this.tile = tile;
 
+    this.collisionId = this.tile.id + 1;
+    this.body.collisionFilter.group = this.collisionId;
+    this.body.collisionFilter.mask = 0;
+
     if (!body.isStatic && addToTile) tile.bodies.push(body);
     Matter.Composite.add(game.engine.world, [this.body]);
   }

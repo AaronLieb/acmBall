@@ -48,7 +48,10 @@ class Ball extends Entity {
   /**
    * Resets the ball to its defualt state
    */
-  resetState() {
+  moveTile(active_tile) {
+    this.body.collisionFilter.group = active_tile + 1;
+    this.body.collisionFilter.mask = 0; // don't touch this 
+    console.log(active_tile);
     Matter.Body.set(this.body, defaultState);
   }
 }

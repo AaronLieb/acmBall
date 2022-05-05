@@ -65,7 +65,7 @@ class Game {
       mouse: this.mouse,
       options: {
         showMousePosition: true,
-        showObjectMasses: true,
+        showObjectMasses: false,
         wireframes: false,
         width: (this.HEIGHT / this.WIDTH) * Camera.WIDTH,
         height: (this.WIDTH / this.HEIGHT) * Camera.HEIGHT,
@@ -161,7 +161,9 @@ class Game {
         this.tiles[oldActiveTile].testExit();
       }
 
-      this.ball.resetState();
+      if (oldActiveTile != config.tile_id || !this.tiles[oldActiveTile]) return;
+      this.tiles[oldActiveTile].testExit();
+      this.ball.moveTile(this.activeTile);
     });
   }
 
