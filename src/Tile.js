@@ -9,6 +9,9 @@ import {
 let { Bodies, Body, Composite } = Matter;
 import { parseOptions } from "./helpers.js";
 import config from "../config.js";
+import Circle from "./Circle.js";
+import Button from "./Button.js";
+import Rectangle from "./Rectangle.js";
 import Entity from "./Entity.js";
 
 /**
@@ -44,7 +47,9 @@ class Tile {
     this.onTickBackground;
   }
 
-  get ball() { return this.game.ball }
+  get ball() {
+    return this.game.ball;
+  }
 
   testExit() {
     let c = config.tests.exit;
@@ -73,14 +78,18 @@ class Tile {
    * @param {number} height
    * @param {bool} moveable
    * @param {Object} options
-   * @returns {Entity}
+   * @returns {Rectangle}
    */
   createRectangle(x, y, width, height, moveable = false, options = {}) {
-    options.isStatic = !moveable;
-    parseOptions(options);
-    let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
-    Composite.add(game.engine.world, body);
-    return new Entity(body, this);
+    return new Rectangle(
+      this,
+      this.left + x,
+      this.top + y,
+      width,
+      height,
+      moveable,
+      options
+    );
   }
 
   /**
@@ -90,14 +99,10 @@ class Tile {
    * @param {number} radius
    * @param {bool} moveable
    * @param {Object} options
-   * @returns {Entity}
+   * @returns {Circle}
    */
   createCircle(x, y, radius, moveable = false, options = {}) {
-    options.isStatic = !moveable;
-    parseOptions(options);
-    let body = Bodies.circle(this.left + x, this.top + y, radius, options);
-    Composite.add(game.engine.world, body);
-    return new Entity(body, this);
+    return new Circle(this, this.left + x, this.top + y, radius, moveable, options);
   }
 
   /**
@@ -112,17 +117,15 @@ class Tile {
    */
   createConveyorBelt(x, y, width, height, speed, options = { isStatic: true },) {
     parseOptions(options);
-    const _assignSpeed_callback = () => { this.game.ball.velocity = { x: speed * Math.cos(0), y: Math.sin(0) * speed }; };
-    //TO-DO convert to angle'd velocity with class
-    let body = this.createButton(
-      x,
-      y, width,
-      height,
-      _assignSpeed_callback,
-      () => { },
-      { ...options, unpressedColor: 'green', pressedColor: 'green' }
-    )
-    return body; // don't wrap this in Entity because its wrapping button which is already an Entity
+    options.render.fillStyle = "green";
+    let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
+    body.isStatic = true;
+    body.isSensor = true;
+    body.speedUp = (ball) => {
+      Body.setVelocity(ball, { x: speed, y: 0 });
+    };
+    game.detector.bodies.push(body);
+    return new Entity(body, this);
   }
 
   /**
@@ -145,40 +148,19 @@ class Tile {
     width,
     height,
     callback,
-    endCallback = (_) => { },
+    endCallback = (_) => {},
     options = { isStatic: true }
   ) {
-    /* Trigger callback when button is pushed by object */
-    parseOptions(options);
-    let unpressedColor = options.unpressedColor || "red";
-    let pressedColor = options.pressedColor || "green";
-    options.render.fillStyle = unpressedColor;
-    let ballOnly = options.ballOnly ?? false;
-    let triggerOnce = options.triggerOnce ?? false;
-    let button_body = Bodies.rectangle(
+    return new Button(
+      this,
       this.left + x,
       this.top + y,
       width,
       height,
-      options
+      callback,
+      (endCallback = (_) => {}),
+      (options = { isStatic: true })
     );
-    let triggered = false;
-    let startCollide = () => {
-      if (game.activeTile !== this.id || (triggered && triggerOnce)) return;
-      triggered = true;
-      button_body.render.fillStyle = pressedColor;
-      callback();
-    };
-    let endCollide = () => {
-      button_body.render.fillStyle = unpressedColor;
-      endCallback();
-    };
-    button_body.ballOnly = ballOnly;
-    button_body.callback = startCollide;
-    button_body.endCallback = endCollide;
-    button_body.label = "button";
-    Composite.add(game.engine.world, button_body);
-    return new Entity(button_body, this);
   }
 
   /**
@@ -195,7 +177,6 @@ class Tile {
     parseOptions(options);
     let base = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
     let spring = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
-    Composite.add(game.engine.world, spring);
     return new Entity(spring, this);
   }
 

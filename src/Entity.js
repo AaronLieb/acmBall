@@ -2,6 +2,7 @@ import { relPosition } from "./helpers.js";
 
 /**
  * A physical object in a tile. Contains a MatterJS body
+ * @class {Entity}
  */
 class Entity {
   /**
@@ -145,6 +146,10 @@ class Entity {
    */
   rotate(degrees) {
     Matter.Body.rotate(this.body, degrees);
+  }
+
+  applyForce(x, y) {
+    Matter.Body.applyForce(this.body, this.body.position, {x: x, y: y})
   }
 }
 

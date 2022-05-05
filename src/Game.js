@@ -1,8 +1,8 @@
 import { positionToTile, parseOptions, relPosition } from "./helpers.js";
 import Ball from "./Ball.js";
+import Button from "./Button.js";
 import Camera from "./Camera.js";
 import config from "../config.js";
-import { buttonLogic } from "./button.js";
 let {
   Mouse,
   Resolver,
@@ -182,7 +182,7 @@ class Game {
       let a = pair.bodyA;
       let b = pair.bodyB;
       /* allow callback-enabled collisions with objects with label 'button' only */
-      if (a.label === "button" || b.label === "button") buttonLogic(a, b, event);
+      if (a.label === "button" || b.label === "button") Button.buttonLogic(a, b, event);
       // if (a.position.y > b.position.y) b.mass += a.mass;
     }
   }

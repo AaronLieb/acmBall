@@ -1,4 +1,4 @@
-import Entity from "./Entity.js";
+import Circle from "./Circle.js";
 
 const BALL_RADIUS = 20;
 
@@ -20,29 +20,14 @@ const defaultState = {
 /**
  * @class Ball
  */
-class Ball extends Entity {
+class Ball extends Circle {
   /**
    *
    * @param {Tile} tile - the tile you want the ball to start in
    */
-  constructor(tile = undefined) {
-    let ball = Matter.Bodies.circle(0, 0, BALL_RADIUS, defaultState);
-    super(ball, tile, false);
+  constructor(tile) {
+    super(tile, 0, 0, BALL_RADIUS, true, defaultState);
     this.defaultRender = defaultState.render;
-  }
-
-  /**
-   * @param {Number} radius - the radius of the circle
-   */
-  set radius(radius) {
-    Matter.Body.set(this.body, { circleRadius: radius });
-  }
-
-  /**
-   * @returns {Number}
-   */
-  get radius() {
-    return this.body.circleRadius;
   }
 
   /**
