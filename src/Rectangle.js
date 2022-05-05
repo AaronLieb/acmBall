@@ -9,6 +9,26 @@ class Rectangle extends Entity {
     super(body, tile);
     this.body.label = "rectangle";
   }
+
+  set height(height) {
+    throw new Error("You cannot directly modify the height of a rectangle");
+  }
+
+  set width(width) {
+    throw new Error("You cannot directly modify the height of a rectangle");
+  }
+
+  get height() {
+    return this.body.height;
+  }
+
+  get width() {
+    return this.body.width;
+  }
+
+  setTopLeft(x, y) {
+    this.position = { x: x - this.width / 2, y: y - this.height / 2 };
+  }
 }
 
 export default Rectangle;

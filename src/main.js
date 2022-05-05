@@ -47,6 +47,7 @@
 
 import Game from "./Game.js";
 import Camera from "./Camera.js";
+import { logErr } from "./helpers.js";
 
 const loadScript = async (id) => {
   return new Promise((res, rej) => {
@@ -78,7 +79,12 @@ const start = async () => {
   game.pause();
 };
 
-await start();
+try {
+  await start();
+} catch (e) {
+  console.error(e);
+  logErr(e);
+}
 
 window.startGame = () => {
   game.resume();

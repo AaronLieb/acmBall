@@ -24,11 +24,11 @@ Render.timestamp = function (render, engine, ctx) {
   };
   ctx.fillStyle = "rgba(0,0,0,1)";
   ctx.font = "20px Monospace";
-  const str = `${pad(Math.floor(engine.timing.timestamp / 1000), " ", 5)}s ${pad(
-    Math.floor(engine.timing.timestamp % 1000),
-    "0",
-    4
-  )}ms`;
+  const str =
+    pad(Math.floor(engine.timing.timestamp / 1000), " ", 5) +
+    "s " +
+    pad(Math.floor(engine.timing.timestamp % 1000), "0", 4) +
+    "ms";
   ctx.fillText(str, render.canvas.width - 170, render.canvas.height - 20);
 };
 
@@ -65,9 +65,9 @@ class Game {
       engine: this.engine,
       mouse: this.mouse,
       options: {
-        showMousePosition: true,
-        showObjectMasses: false,
-        showTimestamp: true,
+        showMousePosition: config.debug.showMousePosition,
+        showObjectMasses: config.debug.showMasses,
+        showTimestamp: config.debug.showTimer,
         wireframes: false,
         width: (this.HEIGHT / this.WIDTH) * Camera.WIDTH,
         height: (this.WIDTH / this.HEIGHT) * Camera.HEIGHT,

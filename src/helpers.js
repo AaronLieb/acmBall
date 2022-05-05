@@ -46,4 +46,11 @@ export const parseOptions = (options = {}) => {
   return options;
 };
 
+export const logErr = (msg) => {
+  let ele = document.createElement("p");
+  ele.textContent = msg;
+  document.getElementById("testlogs").appendChild(ele);
+  document.getElementById("testbox").style.backgroundColor = "red";
+};
+
 export const sleep = (t) => new Promise((r) => setTimeout(r, t));

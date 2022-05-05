@@ -1,4 +1,4 @@
-import { findIntersection, hash } from "./helpers.js";
+import { findIntersection, hash, logErr } from "./helpers.js";
 import { reqJSONBin } from "./db.js";
 let { Vertices } = Matter;
 
@@ -9,10 +9,7 @@ export let assertEqual = (a, b, msg) => {
   if (a !== b) {
     let fail = `[${msg}] TEST CASE FAILED ${a} != ${b}`;
     console.log(fail);
-    let ele = document.createElement("p");
-    ele.innerHTML = fail;
-    document.getElementById("testlogs").appendChild(ele);
-    document.getElementById("testbox").style.backgroundColor = "red";
+    logErr(fail);
     return false;
   }
   //console.log(`[${msg}] TEST CASE PASSED ${a} = ${b}`);

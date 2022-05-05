@@ -14,6 +14,8 @@ tile.setup = function () {
   tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
   let r = tile.createRectangle(100, 100, 50, 50, true);
   r.velocity = { x: 20, y: 0 };
+  let t = tile.createRectangle(100, 100, 50, 50, true);
+  t.setTopLeft(0, 0);
 };
 
 // This function will run when the ball enters your tile

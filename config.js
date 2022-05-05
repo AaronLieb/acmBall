@@ -9,6 +9,11 @@ const config = {
       render: true,
     },
   },
+  debug: {
+    showMasses: false,
+    showTimer: true,
+    showMousePosition: true,
+  },
 };
 
 export default config;
