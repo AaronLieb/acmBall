@@ -10,7 +10,7 @@ class Entity {
    * @param {Tile} tile
    * @param {bool} addToTile
    */
-  constructor(body, tile, addToTile = true) {
+  constructor(body, tile, addToTile = true, addToWorld = true) {
     this.body = body;
     this.tile = tile;
 
@@ -19,7 +19,7 @@ class Entity {
     this.body.collisionFilter.mask = 0;
 
     if (!body.isStatic && addToTile) tile.bodies.push(body);
-    Matter.Composite.add(game.engine.world, [this.body]);
+    addToWorld && Matter.Composite.add(game.engine.world, [this.body]);
   }
 
   /**

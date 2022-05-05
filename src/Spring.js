@@ -1,6 +1,6 @@
 import Button from "./Button.js";
 
-class ConveyorBelt extends Button {
+class Spring extends Button {
   constructor(tile, x, y, width, height, speed, options) {
     let startCollide = () => {tile.ball.velocity = {x: speed * Math.cos(this.angle * Math.PI/180), 
       y: speed * Math.sin(this.angle * Math.PI/180)};};
@@ -9,4 +9,4 @@ class ConveyorBelt extends Button {
   }
 }
 
-export default ConveyorBelt;
+export default Spring;
