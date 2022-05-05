@@ -44,6 +44,7 @@ class Entity {
       x: this.tile.left + position.x,
       y: this.tile.top + position.y,
     });
+    console.log(this.body.position);
   }
 
   /**
@@ -150,6 +151,14 @@ class Entity {
 
   applyForce(x, y) {
     Matter.Body.applyForce(this.body, this.body.position, { x: x, y: y });
+  }
+
+  /**
+   * Scales an Entity's shape and mass by the ratio
+   * @param {Number} ratio
+   */
+  scale(ratio) {
+    Matter.Body.scale(this.body, ratio, ratio);
   }
 }
 

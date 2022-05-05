@@ -20,9 +20,7 @@ tile.setup = function () {
 };
 
 // This function will run when the ball enters your tile
-tile.onBallEnter = async function () {
-  tile.game.ball.position.x = 250;
-};
+tile.onBallEnter = async function () {};
 
 tile.onBallLeave = async function () {};
 
