@@ -109,7 +109,7 @@ class Tile {
    * @returns {Entity}
    */
   createConveyorBelt(x, y, width, height, speed, options = {}) {
-    return new ConveyorBelt(this, x, y, width, height, speed, options);
+    return new ConveyorBelt(this, this.left + x, this.top + y, width, height, speed, options);
   }
 
   /**
