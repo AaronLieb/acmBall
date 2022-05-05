@@ -1,3 +1,4 @@
+import Entity from "./Entity.js";
 import Rectangle from "./Rectangle.js";
 
 /**
@@ -8,6 +9,13 @@ class Button extends Rectangle {
   constructor(tile, x, y, width, height, startCollide, endCollide, options) {
     super(tile, x, y, width, height, !(options?.isStatic ?? true), options);
 
+    let sensorBody = Matter.Bodies.rectangle(x, y, width+1, height+100, {isStatic: true, isSensor: true});
+    let sensor = new Entity(sensorBody, tile, false, false);
+    sensor.color = 'rgba(42, 42, 42, 0.4)';
+    sensor.body.label = 'sensor'
+    // sensor.body.parent = this.body;
+    Matter.Body.setParts(this.body, [...this.body.parts,...sensor.body.parts], true)
+    console.log(this.body.parts);
     this.unpressedColor = options.unpressedColor ?? "red";
     this.pressedColor = options.pressedColor ?? "green";
 
