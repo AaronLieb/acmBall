@@ -117,6 +117,7 @@ class Entity {
   }
 
   /**
+   * The shapes angle. Use .rotate() to change the angle relatively.
    * @param {Number} degrees
    */
   set angle(degrees) {
@@ -130,8 +131,12 @@ class Entity {
     return this.body.angle;
   }
 
+  /**
+   * Rotates the shape. Use .angle for absolute angle.
+   * @param {Number} degrees
+   */
   rotate(degrees) {
-    Matter.Body.rotate(this.body, degrees)
+    Matter.Body.rotate(this.body, degrees);
   }
 }
 
