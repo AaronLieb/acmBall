@@ -108,18 +108,19 @@ class Tile {
    * @param {Object} options
    * @returns {Entity}
    */
-  createConveyorBelt(x, y, width, height, speed, options = { isStatic: true }) {
+  createConveyorBelt(x, y, width, height, speed, options = { isStatic: true },) {
     parseOptions(options);
-    options.render.fillStyle = "green";
-    let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
-    body.isStatic = true;
-    body.isSensor = true;
-    body.speedUp = (ball) => {
-      Body.setVelocity(ball, { x: speed, y: 0 });
-    };
-    game.detector.bodies.push(body);
-    Composite.add(game.engine.world, body);
-    return new Entity(body, this);
+    const _assignSpeed_callback = () => { this.game.ball.velocity = { x: speed * Math.cos(0), y: Math.sin(0) * speed }; };
+    //TO-DO convert to angle'd velocity with class
+    let body = this.createButton(
+      x,
+      y, width,
+      height,
+      _assignSpeed_callback,
+      () => { },
+      { ...options, unpressedColor: 'green', pressedColor: 'green' }
+    )
+    return body; // don't wrap this in Entity because its wrapping button which is already an Entity
   }
 
   /**
@@ -151,6 +152,7 @@ class Tile {
     let pressedColor = options.pressedColor || "green";
     options.render.fillStyle = unpressedColor;
     let ballOnly = options.ballOnly ?? false;
+    let triggerOnce = options.triggerOnce ?? false;
     let button_body = Bodies.rectangle(
       this.left + x,
       this.top + y,
@@ -158,7 +160,10 @@ class Tile {
       height,
       options
     );
+    let triggered = false;
     let startCollide = () => {
+      if (game.activeTile !== this.id || (triggered && triggerOnce)) return;
+      triggered = true;
       button_body.render.fillStyle = pressedColor;
       callback();
     };

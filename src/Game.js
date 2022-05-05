@@ -65,7 +65,7 @@ class Game {
       mouse: this.mouse,
       options: {
         showMousePosition: true,
-        showObjectMasses: true,
+        showObjectMasses: false,
         wireframes: false,
         width: (this.HEIGHT / this.WIDTH) * Camera.WIDTH,
         height: (this.WIDTH / this.HEIGHT) * Camera.HEIGHT,
@@ -146,13 +146,13 @@ class Game {
       let oldActiveTile = this.activeTile;
       this.activeTile = positionToTile(this.ball.body.position);
 
-      if ( oldActiveTile == this.activeTile || !this.tiles[this.activeTile] || this.activeTile < 0) return;
+      if (oldActiveTile == this.activeTile || !this.tiles[this.activeTile] || this.activeTile < 0) return;
       this.ball.tile = this.tiles[this.activeTile];
       this.tiles[this.activeTile].onBallEnter();
 
       if (oldActiveTile != config.tile_id || !this.tiles[oldActiveTile]) return;
       this.tiles[oldActiveTile].testExit();
-      this.ball.resetState();
+      this.ball.moveTile(this.activeTile);
     });
   }
 
