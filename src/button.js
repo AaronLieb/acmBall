@@ -5,8 +5,8 @@ import Rectangle from "./Rectangle.js";
  * @class {Button}
  */
 class Button extends Rectangle {
-  constructor(x, y, width, height, startCollide, endCollide, options) {
-    super(x, y, width, height, options);
+  constructor(tile, x, y, width, height, startCollide, endCollide, options) {
+    super(tile, x, y, width, height, options);
 
     this.unpressedColor = options.unpressedColor || "red";
     this.pressedColor = options.pressedColor || "green";
