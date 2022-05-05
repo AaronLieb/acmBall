@@ -9,8 +9,15 @@
     Body bounds, don't let objects created in a tile leave that Tile
     .bounds.max / .bounds.min
     test cases
+    collision filters
 
     Apply force 
+
+    lines
+
+    ramps
+
+    polygons
 
     Charlie:
       make sleep work with events instead of settimeout
@@ -25,10 +32,6 @@
 
     ball scale function in wrapper
 
-    Top left everything 
-
-  Duc:
-    Sprites
 
   Justin:
     apply force
@@ -79,7 +82,11 @@ const start = async () => {
 
 await start();
 
-window.startGame = game.start;
+window.startGame = () => {
+  game.resume();
+  resumeButton.hidden = true;
+  pauseButton.hidden = false;
+};
 window.resumeGame = game.resume;
 window.pauseGame = game.pause;
 window.restartGame = () => window.location.reload();
