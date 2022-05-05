@@ -76,10 +76,10 @@ class Tile {
 
   /**
    * @method createRectangle
-   * @param {number} x - the center x value
-   * @param {number} y - the center y value
-   * @param {number} width
-   * @param {number} height
+   * @param {Number} x - the center x value
+   * @param {Number} y - the center y value
+   * @param {Number} width
+   * @param {Number} height
    * @param {bool} moveable
    * @param {Object} options
    * @returns {Rectangle}
@@ -88,14 +88,47 @@ class Tile {
     return new Rectangle(this, this.left + x, this.top + y, width, height, moveable, options);
   }
 
+  /**
+   * @method createLine
+   * @param {Number} x1 - x position of the first point
+   * @param {Number} y1 - y position of the first point
+   * @param {Number} x2 - x position of the second point
+   * @param {Number} y2 - y position of the second point
+   * @param {Number} thickness - how thick the line is 
+   * @param {bool} moveable 
+   * @param {Object} options 
+   * @returns {Line}
+   */
   createLine(x1, y1, x2, y2, thickness, moveable = false, options = {}) {
     return new Line(this, x1, y1, x2, y2, thickness, moveable, options);
   }
 
+  /**
+   * @method createTriangle
+   * @param {Number} x1  - x position of the first point
+   * @param {Number} y1  - y position of the first point
+   * @param {Number} x2  - x position of the second point
+   * @param {Number} y2  - y poisition of the second point
+   * @param {Number} x3  - x position of the third point
+   * @param {Number} y3  - y position of the third point
+   * @param {bool} moveable 
+   * @param {Object} options 
+   * @returns {Triangle}
+   */
   createTriangle(x1, y1, x2, y2, x3, y3, moveable = false, options = {}) {
     return new Triangle(this, x1, y1, x2, y2, x3, y3, moveable, options);
   }
 
+  /**
+   * Creats a triangle ramp from two points, is unmoveable
+   * @method createRamp
+   * @param {Number} x1 - x position for the start of the ramp
+   * @param {Number} y1 - y position for the start of the ramp
+   * @param {Number} x2 - x position for the end of the ramp
+   * @param {Number} y2 - y position for the end of the ramp
+   * @param {Object} options 
+   * @returns {Ramp}
+   */
   createRamp(x1, y1, x2, y2, options = {}) {
     return new Ramp(this, x1, y1, x2, y2, options);
   }
@@ -119,9 +152,9 @@ class Tile {
    * @param {number} y - the center y value
    * @param {number} width
    * @param {number} height
-   * @param {number} speed
+   * @param {number} speed - make this negative to switch the direction
    * @param {Object} options
-   * @returns {Entity}
+   * @returns {ConveyorBelt}
    */
   createConveyorBelt(x, y, width, height, speed, options = {}) {
     return new ConveyorBelt(this, this.left + x, this.top + y, width, height, speed, options);
@@ -136,10 +169,10 @@ class Tile {
    * @param {number} y - the center y value
    * @param {number} width
    * @param {number} height
-   * @param {function} callback
-   * @param {function} endCallback
+   * @param {function} callback - gets called when the button is pressed down
+   * @param {function} endCallback - gets called when the button is unpressed
    * @param {Object} options
-   * @returns {Entity}
+   * @returns {Button}
    */
   createButton(x, y, width, height, callback, endCallback = (_) => {}, options = {}) {
     return new Button(this, this.left + x, this.top + y, width, height, callback, endCallback, options);
