@@ -81,15 +81,7 @@ class Tile {
    * @returns {Rectangle}
    */
   createRectangle(x, y, width, height, moveable = false, options = {}) {
-    return new Rectangle(
-      this,
-      this.left + x,
-      this.top + y,
-      width,
-      height,
-      moveable,
-      options
-    );
+    return new Rectangle(this, this.left + x, this.top + y, width, height, moveable, options);
   }
 
   /**
@@ -115,7 +107,7 @@ class Tile {
    * @param {Object} options
    * @returns {Entity}
    */
-  createConveyorBelt(x, y, width, height, speed, options = { isStatic: true },) {
+  createConveyorBelt(x, y, width, height, speed, options = { isStatic: true }) {
     parseOptions(options);
     options.render.fillStyle = "green";
     let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
@@ -142,15 +134,7 @@ class Tile {
    * @param {Object} options
    * @returns {Entity}
    */
-  createButton(
-    x,
-    y,
-    width,
-    height,
-    callback,
-    endCallback = (_) => {},
-    options = { isStatic: true }
-  ) {
+  createButton(x, y, width, height, callback, endCallback = (_) => {}, options = { isStatic: true }) {
     return new Button(
       this,
       this.left + x,

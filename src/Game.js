@@ -3,18 +3,7 @@ import Ball from "./Ball.js";
 import Button from "./Button.js";
 import Camera from "./Camera.js";
 import config from "../config.js";
-let {
-  Mouse,
-  Resolver,
-  Body,
-  Bodies,
-  Runner,
-  Render,
-  Composite,
-  Detector,
-  Engine,
-  Events,
-} = Matter;
+let { Mouse, Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } = Matter;
 
 // TODO: MOVE THESE TO MATTER
 Render.mousePosition = function (_, mouse, ctx) {
@@ -34,11 +23,7 @@ Render.timestamp = function (render, engine, ctx) {
   ctx.fillText(engine.timing.timestamp, 250, 250);
 };
 
-Render.objectMasses = function (
-  render,
-  bodies = Composite.allBodies(Game.engine.world),
-  context
-) {
+Render.objectMasses = function (render, bodies = Composite.allBodies(Game.engine.world), context) {
   var c = context;
   c.font = "20px Arial";
   c.fillStyle = "rgba(240, 248, 255, 1)";
@@ -153,12 +138,7 @@ class Game {
       let oldActiveTile = this.activeTile;
       this.activeTile = positionToTile(this.ball.body.position);
 
-      if (
-        oldActiveTile == this.activeTile ||
-        !this.tiles[this.activeTile] ||
-        this.activeTile < 0
-      )
-        return;
+      if (oldActiveTile == this.activeTile || !this.tiles[this.activeTile] || this.activeTile < 0) return;
       this.ball.tile = this.tiles[this.activeTile];
       this.tiles[this.activeTile].onBallEnter();
       this.tiles[oldActiveTile]?.onBallLeave();

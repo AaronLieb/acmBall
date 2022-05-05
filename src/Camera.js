@@ -20,10 +20,8 @@ Camera.setup = () => {
 
 Camera.lerp = () => {
   /* linearly interpolates camera focus by lerp_coefficient */
-  let x =
-    (game.ball.body.position.x - Camera.focusBody.position.x) * Camera.lerp_coefficient;
-  let y =
-    (game.ball.body.position.y - Camera.focusBody.position.y) * Camera.lerp_coefficient;
+  let x = (game.ball.body.position.x - Camera.focusBody.position.x) * Camera.lerp_coefficient;
+  let y = (game.ball.body.position.y - Camera.focusBody.position.y) * Camera.lerp_coefficient;
   Camera.focusBody.position.x += x;
   Camera.focusBody.position.y += y;
 };

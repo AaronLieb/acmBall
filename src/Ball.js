@@ -35,7 +35,7 @@ class Ball extends Circle {
    */
   moveTile(active_tile) {
     this.body.collisionFilter.group = active_tile + 1;
-    this.body.collisionFilter.mask = 0; // don't touch this 
+    this.body.collisionFilter.mask = 0; // don't touch this
     console.log(active_tile);
     Matter.Body.set(this.body, defaultState);
   }
