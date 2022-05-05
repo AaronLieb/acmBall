@@ -17,6 +17,7 @@ import Entity from "./Entity.js";
 import Line from "./Line.js";
 import Triangle from "./Triangle.js";
 import Ramp from "./Ramp.js";
+import Rope from "./Rope.js";
 import Spring from "./Spring.js";
 import Portal from "./Portal.js";
 
@@ -163,7 +164,10 @@ class Tile {
   }
 
   createPortals(x1, y1, x2, y2) {
-    return [new Portal(this, x1, y1, x2, y2, "rgba(255, 154, 0, 0.6)"), new Portal(this, x2, y2, x1, y1, "rgba(0, 101, 255, 0.6)")];
+    return [
+      new Portal(this, x1, y1, x2, y2, "rgba(255, 154, 0, 0.6)"),
+      new Portal(this, x2, y2, x1, y1, "rgba(0, 101, 255, 0.6)"),
+    ];
   }
 
   /**
@@ -196,6 +200,17 @@ class Tile {
    */
   createSpring(x, y, width, height, vx, vy, options = {}) {
     return new Spring(this, this.left + x, this.top + y, width, height, vx, vy, options);
+  }
+
+  /**
+   * @method createSpring
+   * @param {number} x - the center x value
+   * @param {number} y - the center y value
+   * @param {number} length - how long the rope is
+   * @param {Object} options
+   */
+  createRope(x, y, length, options = {}) {
+    new Rope(this, this.left + x, this.top + y, length, options);
   }
 
   /**

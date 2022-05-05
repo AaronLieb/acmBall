@@ -17,6 +17,14 @@ tile.setup = function () {
   let r1 = tile.createRectangle(451, 151, 50, 50, true);
 
   let r2 = tile.createRectangle(452, 153, 50, 50, true);
+
+  let rope1 = tile.createRope(250, 100, 10);
+  
+  let r3 = tile.createRectangle(202, 153, 50, 50, true);
+
+
+  let spring1 = tile.createSpring(200, 420, 150, 20, 8, -20, {ballOnly: false});
+
 };
 
 // This function will run when the ball enters your tile

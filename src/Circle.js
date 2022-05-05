@@ -7,7 +7,7 @@ class Circle extends Entity {
     parseOptions(options);
     let body = Matter.Bodies.circle(x, y, radius, options);
     super(body, tile, addToTile);
-    this.body.label = "circle";
+    this.body.label = options.label ?? 'circle';
   }
 
   /**
