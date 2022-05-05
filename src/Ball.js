@@ -24,7 +24,7 @@ class Ball extends Entity {
    *
    * @param {Tile} tile - the tile you want the ball to start in
    */
-  constructor(tile) {
+  constructor(tile = undefined) {
     let ball = Matter.Bodies.circle(0, 0, BALL_RADIUS, defaultState);
     super(ball, tile, false);
     this.defaultRender = defaultState.render;

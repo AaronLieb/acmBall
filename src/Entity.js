@@ -14,7 +14,6 @@ class Entity {
     this.tile = tile;
 
     if (!body.isStatic && addToTile) tile.bodies.push(body);
-
     Matter.Composite.add(game.engine.world, [this.body]);
   }
 

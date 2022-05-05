@@ -28,8 +28,7 @@ class Tile {
     this.bottom = this.right + game.TILE_HEIGHT;
     this.testsPassed = 0;
     this.numTests = 5;
-    this.game = /** @type {Game} */ game;
-    this.ball = /** @type {Ball} */ this.game.ball;
+    this.game = game;
     this.matter = Matter; // for advanced users
     this.bodies = []; // list of objects in this tile
 
@@ -40,9 +39,12 @@ class Tile {
     /* User Defined Member Functions */
     this.setup;
     this.onBallEnter;
+    this.onBallLeave;
     this.onTick;
     this.onTickBackground;
   }
+
+  get ball() { return this.game.ball }
 
   testExit() {
     let c = config.tests.exit;
