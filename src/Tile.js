@@ -17,6 +17,7 @@ import Entity from "./Entity.js";
 import Line from "./Line.js";
 import Triangle from "./Triangle.js";
 import Ramp from "./Ramp.js";
+import Portal from "./Portal.js";
 
 /**
  * A tile in the game grid
@@ -94,9 +95,9 @@ class Tile {
    * @param {Number} y1 - y position of the first point
    * @param {Number} x2 - x position of the second point
    * @param {Number} y2 - y position of the second point
-   * @param {Number} thickness - how thick the line is 
-   * @param {bool} moveable 
-   * @param {Object} options 
+   * @param {Number} thickness - how thick the line is
+   * @param {bool} moveable
+   * @param {Object} options
    * @returns {Line}
    */
   createLine(x1, y1, x2, y2, thickness, moveable = false, options = {}) {
@@ -111,8 +112,8 @@ class Tile {
    * @param {Number} y2  - y poisition of the second point
    * @param {Number} x3  - x position of the third point
    * @param {Number} y3  - y position of the third point
-   * @param {bool} moveable 
-   * @param {Object} options 
+   * @param {bool} moveable
+   * @param {Object} options
    * @returns {Triangle}
    */
   createTriangle(x1, y1, x2, y2, x3, y3, moveable = false, options = {}) {
@@ -126,7 +127,7 @@ class Tile {
    * @param {Number} y1 - y position for the start of the ramp
    * @param {Number} x2 - x position for the end of the ramp
    * @param {Number} y2 - y position for the end of the ramp
-   * @param {Object} options 
+   * @param {Object} options
    * @returns {Ramp}
    */
   createRamp(x1, y1, x2, y2, options = {}) {
@@ -158,6 +159,10 @@ class Tile {
    */
   createConveyorBelt(x, y, width, height, speed, options = {}) {
     return new ConveyorBelt(this, this.left + x, this.top + y, width, height, speed, options);
+  }
+
+  createPortals(x1, y1, x2, y2) {
+    return [new Portal(this, x1, y1, x2, y2, "rgba(255, 154, 0, 0.6)"), new Portal(this, x2, y2, x1, y1, "rgba(0, 101, 255, 0.6)")];
   }
 
   /**
