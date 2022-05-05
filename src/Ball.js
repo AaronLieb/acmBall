@@ -31,6 +31,23 @@ class Ball extends Entity {
     this.defaultRender = defaultState.render;
   }
 
+  /**
+   * @param {Number} radius - the radius of the circle
+   */
+  set radius(radius) {
+    Matter.Body.set(this.body, { circleRadius: radius });
+  }
+
+  /**
+   * @returns {Number}
+   */
+  get radius() {
+    return this.body.circleRadius;
+  }
+
+  /**
+   * Resets the ball to its defualt state
+   */
   resetState() {
     Matter.Body.set(this.body, defaultState);
   }

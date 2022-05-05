@@ -28,8 +28,8 @@ class Tile {
     this.bottom = this.right + game.TILE_HEIGHT;
     this.testsPassed = 0;
     this.numTests = 5;
-    this.game = game;
-    this.ball = this.game.ball;
+    this.game = /** @type {Game} */ game;
+    this.ball = /** @type {Ball} */ this.game.ball;
     this.matter = Matter; // for advanced users
     this.bodies = []; // list of objects in this tile
 

@@ -58,7 +58,33 @@ class Entity {
    * @returns {vector} - {x: num, y: num}
    */
   get position() {
-    return relPosition(this.body.position, this.tile);
+    let rpos = relPosition(this.body.position, this.tile);
+    let that = this;
+
+    let result = {
+      x: rpos.x,
+      /**
+       * @param {Number} x
+       */
+      set x(x) {
+        Matter.Body.setPosition(that.body, {
+          x: that.tile.left + x,
+          y: that.body.position.y,
+        });
+      },
+
+      y: rpos.y,
+      /**
+       * @param {Number} y
+       */
+      set y(y) {
+        Matter.Body.setPosition(that.body, {
+          x: that.body.position.y,
+          y: that.tile.top + y,
+        });
+      },
+    };
+    return result;
   }
 
   /**
@@ -74,7 +100,7 @@ class Entity {
    * @param {Number} yV - the y velocity
    */
   setVelocity(xV, yV) {
-    Matter.Body.setPosition(this.body, { x: xV, y: yV });
+    Matter.Body.setVelocity(this.body, { x: xV, y: yV });
   }
 
   /**
@@ -89,6 +115,20 @@ class Entity {
    */
   get color() {
     return this.body.render.fillStyle;
+  }
+
+  /**
+   * @param {Number} degrees
+   */
+  set angle(degrees) {
+    Matter.Body.setAngle(this.body, degrees);
+  }
+
+  /**
+   * @returns {Number}
+   */
+  get angle() {
+    return this.body.angle;
   }
 }
 

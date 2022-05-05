@@ -3,8 +3,8 @@ import Tile from "../src/Tile.js";
 
 let tile = new Tile();
 
-tile.ballStart.position = { x: 0, y: 0 };
-tile.ballStart.velocity = { x: 0, y: 0 };
+tile.ballStart.position = { x: 0, y: 200 };
+tile.ballStart.velocity = { x: 4, y: 0 };
 
 tile.ballEnd.position = { x: 0, y: 0 };
 tile.ballEnd.velocity = { x: 0, y: 0 };
@@ -15,7 +15,9 @@ tile.setup = function () {
 };
 
 // This function will run when the ball enters your tile
-tile.onBallEnter = async function () {};
+tile.onBallEnter = async function () {
+  tile.game.ball.position.x = 250;
+};
 
 // This function will run once every tick while the ball is in your tile
 tile.onTick = function () {};

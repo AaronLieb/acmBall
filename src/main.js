@@ -9,11 +9,34 @@
     Body bounds, don't let objects created in a tile leave that Tile
     .bounds.max / .bounds.min
     test cases
+
+    Apply force 
+
+    Charlie:
+      make sleep work with events instead of settimeout
     
     fix conveyor belt to have sending velocity be parrallell to the conveyor belt
 
+    portals
+
     Camera:
       use canvas.style.backgroundPosition to move background when camera moves
+    
+
+    ball scale function in wrapper
+
+    Top left everything 
+
+  Duc:
+    Sprites
+
+  Justin:
+    apply force
+    Borders around tiles
+    fix cursor being offset 
+  
+  Duc:
+    sprites
 
     Extra:
     Look into the engine and see what cool options there are to wrap
@@ -41,7 +64,7 @@ const start = async () => {
   game = new Game();
   window.game = game;
 
-  for (let i = 0; ; i++) {
+  for (let i = 0; i < game.NUM_TILES; i++) {
     try {
       await loadScript(i);
     } catch (err) {
