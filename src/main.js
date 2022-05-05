@@ -11,19 +11,17 @@
     test cases
     collision filters
 
-    Apply force 
-
     lines
 
     ramps
+
+    curvs
 
     polygons
 
     Charlie:
       make sleep work with events instead of settimeout
     
-    fix conveyor belt to have sending velocity be parrallell to the conveyor belt
-
     portals
 
     Camera:

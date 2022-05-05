@@ -27,6 +27,13 @@ Render.mousePosition = function (_, mouse, ctx) {
     mouse.position.y - 30
   );
 };
+
+Render.timestamp = function (render, engine, ctx) {
+  ctx.fillStyle = "rgba(0,0,0,1)";
+  ctx.font = "60px Arial";
+  ctx.fillText(engine.timing.timestamp, 250, 250);
+};
+
 Render.objectMasses = function (
   render,
   bodies = Composite.allBodies(Game.engine.world),
@@ -66,6 +73,7 @@ class Game {
       options: {
         showMousePosition: true,
         showObjectMasses: false,
+        showTimestamp: true,
         wireframes: false,
         width: (this.HEIGHT / this.WIDTH) * Camera.WIDTH,
         height: (this.WIDTH / this.HEIGHT) * Camera.HEIGHT,
@@ -196,13 +204,13 @@ class Game {
   pause() {
     this.paused = true;
     this.engine.enabled = false;
-    Runner.stop(this.runner);
+    //Runner.stop(this.runner);
   }
 
   resume() {
     this.paused = false;
     this.engine.enabled = true;
-    Runner.run(this.runner, this.engine);
+    //Runner.run(this.runner, this.engine);
   }
 
   start() {
