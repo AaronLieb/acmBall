@@ -44,7 +44,6 @@ class Entity {
       x: this.tile.left + position.x,
       y: this.tile.top + position.y,
     });
-    console.log(this.body.position);
   }
 
   /**

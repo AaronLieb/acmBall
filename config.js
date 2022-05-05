@@ -14,6 +14,9 @@ const config = {
     showTimer: true,
     showMousePosition: true,
   },
+  logging: {
+    matter: 0
+  }
 };
 
 export default config;

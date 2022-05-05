@@ -14,6 +14,9 @@ import Circle from "./Circle.js";
 import Button from "./Button.js";
 import Rectangle from "./Rectangle.js";
 import Entity from "./Entity.js";
+import Line from "./Line.js";
+import Triangle from "./Triangle.js";
+import Ramp from "./Ramp.js";
 
 /**
  * A tile in the game grid
@@ -83,6 +86,18 @@ class Tile {
    */
   createRectangle(x, y, width, height, moveable = false, options = {}) {
     return new Rectangle(this, this.left + x, this.top + y, width, height, moveable, options);
+  }
+
+  createLine(x1, y1, x2, y2, thickness, moveable = false, options = {}) {
+    return new Line(this, x1, y1, x2, y2, thickness, moveable, options);
+  }
+
+  createTriangle(x1, y1, x2, y2, x3, y3, moveable = false, options = {}) {
+    return new Triangle(this, x1, y1, x2, y2, x3, y3, moveable, options);
+  }
+
+  createRamp(x1, y1, x2, y2, options = {}) {
+    return new Ramp(this, x1, y1, x2, y2, options);
   }
 
   /**
