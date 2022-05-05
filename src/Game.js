@@ -46,8 +46,8 @@ class Game {
   constructor() {
     this.running = false;
     this.paused = false;
-    this.NUM_TILES_X = 2;
-    this.NUM_TILES_Y = 2;
+    this.NUM_TILES_X = 4;
+    this.NUM_TILES_Y = 4;
     this.TILE_HEIGHT = 500;
     this.TILE_WIDTH = 500;
     this.HEIGHT = this.TILE_HEIGHT * this.NUM_TILES_Y;
@@ -145,13 +145,22 @@ class Game {
       let oldActiveTile = this.activeTile;
       this.activeTile = positionToTile(this.ball.body.position);
 
-      if (oldActiveTile == this.activeTile || !this.tiles[this.activeTile] || this.activeTile < 0) return;
+      if (
+        oldActiveTile == this.activeTile ||
+        !this.tiles[this.activeTile] ||
+        this.activeTile < 0
+      )
+        return;
       this.ball.tile = this.tiles[this.activeTile];
       this.tiles[this.activeTile].onBallEnter();
+      this.tiles[oldActiveTile]?.onBallLeave();
+      this.ball.position = this.tiles[this.activeTile].ballStart.position;
+      this.ball.velocity = this.tiles[this.activeTile].ballStart.velocity;
 
-      if (oldActiveTile != config.tile_id || !this.tiles[oldActiveTile]) return;
-      this.tiles[oldActiveTile].onBallLeave();
-      this.tiles[oldActiveTile].testExit();
+      if (oldActiveTile == config.tile_id && this.tiles[oldActiveTile]) {
+        this.tiles[oldActiveTile].testExit();
+      }
+
       this.ball.resetState();
     });
   }

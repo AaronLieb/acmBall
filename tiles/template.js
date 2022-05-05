@@ -25,5 +25,5 @@ tile.onBallLeave = async function() {};
 // This function will run once every tick while the ball is in your tile
 tile.onTick = function () {};
 
-// This function will run once everey tick, even if the ball is not in your tile
+// This function will run once every tick, even if the ball is not in your tile
 tile.onTickBackground = function () {};

@@ -3,7 +3,7 @@ let { Bodies, Render } = Matter;
 const Camera = {
   WIDTH: 500 * (16 / 9),
   HEIGHT: 500,
-  zoom: 1,
+  zoom: 1.5,
   fullScreen: true,
   lerp_coefficient: 0.03,
   /* Dummy object used for lerping */
