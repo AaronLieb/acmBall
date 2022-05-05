@@ -17,6 +17,7 @@ import Entity from "./Entity.js";
 import Line from "./Line.js";
 import Triangle from "./Triangle.js";
 import Ramp from "./Ramp.js";
+import Spring from "./Spring.js";
 import Portal from "./Portal.js";
 
 /**
@@ -193,11 +194,8 @@ class Tile {
    * @param {Object} options
    * @returns {Entity}
    */
-  createSpring(x, y, width, height, launchVelocity, options = { isStatic: true }) {
-    parseOptions(options);
-    let base = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
-    let spring = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
-    return new Entity(spring, this);
+  createSpring(x, y, width, height, vx, vy, options = {}) {
+    return new Spring(this, this.left + x, this.top + y, width, height, vx, vy, options);
   }
 
   /**

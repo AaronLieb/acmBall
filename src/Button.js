@@ -12,7 +12,7 @@ class Button extends Rectangle {
     let sensorBody = Matter.Bodies.rectangle(x, y, width+4, height+10, {isStatic: true, isSensor: true});
     let sensor = new Entity(sensorBody, tile, false, false);
     let dummy =  Matter.Bodies.rectangle(-999, -999, .1, .1, {isSensor: true})
-    sensor.color = 'rgba(42, 42, 42, 0.4)';
+    sensor.color = 'rgba(42, 42, 42, 0.0)';
     sensor.body.label = 'button'
     this.body.parts = [dummy, this.body, sensor.body];
     this.unpressedColor = options.unpressedColor ?? "red";
@@ -20,8 +20,8 @@ class Button extends Rectangle {
     this.body.label = 'buttonBase'
     this.color = this.unpressedColor;
     this.ballOnly = options.ballOnly ?? false;
-    sensor.body.callback = () => {this.color = this.pressedColor; startCollide();};
-    sensor.body.endCallback = () => {this.color = this.unpressedColor; endCollide();};
+    sensor.body.callback = (o) => {this.color = this.pressedColor; startCollide(o);};
+    sensor.body.endCallback = (o) => {this.color = this.unpressedColor; endCollide(o);};
     
   }
 
@@ -29,25 +29,25 @@ class Button extends Rectangle {
     if (a.callback && event.name === "collisionStart") {
       if (a.ballOnly && b.label === "ball") {
         a.callback();
-      } else if (!a.ballOnly) a.callback();
+      } else if (!a.ballOnly) a.callback(b);
     }
 
     if (a.endCallback && event.name === "collisionEnd") {
       if (a.ballOnly && b.label === "ball") {
         a.endCallback();
-      } else if (!a.ballOnly) a.endCallback();
+      } else if (!a.ballOnly) a.endCallback(b);
     }
 
     if (b.callback && event.name === "collisionStart") {
       if (b.ballOnly && a.label === "ball") {
         b.callback();
-      } else if (!b.ballOnly) b.callback();
+      } else if (!b.ballOnly) b.callback(a);
     }
 
     if (b.endCallback && event.name === "collisionEnd") {
       if (b.ballOnly && a.label === "ball") {
         b.endCallback();
-      } else if (!b.ballOnly) b.endCallback();
+      } else if (!b.ballOnly) b.endCallback(a);
     }
   }
 }
