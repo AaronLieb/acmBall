@@ -108,8 +108,8 @@ class Tile {
    * @param {Object} options
    * @returns {Entity}
    */
-  createConveyorBelt(x, y, width, height, speed, options = { isStatic: true }) {
-    return new ConveyorBelt(x, y, width, height, speed, options);
+  createConveyorBelt(x, y, width, height, speed, options = {}) {
+    return new ConveyorBelt(this, x, y, width, height, speed, options);
   }
 
   /**
@@ -126,17 +126,8 @@ class Tile {
    * @param {Object} options
    * @returns {Entity}
    */
-  createButton(x, y, width, height, callback, endCallback = (_) => {}, options = { isStatic: true }) {
-    return new Button(
-      this,
-      this.left + x,
-      this.top + y,
-      width,
-      height,
-      callback,
-      (endCallback = (_) => {}),
-      (options = { isStatic: true })
-    );
+  createButton(x, y, width, height, callback, endCallback = (_) => {}, options = {}) {
+    return new Button(this, this.left + x, this.top + y, width, height, callback, endCallback, options);
   }
 
   /**

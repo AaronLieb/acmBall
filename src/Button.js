@@ -6,6 +6,8 @@ import Rectangle from "./Rectangle.js";
  */
 class Button extends Rectangle {
   constructor(tile, x, y, width, height, startCollide, endCollide, options) {
+    options ??= {};
+    options.isStatic ??= true;
     super(tile, x, y, width, height, options);
 
     this.unpressedColor = options.unpressedColor ?? "red";
