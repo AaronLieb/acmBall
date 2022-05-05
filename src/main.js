@@ -5,13 +5,8 @@
 
     *Create a spring composition, with constraints
 
-    lines
-
-    ramps
 
     curvs
-
-    polygons
 
     portals
 
@@ -20,23 +15,13 @@
     
     Camera:
       use canvas.style.backgroundPosition to move background when camera moves
-    
-
-    ball scale function in wrapper
 
 
   Justin:
-    apply force
     Borders around tiles
-    fix cursor being offset 
   
-  Duc:
-    sprites
-
     Extra:
     Look into the engine and see what cool options there are to wrap
-    gravity
-    time
 */
 
 import Game from "./Game.js";

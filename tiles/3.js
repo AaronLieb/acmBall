@@ -12,11 +12,6 @@ tile.ballEnd.velocity = { x: -4, y: 0 };
 // This function will run once when the tile loads for the first time
 tile.setup = function () {
   // tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
-  tile.createRectangle(tile.width / 2, tile.height / 2, tile.width, tile.height, false, {
-    isStatic: true,
-    isSensor: true,
-    render: { fillStyle: "rgba(52, 31 ,19, 0.05)" },
-  });
   let ran = false;
   let foot = tile.createRectangle(50, 150, 50, 50, true);
   const powerRect = () => {

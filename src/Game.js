@@ -108,6 +108,14 @@ class Game {
     Resolver._restingThresh = 0.001;
 
     this.tiles.forEach((tile) => tile.setup());
+    let currTile = this.tiles[config.tile_id];
+    if (config.debug.showTileBorder) {
+      currTile.createRectangle(currTile.width / 2, currTile.height / 2, currTile.width, currTile.height, false, {
+        isStatic: true,
+        isSensor: true,
+        render: { fillStyle: "rgba(52, 31 ,19, 0.05)" },
+      });
+    }
 
     this.oneTick();
 
