@@ -103,7 +103,7 @@ class Tile {
    * @returns {Line}
    */
   createLine(x1, y1, x2, y2, thickness, moveable = false, options = {}) {
-    return new Line(this, x1, y1, x2, y2, thickness, moveable, options);
+    return new Line(this, this.left + x1, this.top + y1, this.left + x2, this.top + y2, thickness, moveable, options);
   }
 
   /**
