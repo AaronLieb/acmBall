@@ -6,26 +6,23 @@ import Rectangle from "./Rectangle.js";
  * @class {Button}
  */
 class Button extends Rectangle {
-  constructor(tile, x, y, width, height, startCollide, endCollide, options) {
+  constructor(tile, x, y, width, height, startCollide = () => {}, endCollide = () => {}, options) {
     super(tile, x, y, width, height, !(options?.isStatic ?? true), options);
 
-    let sensorBody = Matter.Bodies.rectangle(x, y, width+5, height+50, {isStatic: true, isSensor: true});
+    let sensorBody = Matter.Bodies.rectangle(x, y, width+4, height+10, {isStatic: true, isSensor: true});
     let sensor = new Entity(sensorBody, tile, false, false);
     let dummy =  Matter.Bodies.rectangle(-999, -999, .1, .1, {isSensor: true})
     sensor.color = 'rgba(42, 42, 42, 0.4)';
-    sensor.body.label = 'sensor'
-    // sensor.body.parent = this.body;
-    // Matter.Body.setParts(this.body, [...this.body.parts,...sensor.body.parts], true)
+    sensor.body.label = 'button'
     this.body.parts = [dummy, this.body, sensor.body];
     this.unpressedColor = options.unpressedColor ?? "red";
     this.pressedColor = options.pressedColor ?? "green";
-
+    this.body.label = 'buttonBase'
     this.color = this.unpressedColor;
     this.ballOnly = options.ballOnly ?? false;
-    this.body.callback = () => {this.color = this.pressedColor; startCollide();};
-    this.body.endCallback = () => {this.color = this.unpressedColor; endCollide();};
+    sensor.body.callback = () => {this.color = this.pressedColor; startCollide();};
+    sensor.body.endCallback = () => {this.color = this.unpressedColor; endCollide();};
     
-    this.body.label = "button";
   }
 
   static buttonLogic(a, b, event) {
