@@ -9,6 +9,7 @@ import {
 let { Bodies, Body, Composite } = Matter;
 import { parseOptions } from "./helpers.js";
 import config from "../config.js";
+import ConveyorBelt from "./ConveyorBelt.js";
 import Circle from "./Circle.js";
 import Button from "./Button.js";
 import Rectangle from "./Rectangle.js";
@@ -115,17 +116,8 @@ class Tile {
    * @param {Object} options
    * @returns {Entity}
    */
-  createConveyorBelt(x, y, width, height, speed, options = { isStatic: true },) {
-    parseOptions(options);
-    options.render.fillStyle = "green";
-    let body = Bodies.rectangle(this.left + x, this.top + y, width, height, options);
-    body.isStatic = true;
-    body.isSensor = true;
-    body.speedUp = (ball) => {
-      Body.setVelocity(ball, { x: speed, y: 0 });
-    };
-    game.detector.bodies.push(body);
-    return new Entity(body, this);
+  createConveyorBelt(x, y, width, height, speed, options = { isStatic: true }) {
+    return new ConveyorBelt(x, y, width, height, speed, options);
   }
 
   /**

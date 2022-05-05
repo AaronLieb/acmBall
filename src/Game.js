@@ -29,9 +29,18 @@ Render.mousePosition = function (_, mouse, ctx) {
 };
 
 Render.timestamp = function (render, engine, ctx) {
+  const pad = (num, chr, len) => {
+    let str = num.toString();
+    return chr.repeat(len - str.length) + str;
+  };
   ctx.fillStyle = "rgba(0,0,0,1)";
-  ctx.font = "60px Arial";
-  ctx.fillText(engine.timing.timestamp, 250, 250);
+  ctx.font = "20px Monospace";
+  const str = `${pad(Math.floor(engine.timing.timestamp / 1000), " ", 5)}s ${pad(
+    Math.floor(engine.timing.timestamp % 1000),
+    "0",
+    4
+  )}ms`;
+  ctx.fillText(str, render.canvas.width - 170, render.canvas.height - 20);
 };
 
 Render.objectMasses = function (
