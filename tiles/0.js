@@ -16,12 +16,9 @@ tile.setup = function () {
   tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
   let r = tile.createRectangle(100, 100, 50, 50, true);
   r.velocity = { x: 20, y: 0 };
-
-    // t = tile.createRectangle(100, 100, 50, 50, true);
-    // t.color = "blue";
-  // tile.createLine(0, 250, 500, 500, 5);
-  // tile.createRamp(0, 500, 500, 250);
-  t = tile.createButton(90, 425, 200, 50);
+  r.gravityScale = 0.2;
+  t = tile.createRectangle(100, 100, 50, 50, true);
+  t.color = "blue";
 };
 
 // This function will run when the ball enters your tile
@@ -30,7 +27,9 @@ tile.onBallEnter = async function () {};
 tile.onBallLeave = async function () {};
 
 // This function will run once every tick while the ball is in your tile
-tile.onTick = function () {};
+tile.onTick = function () {
+  t.angle += 1.5;
+};
 
 // This function will run once everey tick, even if the ball is not in your tile
 tile.onTickBackground = function () {};

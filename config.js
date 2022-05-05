@@ -13,10 +13,11 @@ const config = {
     showMasses: false,
     showTimer: true,
     showMousePosition: true,
+    showTileBorder: true,
   },
   logging: {
-    matter: 0
-  }
+    matter: 0,
+  },
 };
 
 export default config;

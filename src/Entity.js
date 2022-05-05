@@ -148,6 +148,11 @@ class Entity {
     Matter.Body.rotate(this.body, degrees);
   }
 
+  /**
+   * Apply a force to an object using a force vector
+   * @param {Number} x - the force in the x direction
+   * @param {Number} y - the force in the y direction
+   */
   applyForce(x, y) {
     Matter.Body.applyForce(this.body, this.body.position, { x: x, y: y });
   }
@@ -158,6 +163,21 @@ class Entity {
    */
   scale(ratio) {
     Matter.Body.scale(this.body, ratio, ratio);
+  }
+
+  /**
+   * Controls the scale
+   * @param {Number} scale - default 1
+   */
+  set gravityScale(scale) {
+    this.body.timeScale = scale;
+  }
+
+  /**
+   * @returns {Number};
+   */
+  get gravityScale() {
+    return this.body.timeScale;
   }
 }
 
