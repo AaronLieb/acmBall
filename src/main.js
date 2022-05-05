@@ -4,12 +4,6 @@
       code block example, gif showing the result
 
     *Create a spring composition, with constraints
-    Add timer with ms
-
-    Body bounds, don't let objects created in a tile leave that Tile
-    .bounds.max / .bounds.min
-    test cases
-    collision filters
 
     lines
 
@@ -19,11 +13,11 @@
 
     polygons
 
+    portals
+
     Charlie:
       make sleep work with events instead of settimeout
     
-    portals
-
     Camera:
       use canvas.style.backgroundPosition to move background when camera moves
     

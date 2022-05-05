@@ -8,8 +8,8 @@ class Button extends Rectangle {
   constructor(tile, x, y, width, height, startCollide, endCollide, options) {
     super(tile, x, y, width, height, options);
 
-    this.unpressedColor = options.unpressedColor || "red";
-    this.pressedColor = options.pressedColor || "green";
+    this.unpressedColor = options.unpressedColor ?? "red";
+    this.pressedColor = options.pressedColor ?? "green";
 
     this.color = this.unpressedColor;
     this.ballOnly = options.ballOnly ?? false;
