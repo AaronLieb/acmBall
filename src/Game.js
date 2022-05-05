@@ -8,12 +8,12 @@ let { Mouse, Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine
 // TODO: MOVE THESE TO MATTER
 Render.mousePosition = function (_, mouse, ctx) {
   ctx.fillStyle = "rgba(0,0,0,1)";
-  ctx.font = "30px Arial";
+  ctx.font = "30px Monospace";
   let rp = relPosition(mouse.position);
   ctx.fillText(
-    positionToTile(mouse.position) + ": " + Math.floor(rp.x) + ", " + Math.floor(rp.y),
-    mouse.position.x - 30,
-    mouse.position.y - 30
+    positionToTile(mouse.position) + ": " + Math.floor(rp.x - 22) + ", " + Math.floor(rp.y - 22),
+    mouse.position.x - 10,
+    mouse.position.y - 50
   );
 };
 
