@@ -12,6 +12,7 @@ import config from "../config.js";
 import ConveyorBelt from "./ConveyorBelt.js";
 import Circle from "./Circle.js";
 import Button from "./Button.js";
+import Zone from "./Zone.js";
 import Rectangle from "./Rectangle.js";
 import Entity from "./Entity.js";
 import Line from "./Line.js";
@@ -245,6 +246,10 @@ class Tile {
    */
   createRope(x, y, length, options = {}) {
     new Rope(this, this.left + x, this.top + y, length, options);
+  }
+
+  createZone(x, y, width, height, start, during, end, options = {}) {
+    return new Zone(this, this.left + x, this.top + y, width, height, start, during, end, options);
   }
 
   /**
