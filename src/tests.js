@@ -4,6 +4,7 @@ let { Vertices } = Matter;
 
 const POSITION_DELTA = 0.5;
 const VELOCITY_DELTA = 0.5;
+const ANGLE_DELTA = 0.2;
 
 export let assertEqual = (a, b, msg) => {
   if (a !== b) {
@@ -46,6 +47,13 @@ export const testBallVelocity = (ball, end) => {
   let flag = true;
   flag = assertDiff(ball.velocity.x, end.velocity.x, VELOCITY_DELTA, "Ball Velocity X") && flag;
   flag = assertDiff(ball.velocity.y, end.velocity.y, VELOCITY_DELTA, "Ball Velocity Y") && flag;
+  flag =
+    assertDiff(
+      Math.atan(ball.velocity.y / ball.velocity.x),
+      Math.atan(end.velocity.y / end.velocity.x),
+      ANGLE_DELTA,
+      "Ball Velocity Angle"
+    ) && flag;
   return flag;
 };
 

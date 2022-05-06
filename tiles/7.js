@@ -9,10 +9,13 @@ tile.ballStart.velocity = { x: 3, y: 12 };
 /*
 tile.ballEnd.position = { x: 338, y: 500 };
 tile.ballEnd.velocity = { x: 3, y: 12 };
+tile.ballStart.position = { x: 500, y: 259 };
+tile.ballStart.velocity = { x: -4.782, y: -2.692 };
+
 */
 
-tile.ballEnd.position = { x: 0, y: 0 };
-tile.ballEnd.velocity = { x: 0, y: 0 };
+tile.ballEnd.position = { x: 0, y: 259 };
+tile.ballEnd.velocity = { x: -4.782, y: -2.692 };
 
 // This function will run once when the tile loads for the first time
 tile.setup = function () {
