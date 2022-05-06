@@ -9,9 +9,7 @@ export const unitVector = (vec) => {
 
 export const findIntersection = (ball) => {
   let pos = game.ball.position;
-  console.log(pos.x);
   let axis = pos.x >= game.TILE_WIDTH || pos.x <= 0 ? "y" : "x";
-  console.log(axis);
   let opposite = axis == "x" ? "y" : "x";
   let target = 500;
   let d = target - pos[opposite];

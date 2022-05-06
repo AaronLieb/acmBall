@@ -101,6 +101,7 @@ class Game {
 
     this.tiles.forEach((tile) => tile._setup());
     let currTile = this.tiles[config.tile_id];
+
     if (config.debug.showTileBorder) {
       currTile.createRectangle(currTile.width / 2, currTile.height / 2, currTile.width, currTile.height, false, {
         ignore: true,
@@ -138,7 +139,7 @@ class Game {
 
       let oldActiveTile = this.activeTile;
       let activeTile = positionToTile(this.ball.body.position);
-      let aTile = this.tiles[this.activeTile];
+      let aTile = this.tiles[activeTile];
       let oTile = this.tiles[oldActiveTile];
 
       this.activeTile = activeTile;
@@ -149,8 +150,9 @@ class Game {
 
       if ((config.testAllTiles || oldActiveTile == config.tile_id) && oTile) {
         oTile._testExit();
-        this.ball._moveTile(aTile);
       }
+
+      this.ball._moveTile(aTile);
 
       if (!aTile._entered) {
         aTile._onBallEnter();
