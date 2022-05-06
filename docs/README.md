@@ -25,8 +25,11 @@ repository on GitHub.
 Once you've created a fork of the repository, use git to clone the repository to
 your local machine.
 
-If you need help cloning the repository, refer to [Cloning your
-fork](./git/howToGit.md).
+### Cloning the fork
+
+Once you've created a fork, you need to clone your fork to your local machine
+
+For details on cloning a repository, refer to [Using Git](./git/usingGit.md).
 
 ## Developing
 
