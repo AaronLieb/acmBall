@@ -31,7 +31,7 @@ Render.timestamp = function (render, engine, ctx) {
     "s " +
     pad(Math.floor(engine.timing.timestamp % 1000), "0", 3) +
     "ms";
-  ctx.fillText(str, render.canvas.width - 170, render.canvas.height - 10);
+  ctx.fillText(str, render.canvas.width - 200, render.canvas.height - 20);
 };
 
 Render.objectMasses = function (render, bodies = Composite.allBodies(Game.engine.world), context) {
