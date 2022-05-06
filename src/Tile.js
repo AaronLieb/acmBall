@@ -273,36 +273,9 @@ class Tile {
     Composite.remove(this.game.engine.world, this.bodies);
   }
 
-  createSoftBody = (x, y, cols, rows, radius) => {
-    var particleOptions = {
-      friction: 0.05,
-      frictionStatic: 0.1,
-      render: { visible: true, fillStyle: "green" },
-    };
-
-    var constraintOptions = {
-      render: { visible: false },
-    };
-
-    var softBody = Matter.Composites.softBody(
-      this.left + x,
-      this.top + y,
-      cols,
-      rows,
-      0,
-      0,
-      true,
-      radius,
-      particleOptions,
-      constraintOptions
-    );
-    let allbodies = Matter.Composite.allBodies(softBody);
-    allbodies.forEach((e) => {
-      e.collisionFilter.group = this.id + 1;
-    });
-    Matter.Composite.add(this.game.engine.world, softBody);
-  };
-
+  /**
+   * @private
+   */
   _drawMarkers = () => {
     let start_rect = this.createRectangle(this.ballStart.position.x, this.ballStart.position.y, 10, 30, false, {ignore: true});
     start_rect.color = 'rgba(2, 14, 245, .6)';

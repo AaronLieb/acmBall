@@ -12,7 +12,7 @@ const config = {
   debug: {
     showMasses: false,
     showTimer: true,
-    showMousePosition: true,
+    showMousePosition: false,
     showTileBorder: true,
     showMarkers: true,
   },
