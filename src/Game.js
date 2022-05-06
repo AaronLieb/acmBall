@@ -77,11 +77,7 @@ class Game {
     this.tiles = [];
     this.activeTile = 0;
 
-    this.centerBody = Bodies.circle(this.WIDTH / 2, this.HEIGHT / 2, 0.1, {
-      isStatic: true,
-      isSensor: true,
-    });
-
+    this.centerBody = Bodies.circle(this.WIDTH / 2, this.HEIGHT / 2, 0.1, { ignore: true });
     /* 
       These functions are passed as arguments
       The reference to "this" is lost when passed
@@ -98,10 +94,6 @@ class Game {
 
     Camera.setup();
 
-    this.detector = Detector.create({
-      bodies: [this.ball.body],
-    });
-
     Render.run(this.render);
     Runner.run(this.runner, this.engine);
 
@@ -111,8 +103,7 @@ class Game {
     let currTile = this.tiles[config.tile_id];
     if (config.debug.showTileBorder) {
       currTile.createRectangle(currTile.width / 2, currTile.height / 2, currTile.width, currTile.height, false, {
-        isStatic: true,
-        isSensor: true,
+        ignore: true,
         render: { fillStyle: "rgba(52, 31 ,19, 0.05)" },
       });
     }
@@ -149,10 +140,6 @@ class Game {
 
     Events.on(this.runner, "tick", () => {
       Camera.updateCamera();
-
-      for (let pair of Detector.collisions(this.detector)) {
-        pair.bodyB.speedUp(pair.bodyA); // do we need this still?!
-      }
 
       let oldActiveTile = this.activeTile;
       this.activeTile = positionToTile(this.ball.body.position);

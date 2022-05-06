@@ -50,7 +50,7 @@ export const testBallVelocity = (ball, end) => {
 };
 
 export const testBallSize = (ball) => {
-  return assertDiff(Vertices.area(ball.vertices, false), 4977.756, 0.01, "Ball Area");
+  return assertDiff(ball.area, 1236.0755, 0.01, "Ball Area");
 };
 
 export const testBallShape = (ball) => {
@@ -59,7 +59,7 @@ export const testBallShape = (ball) => {
 
 export const testBallRender = (ball) => {
   let flag = true;
-  let render = game.ball.defaultRender;
+  let render = game.ball._defaultRender;
   flag = assertEqual(ball.render.fillStyle, render.fillStyle, "fillStyle") && flag;
   flag = assertEqual(ball.render.lineWidth, render.lineWidth, "lineWidth") && flag;
   flag = assertEqual(ball.render.strokeStyle, render.strokeStyle, "strokeStyle") && flag;

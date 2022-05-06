@@ -6,8 +6,7 @@ import {
   testBallSize,
   testBallRender,
 } from "./tests.js";
-let { Bodies, Body, Composite } = Matter;
-import { parseOptions } from "./helpers.js";
+let { Body, Composite } = Matter;
 import config from "../config.js";
 import ConveyorBelt from "./ConveyorBelt.js";
 import Circle from "./Circle.js";
@@ -44,6 +43,9 @@ class Tile {
     this.bodies = []; // list of objects in this tile
     this.thin_walls = [];
     this.entered = false;
+    this.centerBody = Matter.Bodies.circle(this.left + this.width / 2, this.height + this.height / 2, 0.1, {
+      ignore: true,
+    });
 
     /* User Defined Member Variables */
     this.ballStart = {};
@@ -89,7 +91,6 @@ class Tile {
       b._cache = { ...b };
       Body.setStatic(b, true);
     });
-    // console.log(this.bodies[0]._cache);
   }
 
   testExit() {
