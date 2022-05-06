@@ -1,7 +1,6 @@
 import Button from "./Button.js";
 import { sleep } from "../src/helpers.js";
 
-
 class Spring extends Button {
   constructor(tile, x, y, width, height, vx, vy, options) {
     let startCollide = (o) => {

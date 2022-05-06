@@ -24,9 +24,9 @@ Render.timestamp = function (render, engine, ctx) {
   ctx.fillStyle = "rgba(0,0,0,1)";
   ctx.font = "20px Monospace";
   const str =
-    pad(Math.floor(engine.timing.timestamp / 1000), " ", 5) +
+    pad(Math.floor(engine.timing.timestamp / 1000), " ", 8) +
     "s " +
-    pad(Math.floor(engine.timing.timestamp % 1000), "0", 4) +
+    pad(Math.floor(engine.timing.timestamp % 1000), "0", 3) +
     "ms";
   ctx.fillText(str, render.canvas.width - 170, render.canvas.height - 20);
 };
