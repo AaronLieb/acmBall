@@ -46,6 +46,7 @@ class Entity {
    * @param {vector} position - {x: num, y: num}
    */
   set position(position) {
+    console.log("set position: ", position.x, position.y);
     Matter.Body.setPosition(this.body, {
       x: this.tile.left + position.x,
       y: this.tile.top + position.y,
@@ -68,7 +69,7 @@ class Entity {
    * @returns {vector} - {x: num, y: num}
    */
   get position() {
-    let rpos = relPosition(this.body.position, this.tile);
+    let rpos = { x: this.body.position.x - this.tile.left, y: this.body.position.y - this.tile.top };
     let that = this;
 
     let result = {

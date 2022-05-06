@@ -88,6 +88,9 @@ class Tile {
    * @private
    */
   _onBallEnter() {
+    this._entered = true;
+    this.ball.position = this.ballStart.position;
+    this.ball.velocity = this.ballStart.velocity;
     this.bodies.forEach((b) => Matter.Body.setStatic(b, b._isStatic ?? b.isStatic));
     this.onBallEnter();
   }

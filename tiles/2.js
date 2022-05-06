@@ -2,8 +2,6 @@ import { sleep } from "../src/helpers.js";
 import Tile from "../src/Tile.js";
 
 let tile = new Tile();
-let ball = tile.ball;
-let game = tile.game;
 
 tile.ballStart.position = { x: 0, y: 0 };
 tile.ballStart.velocity = { x: 0, y: 0 };

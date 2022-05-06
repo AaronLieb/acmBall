@@ -126,20 +126,14 @@ class Game {
     Render.run(this.render);
     Runner.run(this.runner, this.engine);
 
-    this.ball.position = this.tiles[config.tile_id].ballStart.position;
-    this.ball.velocity = this.tiles[config.tile_id].ballStart.velocity;
+    this.tiles[config.tile_id]._onBallEnter();
 
-    this.activeTile = -1;
+    this.activeTile = config.tile_id;
 
     Events.on(this.engine, "beforeUpdate", () => {
       this.tiles.forEach((tile) => {
-        tile._onTickBackground();
         if (tile.id == this.activeTile) tile._onTick();
       });
-    });
-
-    Events.on(this.runner, "tick", () => {
-      Camera.updateCamera();
 
       let oldActiveTile = this.activeTile;
       let activeTile = positionToTile(this.ball.body.position);
@@ -150,21 +144,23 @@ class Game {
       this.aTile = aTile;
       this.oTile = oTile;
 
+      console.log(oldActiveTile, activeTile);
+
       if (oldActiveTile == activeTile || !aTile || this.activeTile < 0) return;
-      this.ball.tile = aTile;
 
       if ((config.testAllTiles || oldActiveTile == config.tile_id) && oTile) {
         oTile._testExit();
-        this.ball._moveTile(this.activeTile);
+        this.ball._moveTile(aTile);
       }
 
       if (!aTile._entered) {
         aTile._onBallEnter();
-        aTile._entered = true;
-        this.ball.position = aTile.ballStart.position;
-        this.ball.velocity = aTile.ballStart.velocity;
         oTile?._onBallLeave();
       }
+    });
+
+    Events.on(this.runner, "tick", () => {
+      Camera.updateCamera();
     });
   }
 

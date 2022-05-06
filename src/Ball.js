@@ -41,10 +41,11 @@ class Ball extends Circle {
   /**
    * @private
    */
-  _moveTile(active_tile) {
-    this.body.collisionFilter.group = active_tile + 1;
+  _moveTile(tile) {
+    this.tile = tile;
+    this.body.collisionFilter.group = tile.id + 1;
     this.body.collisionFilter.mask = 0; // don't touch this
-    this.reset();
+    // this.reset();
   }
 }
 
