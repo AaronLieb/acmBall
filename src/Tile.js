@@ -36,13 +36,20 @@ class Tile {
     this.top = Math.floor(this.id / game.NUM_TILES_Y) * game.TILE_WIDTH;
     this.right = this.left + game.TILE_WIDTH;
     this.bottom = this.right + game.TILE_HEIGHT;
-    this.testsPassed = 0;
-    this.numTests = 5;
+
+    /** * @private */
+    this._testsPassed = 0;
+
+    /** * @private */
+    this._numTests = 5;
+
+    /** * @private */
+    this._entered = false;
+
     this.game = game;
     this.matter = Matter; // for advanced users
     this.bodies = []; // list of objects in this tile
-    this.thin_walls = [];
-    this._entered = false;
+
     this.centerBody = Matter.Bodies.circle(this.left + this.width / 2, this.top + this.height / 2, 0.1, {
       ignore: true,
     });
@@ -85,7 +92,7 @@ class Tile {
     this.ball.position = this.ballStart.position;
     this.ball.velocity = this.ballStart.velocity;
     this.bodies.forEach((b) => Matter.Body.setStatic(b, b._isStatic ?? b.isStatic));
-    console.log(this.id, 'newnew: ', this.bodies);
+    console.log(this.id, "newnew: ", this.bodies);
     this.onBallEnter();
   }
 
@@ -106,12 +113,13 @@ class Tile {
    */
   _testExit() {
     let c = config.tests.exit;
-    this.testsPassed += !c.position || testBallPosition(game.ball.body, this.ballEnd);
-    this.testsPassed += !c.velocity || testBallVelocity(game.ball.body, this.ballEnd);
-    this.testsPassed += !c.shape || testBallShape(game.ball.body);
-    this.testsPassed += !c.size || testBallSize(game.ball.body);
-    this.testsPassed += !c.render || testBallRender(game.ball.body);
+    this._testsPassed += !c.position || testBallPosition(game.ball.body, this.ballEnd);
+    this._testsPassed += !c.velocity || testBallVelocity(game.ball.body, this.ballEnd);
+    this._testsPassed += !c.shape || testBallShape(game.ball.body);
+    this._testsPassed += !c.size || testBallSize(game.ball.body);
+    this._testsPassed += !c.render || testBallRender(game.ball.body);
     sendTestResults(this);
+    return this._testsPassed == this._numTests;
   }
 
   /**
@@ -277,14 +285,17 @@ class Tile {
    * @private
    */
   _drawMarkers = () => {
-    let start_rect = this.createRectangle(this.ballStart.position.x, this.ballStart.position.y, 10, 30, false, {ignore: true});
-    start_rect.color = 'rgba(2, 14, 245, .6)';
-    start_rect.body.render.strokeStyle = 'rgba(0,0,0,0)';
-    let end_rect = this.createRectangle(this.ballEnd.position.x, this.ballEnd.position.y, 10, 30, false, {ignore: true});
-    end_rect.color = 'rgba(245, 14, 2, .6)';
-    end_rect.body.render.strokeStyle = 'rgba(0,0,0,0)';
-
-  }
+    let start_rect = this.createRectangle(this.ballStart.position.x, this.ballStart.position.y, 10, 30, false, {
+      ignore: true,
+    });
+    start_rect.color = "rgba(2, 14, 245, .6)";
+    start_rect.body.render.strokeStyle = "rgba(0,0,0,0)";
+    let end_rect = this.createRectangle(this.ballEnd.position.x, this.ballEnd.position.y, 10, 30, false, {
+      ignore: true,
+    });
+    end_rect.color = "rgba(245, 14, 2, .6)";
+    end_rect.body.render.strokeStyle = "rgba(0,0,0,0)";
+  };
 }
 
 export default Tile;

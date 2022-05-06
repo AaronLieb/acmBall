@@ -46,7 +46,7 @@ Render.objectMasses = function (render, bodies = Composite.allBodies(Game.engine
 Render.cameraMode = function (render, engine, ctx) {
   ctx.fillStyle = "rgba(0,0,0,1)";
   ctx.font = "20px Monospace";
-  let name = Object.keys(Camera.modes)[Camera.mode]
+  let name = Object.keys(Camera.modes)[Camera.mode];
   ctx.fillText(`Camera Mode: ${name}`, 20, render.canvas.height - 10);
 };
 
@@ -56,8 +56,8 @@ class Game {
   constructor() {
     this.running = false;
     this.paused = false;
-    this.NUM_TILES_X = 2;
-    this.NUM_TILES_Y = 2;
+    this.NUM_TILES_X = 4;
+    this.NUM_TILES_Y = 4;
     this.TILE_HEIGHT = 500;
     this.TILE_WIDTH = 500;
     this.HEIGHT = this.TILE_HEIGHT * this.NUM_TILES_Y;
@@ -156,11 +156,14 @@ class Game {
       this.aTile = aTile;
       this.oTile = oTile;
 
-      if (oldActiveTile == activeTile || !aTile || this.activeTile < 0) return;
+      if (oldActiveTile == activeTile) return;
 
       if ((config.testAllTiles || oldActiveTile == config.tile_id) && oTile) {
-        oTile._testExit();
+        let passed = oTile._testExit();
+        if (!passed) this.pause();
       }
+
+      if (!aTile || this.activeTile < 0) return;
 
       this.ball._moveTile(aTile);
 

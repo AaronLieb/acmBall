@@ -26,7 +26,7 @@ export let assertDiff = (a, b, delta, msg) => {
     document.getElementById("testbox").style.backgroundColor = "red";
     return false;
   }
-  // console.log(`[${msg}] TEST CASE PASSED ${a} = ${b}, delta = ${delta}`);
+  console.log(`[${msg}] TEST CASE PASSED ${a} = ${b}, delta = ${delta}`);
   return true;
 };
 
@@ -69,7 +69,7 @@ export const testBallRender = (ball) => {
 
 export const sendTestResults = async (tile) => {
   console.log(`Sending test results for tile ${tile.id}`);
-  const result = tile.numTests == tile.testsPassed;
+  const result = tile._numTests == tile._testsPassed;
   const h = hash([tile.ballStart, tile.ballEnd, tile.setup, tile.onBallEnter, tile.onTick, tile.onTickBackground]);
   await reqJSONBin("put", tile.id, { result: result, hash: h });
 };
