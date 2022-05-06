@@ -5,7 +5,6 @@ import Camera from "./Camera.js";
 import config from "../config.js";
 let { Mouse, Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } = Matter;
 
-// TODO: MOVE THESE TO MATTER
 Render.mousePosition = function (_, mouse, ctx) {
   ctx.fillStyle = "rgba(0,0,0,1)";
   ctx.font = "30px Monospace";
@@ -107,10 +106,7 @@ class Game {
 
     Resolver._restingThresh = 0.001;
 
-    this.tiles.forEach((tile) => {
-      tile.createBoundaries();
-      tile.setup();
-    });
+    this.tiles.forEach(tile => tile._setup());
     let currTile = this.tiles[config.tile_id];
     if (config.debug.showTileBorder) {
       currTile.createRectangle(currTile.width / 2, currTile.height / 2, currTile.width, currTile.height, false, {
@@ -145,8 +141,8 @@ class Game {
 
     Events.on(this.engine, "beforeUpdate", () => {
       this.tiles.forEach((tile) => {
-        tile.onTickBackground();
-        if (tile.id == this.activeTile) tile.onTick();
+        tile._onTickBackground();
+        if (tile.id == this.activeTile) tile._onTick();
       });
     });
 
@@ -166,11 +162,11 @@ class Game {
       this.ball.tile = this.tiles[this.activeTile];
 
       if (!aTile.entered) {
-        aTile.onBallEnter();
+        aTile._onBallEnter();
         aTile.entered = true;
         this.ball.position = aTile.ballStart.position;
         this.ball.velocity = aTile.ballStart.velocity;
-        oTile?.onBallLeave();
+        oTile?._onBallLeave();
       }
 
       if (oldActiveTile != config.tile_id || !this.tiles[oldActiveTile]) return;
