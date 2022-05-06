@@ -165,11 +165,12 @@ class Game {
 
       if (!aTile || this.activeTile < 0) return;
 
+      if (!aTile._entered) oTile?._onBallLeave(); // ordering (hacky?)
+
       this.ball._moveTile(aTile);
 
       if (!aTile._entered) {
         aTile._onBallEnter();
-        oTile?._onBallLeave();
       }
     });
 

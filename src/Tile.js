@@ -82,6 +82,16 @@ class Tile {
    */
   _onBallLeave() {
     this.onBallLeave();
+    if (config.debug.showBallPositionOnExit === true) {
+      let fake_x = this.ball.position.x < 0 ? 0 : this.ball.position.x;
+      fake_x = fake_x >= this.width ? this.width : fake_x;
+      let velo = this.ball.body.velocity;
+      console.log(
+        `(DEBUG) Tile: ${this.id} , Ball Exited at: (${fake_x.toFixed(3)}, ${this.ball.position.y.toFixed(
+          3
+        )}) with velocity: (${velo.x.toFixed(3)}, ${velo.y.toFixed(3)}) and entered Tile: ${this.game.activeTile}`
+      );
+    }
   }
 
   /**
