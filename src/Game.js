@@ -94,10 +94,6 @@ class Game {
 
     Camera.setup();
 
-    this.detector = Detector.create({
-      bodies: [this.ball.body],
-    });
-
     Render.run(this.render);
     Runner.run(this.runner, this.engine);
 
@@ -144,10 +140,6 @@ class Game {
 
     Events.on(this.runner, "tick", () => {
       Camera.updateCamera();
-
-      for (let pair of Detector.collisions(this.detector)) {
-        pair.bodyB.speedUp(pair.bodyA); // do we need this still?!
-      }
 
       let oldActiveTile = this.activeTile;
       this.activeTile = positionToTile(this.ball.body.position);
