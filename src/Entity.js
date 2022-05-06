@@ -17,6 +17,7 @@ class Entity {
     if (this.body.ignore) {
       this.body.collisionFilter.group = 0xdeadbeef;
       this.body.isSensor = true;
+      this.body.isStatic = true;
     } else {
       this.collisionId = this.tile.id + 1;
       this.body.collisionFilter.group = this.collisionId;
