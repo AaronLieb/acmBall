@@ -37,7 +37,7 @@ Render.objectMasses = function (render, bodies = Composite.allBodies(Game.engine
   c.font = "20px Arial";
   c.fillStyle = "rgba(240, 248, 255, 1)";
   bodies.forEach((b) => {
-    c.fillText(b.mass.toFixed(2), b.position.x - 20, b.position.y);
+    c.fillText(`${b.mass.toFixed(2)} : ${b.collisionFilter.group}`, b.position.x - 20, b.position.y);
   });
 };
 
@@ -47,8 +47,8 @@ class Game {
   constructor() {
     this.running = false;
     this.paused = false;
-    this.NUM_TILES_X = 4;
-    this.NUM_TILES_Y = 4;
+    this.NUM_TILES_X = 2;
+    this.NUM_TILES_Y = 2;
     this.TILE_HEIGHT = 500;
     this.TILE_WIDTH = 500;
     this.HEIGHT = this.TILE_HEIGHT * this.NUM_TILES_Y;
@@ -107,7 +107,10 @@ class Game {
 
     Resolver._restingThresh = 0.001;
 
-    this.tiles.forEach((tile) => tile.setup());
+    this.tiles.forEach((tile) => {
+      tile.createBoundaries();
+      tile.setup();
+    });
     let currTile = this.tiles[config.tile_id];
     if (config.debug.showTileBorder) {
       currTile.createRectangle(currTile.width / 2, currTile.height / 2, currTile.width, currTile.height, false, {
@@ -151,7 +154,7 @@ class Game {
       Camera.updateCamera();
 
       for (let pair of Detector.collisions(this.detector)) {
-        pair.bodyB.speedUp(pair.bodyA);
+        pair.bodyB.speedUp(pair.bodyA); // do we need this still?!
       }
 
       let oldActiveTile = this.activeTile;
@@ -170,6 +173,14 @@ class Game {
         oTile?.onBallLeave();
       }
 
+      if (oldActiveTile != config.tile_id || !this.tiles[oldActiveTile]) return;
+      this.tiles[oldActiveTile].thin_walls.forEach((e) => { // hide walls for old tile
+        e.body.render.visible = false;
+      });
+      this.tiles[oldActiveTile].testExit();
+      this.tiles[this.activeTile].thin_walls.forEach((e) => { // show walls for new tile
+        e.body.render.visible = true;
+      });
       if (oldActiveTile == config.tile_id && oTile) {
         oTile.testExit();
       }
@@ -194,6 +205,9 @@ class Game {
       pair = event.pairs[i];
       let a = pair.bodyA;
       let b = pair.bodyB;
+      if (a.label === 'ball' && b.label.includes('set_wall')) {
+        console.log("BALL HIT {", b.label, "} at: ", a.position , ' velocity: ', a.velocity);
+      }
       /* allow callback-enabled collisions with objects with label 'button' only */
       if (a.label === "button" || b.label === "button") Button.buttonLogic(a, b, event);
       // if (a.position.y > b.position.y) b.mass += a.mass;

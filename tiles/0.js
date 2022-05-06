@@ -6,10 +6,10 @@ let ball = tile.ball;
 let game = tile.game;
 
 tile.ballStart.position = { x: 0, y: 0 };
-tile.ballStart.velocity = { x: 1, y: 0 };
+tile.ballStart.velocity = { x: 5, y: 0 };
 
-tile.ballEnd.position = { x: 500, y: 417 };
-tile.ballEnd.velocity = { x: 0, y: 0 };
+tile.ballEnd.position = { x: 500, y: 202 };
+tile.ballEnd.velocity = { x: 5.825343621579975, y: -5.403626669463045 };
 
 let t;
 
@@ -23,7 +23,7 @@ tile.setup = function () {
   let ground2 = tile.createRectangle(315, 230, 250, groundThickness);
   ground2.angle -= 10;
 
-  let ground2Barrier = tile.createRectangle(tile.width - 100 / 2, 170, 100, groundThickness / 2);
+  let ground2Barrier = tile.createRectangle(tile.width - 100 / 2, 150, 170, groundThickness / 2);
   ground2Barrier.angle -= 75;
 
   let greenCircle = tile.createCircle(tile.width - 100, 40, 20);
@@ -61,11 +61,11 @@ tile.setup = function () {
   launcher.angle -= 10;
 
   let ramp = tile.createRectangle(355, 450, 50, groundThickness / 2);
-  ramp.angle -= 65;
+  ramp.angle -= 35;
 
   // tile.createRectangle(356, 346, groundThickness, groundThickness);
-  tile.createRectangle(356, 375, groundThickness, groundThickness);
-  tile.createConveyorBelt(356, 375, groundThickness, groundThickness, 45);
+  // tile.createRectangle(356, 375, groundThickness, groundThickness);
+  // tile.createConveyorBelt(356, 375, groundThickness, groundThickness, 45);
 };
 
 // This function will run when the ball enters your tile
