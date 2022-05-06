@@ -29,6 +29,13 @@ Camera.lerp = () => {
 Camera.updateCamera = () => {
   /* Choose the focus target */
   let body = Camera.fullScreen ? game.centerBody : Camera.focusBody;
+
+  /* Edit CSS */
+
+  // let c = game.render.canvas;
+  // c.setAttribute("style", "background-position-x:" + body.position.x * 0.55 + "px" + "!important");
+  // c.setAttribute("style", "background-position-y:" + body.position.y * 0.55 + "px" + "!important");
+
   /* Linear Interpolation only if NOT fullscreen */
   Camera.fullScreen || Camera.lerp();
   /* Adjust padding of viewport */
