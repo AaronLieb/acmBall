@@ -144,8 +144,6 @@ class Game {
       this.aTile = aTile;
       this.oTile = oTile;
 
-      console.log(oldActiveTile, activeTile);
-
       if (oldActiveTile == activeTile || !aTile || this.activeTile < 0) return;
 
       if ((config.testAllTiles || oldActiveTile == config.tile_id) && oTile) {

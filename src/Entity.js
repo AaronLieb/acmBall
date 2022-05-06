@@ -46,7 +46,6 @@ class Entity {
    * @param {vector} position - {x: num, y: num}
    */
   set position(position) {
-    console.log("set position: ", position.x, position.y);
     Matter.Body.setPosition(this.body, {
       x: this.tile.left + position.x,
       y: this.tile.top + position.y,
