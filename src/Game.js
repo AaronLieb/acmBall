@@ -106,7 +106,7 @@ class Game {
 
     Resolver._restingThresh = 0.001;
 
-    this.tiles.forEach(tile => tile._setup());
+    this.tiles.forEach((tile) => tile._setup());
     let currTile = this.tiles[config.tile_id];
     if (config.debug.showTileBorder) {
       currTile.createRectangle(currTile.width / 2, currTile.height / 2, currTile.width, currTile.height, false, {
@@ -170,11 +170,13 @@ class Game {
       }
 
       if (oldActiveTile != config.tile_id || !this.tiles[oldActiveTile]) return;
-      this.tiles[oldActiveTile].thin_walls.forEach((e) => { // hide walls for old tile
+      this.tiles[oldActiveTile].thin_walls.forEach((e) => {
+        // hide walls for old tile
         e.body.render.visible = false;
       });
       this.tiles[oldActiveTile].testExit();
-      this.tiles[this.activeTile].thin_walls.forEach((e) => { // show walls for new tile
+      this.tiles[this.activeTile].thin_walls.forEach((e) => {
+        // show walls for new tile
         e.body.render.visible = true;
       });
       if (oldActiveTile == config.tile_id && oTile) {
@@ -201,8 +203,8 @@ class Game {
       pair = event.pairs[i];
       let a = pair.bodyA;
       let b = pair.bodyB;
-      if (a.label === 'ball' && b.label.includes('set_wall')) {
-        console.log("BALL HIT {", b.label, "} at: ", a.position , ' velocity: ', a.velocity);
+      if (a.label === "ball" && b.label.includes("set_wall")) {
+        console.log("BALL HIT {", b.label, "} at: ", a.position, " velocity: ", a.velocity);
       }
       /* allow callback-enabled collisions with objects with label 'button' only */
       if (a.label === "button" || b.label === "button") Button.buttonLogic(a, b, event);

@@ -73,21 +73,21 @@ class Tile {
   }
 
   _onBallEnter() {
-    this.bodies.forEach(b => {
-      if(b._cache) {
-        console.log(b._cache.isStatic)
-        b = {...b._cache}
+    this.bodies.forEach((b) => {
+      if (b._cache) {
+        console.log(b._cache.isStatic);
+        b = { ...b._cache };
       }
-    })
+    });
     this.onBallEnter();
   }
 
   _setup() {
     this._createBoundaries();
     this.setup();
-    this.bodies.forEach(b => {
-      b._cache = {...b}
-      Body.setStatic(b, true)
+    this.bodies.forEach((b) => {
+      b._cache = { ...b };
+      Body.setStatic(b, true);
     });
     // console.log(this.bodies[0]._cache);
   }
@@ -420,19 +420,30 @@ class Tile {
     var particleOptions = {
       friction: 0.05,
       frictionStatic: 0.1,
-      render: { visible: true, fillStyle: 'green' },
+      render: { visible: true, fillStyle: "green" },
     };
 
     var constraintOptions = {
       render: { visible: false },
     };
 
-    var softBody = Matter.Composites.softBody(this.left + x, this.top + y, cols, rows, 0, 0, true, radius, particleOptions, constraintOptions);
+    var softBody = Matter.Composites.softBody(
+      this.left + x,
+      this.top + y,
+      cols,
+      rows,
+      0,
+      0,
+      true,
+      radius,
+      particleOptions,
+      constraintOptions
+    );
     let allbodies = Matter.Composite.allBodies(softBody);
     allbodies.forEach((e) => {
       e.collisionFilter.group = this.id + 1;
     });
-    Matter.Composite.add(this.game.engine.world, softBody)
+    Matter.Composite.add(this.game.engine.world, softBody);
   };
 }
 
