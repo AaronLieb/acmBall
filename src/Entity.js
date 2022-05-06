@@ -14,8 +14,13 @@ class Entity {
     this.body = body;
     this.tile = tile;
 
-    this.collisionId = this.tile.id + 1;
-    this.body.collisionFilter.group = this.collisionId;
+    if (this.body.ignore) {
+      this.body.collisionFilter.group = 0xdeadbeef;
+      this.body.isSensor = true;
+    } else {
+      this.collisionId = this.tile.id + 1;
+      this.body.collisionFilter.group = this.collisionId;
+    }
     this.body.collisionFilter.mask = 0;
 
     if (!body.isStatic && addToTile) tile.bodies.push(body);

@@ -111,8 +111,7 @@ class Game {
     let currTile = this.tiles[config.tile_id];
     if (config.debug.showTileBorder) {
       currTile.createRectangle(currTile.width / 2, currTile.height / 2, currTile.width, currTile.height, false, {
-        isStatic: true,
-        isSensor: true,
+        ignore: true,
         render: { fillStyle: "rgba(52, 31 ,19, 0.05)" },
       });
     }
