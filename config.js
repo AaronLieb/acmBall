@@ -15,14 +15,13 @@ const config = {
     showTimer: true,
     showCameraMode: true,
     showMousePosition: true,
-    showTileBorder: false,
-    showMarkers: false,
-    showBallPositionOnExit: true,
+    showTileBorder: true,
+    showMarkers: true,
   },
   logging: {
     matter: 0,
   },
-  testAllTiles: true,
+  testAllTiles: false,
 };
 
 export default config;
