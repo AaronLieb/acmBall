@@ -19,6 +19,14 @@ object with two fields, `x` and `y`:
 }
 ```
 
+### `x: number`
+
+`x` a shortcut to `position.x`
+
+### `y: number`
+
+`y` a shortcut to `position.y`
+
 When `ball.position` is used, the position that's returned is relative to the
 current tile, or the tile that the ball is on.
 

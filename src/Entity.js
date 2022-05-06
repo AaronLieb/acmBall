@@ -102,6 +102,44 @@ class Entity {
   }
 
   /**
+   * Gets the X position of the entity
+   * @returns {Number}
+   */
+  get x() {
+    return this.ball.position.x;
+  }
+
+  /**
+   * @param {Number} x - x position of the entity
+   * Sets the X position of the entity
+   */
+  set x(x) {
+    Matter.Body.setPosition(this.body, {
+      x: x + this.left,
+      y: this.body.position.y,
+    });
+  }
+
+  /**
+   * Gets the Y position of the entity
+   * @returns {Number}
+   */
+  get y() {
+    return this.ball.position.y;
+  }
+
+  /**
+   * @param {Number} y - Y position of the entity
+   * Sets the Y position of the entity
+   */
+  set y(y) {
+    Matter.Body.setPosition(this.body, {
+      x: this.body.position.x,
+      y: y + this.top,
+    });
+  }
+
+  /**
    * @param {vector} velocity - {x: num, y: num}
    */
   set velocity(velocity) {
@@ -187,7 +225,7 @@ class Entity {
   }
 
   /**
-   * @returns {Number};
+   * @returns {Number}
    */
   get gravityScale() {
     return this.body.timeScale;
