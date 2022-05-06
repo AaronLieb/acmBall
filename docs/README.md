@@ -2,7 +2,8 @@
 
 ## Table of Contents
 
-- [Lorem Ipsum](.)
+- [Getting Started](#Getting-Started)
+- [Developing](#Developing)
 
 ## Getting Started
 
@@ -24,18 +25,11 @@ repository on GitHub.
 Once you've created a fork of the repository, use git to clone the repository to
 your local machine.
 
-If you need help cloning the repository, refer to [Cloning your
-fork](./cloningYourFork.md).
+### Cloning the fork
 
-You can do this by running
+Once you've created a fork, you need to clone your fork to your local machine
 
-```bash
-git clone --depth 1 <your fork url>
-```
-
-You can also clone the repository from VSCode, or GitHub Desktop.
-
-To clone the repo
+For details on cloning a repository, refer to [Using Git](./git/usingGit.md).
 
 ## Developing
 

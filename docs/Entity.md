@@ -19,6 +19,14 @@ object with two fields, `x` and `y`:
 }
 ```
 
+### `x: number`
+
+`x` a shortcut to `position.x`
+
+### `y: number`
+
+`y` a shortcut to `position.y`
+
 When `ball.position` is used, the position that's returned is relative to the
 current tile, or the tile that the ball is on.
 
@@ -76,6 +84,16 @@ operator.
 let square = tile.createRectangle(200, 200, 50, 50);
 square.angle = 45; // set the angle to 45deg
 square.angle += 15; // add another 15deg to make 60deg
+```
+
+### `bounciness: number`
+
+`bounciness` describes the percentage of speed lost everytime the entity bounces. Default: 1
+
+#### Example: Setting the bounciness of the ball
+
+```js
+tile.ball.bounciness = 0.5;
 ```
 
 ### `gravityScale: number`

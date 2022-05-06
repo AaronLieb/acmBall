@@ -3,6 +3,8 @@
   double check documentation
   add bouncineess to entity documentaiotn
 
+  angle test case
+
 */
 
 import Game from "./Game.js";
