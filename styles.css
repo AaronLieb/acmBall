@@ -67,6 +67,7 @@ canvas {
   border-radius: 5px;
   padding: 25px;
   margin: 10px;
+  cursor: pointer;
 }
 
 #play {

@@ -58,13 +58,23 @@ try {
   logErr(e);
 }
 
-window.startGame = () => {
-  game.resume();
-  resumeButton.hidden = true;
-  pauseButton.hidden = false;
+window.play = () => {
+  if (game.running) {
+    if (game.paused) {
+      game.resume();
+      resumeButton.hidden = true;
+      pauseButton.hidden = false;
+    } else {
+      resumeButton.hidden = false;
+      pauseButton.hidden = true;
+      game.pause();
+    }
+  } else {
+    game.start();
+    startButton.hidden = true;
+    pauseButton.hidden = false;
+  }
 };
-window.resumeGame = game.resume;
-window.pauseGame = game.pause;
 window.restartGame = () => window.location.reload();
 window.switchView = Camera.switchView;
 
@@ -79,27 +89,13 @@ window.addEventListener(
 
     switch (e.key) {
       case " ":
-        if (game.running) {
-          if (game.paused) {
-            game.resume();
-            resumeButton.hidden = true;
-            pauseButton.hidden = false;
-          } else {
-            resumeButton.hidden = false;
-            pauseButton.hidden = true;
-            game.pause();
-          }
-        } else {
-          game.start();
-          startButton.hidden = true;
-          pauseButton.hidden = false;
-        }
+        play()
         break;
       case "v":
-        Camera.switchView();
+        switchView()
         break;
       case "r":
-        window.location.reload();
+        restartGame()
         break;
       default:
         return;
