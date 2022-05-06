@@ -6,8 +6,7 @@ import {
   testBallSize,
   testBallRender,
 } from "./tests.js";
-let { Bodies, Body, Composite } = Matter;
-import { parseOptions } from "./helpers.js";
+let { Body, Composite } = Matter;
 import config from "../config.js";
 import ConveyorBelt from "./ConveyorBelt.js";
 import Circle from "./Circle.js";
