@@ -41,6 +41,7 @@ class Tile {
     this.game = game;
     this.matter = Matter; // for advanced users
     this.bodies = []; // list of objects in this tile
+    this.entered = false;
 
     /* User Defined Member Variables */
     this.ballStart = {};
