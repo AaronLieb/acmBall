@@ -20,8 +20,8 @@ my-game {
 }
 
 canvas {
-  background: radial-gradient(#ccc 4px, #eee 5px) !important;
-  background-size: 50px 50px !important;
+  background: radial-gradient(#ccc 2px, #eee 2px) !important;
+  background-size: 25px 25px !important;
 }
 
 #tests {
