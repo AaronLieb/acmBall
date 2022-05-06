@@ -24,9 +24,9 @@ Render.timestamp = function (render, engine, ctx) {
   ctx.fillStyle = "rgba(0,0,0,1)";
   ctx.font = "20px Monospace";
   const str =
-    pad(Math.floor(engine.timing.timestamp / 1000), " ", 5) +
+    pad(Math.floor(engine.timing.timestamp / 1000), " ", 8) +
     "s " +
-    pad(Math.floor(engine.timing.timestamp % 1000), "0", 4) +
+    pad(Math.floor(engine.timing.timestamp % 1000), "0", 3) +
     "ms";
   ctx.fillText(str, render.canvas.width - 170, render.canvas.height - 20);
 };
@@ -55,6 +55,7 @@ class Game {
     this.NUM_TILES = this.NUM_TILES_X * this.NUM_TILES_Y;
     this.engine = Engine.create();
     this.runner = Runner.create({
+      isFixed: true,
       delta: 1000 / FPS,
     });
     this.mouse = Mouse.create(document.getElementById("gameView"));
@@ -106,7 +107,7 @@ class Game {
 
     Resolver._restingThresh = 0.001;
 
-    this.tiles.forEach(tile => tile._setup());
+    this.tiles.forEach((tile) => tile._setup());
     let currTile = this.tiles[config.tile_id];
     if (config.debug.showTileBorder) {
       currTile.createRectangle(currTile.width / 2, currTile.height / 2, currTile.width, currTile.height, false, {
@@ -170,11 +171,13 @@ class Game {
       }
 
       if (oldActiveTile != config.tile_id || !this.tiles[oldActiveTile]) return;
-      this.tiles[oldActiveTile].thin_walls.forEach((e) => { // hide walls for old tile
+      this.tiles[oldActiveTile].thin_walls.forEach((e) => {
+        // hide walls for old tile
         e.body.render.visible = false;
       });
       this.tiles[oldActiveTile].testExit();
-      this.tiles[this.activeTile].thin_walls.forEach((e) => { // show walls for new tile
+      this.tiles[this.activeTile].thin_walls.forEach((e) => {
+        // show walls for new tile
         e.body.render.visible = true;
       });
       if (oldActiveTile == config.tile_id && oTile) {
@@ -201,8 +204,8 @@ class Game {
       pair = event.pairs[i];
       let a = pair.bodyA;
       let b = pair.bodyB;
-      if (a.label === 'ball' && b.label.includes('set_wall')) {
-        console.log("BALL HIT {", b.label, "} at: ", a.position , ' velocity: ', a.velocity);
+      if (a.label === "ball" && b.label.includes("set_wall")) {
+        console.log("BALL HIT {", b.label, "} at: ", a.position, " velocity: ", a.velocity);
       }
       /* allow callback-enabled collisions with objects with label 'button' only */
       if (a.label === "button" || b.label === "button") Button.buttonLogic(a, b, event);
