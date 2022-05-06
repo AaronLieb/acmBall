@@ -2,11 +2,11 @@ import Entity from "./Entity.js";
 import { parseOptions } from "./helpers.js";
 
 class Circle extends Entity {
-  constructor(tile, x, y, radius, moveable = false, options = {}, addToTile = true) {
+  constructor(tile, x, y, radius, moveable = false, options = {}) {
     options.isStatic = !moveable;
     parseOptions(options);
     let body = Matter.Bodies.circle(x, y, radius, options);
-    super(body, tile, addToTile);
+    super(body, tile, options.addToTile ?? false);
     this.body.label = options.label ?? 'circle';
   }
 

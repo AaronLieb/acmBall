@@ -60,6 +60,38 @@ class Tile {
     return this.game.ball;
   }
 
+  _onTick() {
+    this.onTick();
+  }
+
+  _onTickBackground() {
+    this.onTickBackground();
+  }
+
+  _onBallLeave() {
+    this.onBallLeave();
+  }
+
+  _onBallEnter() {
+    this.bodies.forEach(b => {
+      if(b._cache) {
+        console.log(b._cache.isStatic)
+        b = {...b._cache}
+      }
+    })
+    this.onBallEnter();
+  }
+
+  _setup() {
+    this._createBoundaries();
+    this.setup();
+    this.bodies.forEach(b => {
+      b._cache = {...b}
+      Body.setStatic(b, true)
+    });
+    // console.log(this.bodies[0]._cache);
+  }
+
   testExit() {
     let c = config.tests.exit;
     this.testsPassed += !c.position || testBallPosition(game.ball.body, this.ballEnd);
@@ -224,7 +256,7 @@ class Tile {
     Composite.remove(this.game.engine.world, this.bodies);
   }
 
-  createGate = (walls, pt, wall_thickness, color = "red") => {
+  _createGate = (walls, pt, wall_thickness, color = "red") => {
     const gate_margin = 10;
     const gate_thickness = 2 * this.ball.radius + gate_margin;
     const gate_size = 10;
@@ -264,7 +296,7 @@ class Tile {
     });
   };
 
-  createBoundaries = () => {
+  _createBoundaries = () => {
     const wall_thickness = 100;
     const wm = 0; // wall margin
 
@@ -364,8 +396,8 @@ class Tile {
     let sp = this.ballStart.position;
     let ep = this.ballEnd.position;
 
-    this.createGate(walls, sp, wall_thickness, "rgba(0, 15, 255, .7)");
-    this.createGate(walls, ep, wall_thickness, "rgba(255, 0, 0, .6)");
+    this._createGate(walls, sp, wall_thickness, "rgba(0, 15, 255, .7)");
+    this._createGate(walls, ep, wall_thickness, "rgba(255, 0, 0, .6)");
     this.thin_walls = [top_thin, bot_thin, left_thin, right_thin];
     if (this.id === config.tile_id) {
       this.thin_walls.forEach((e) => {
