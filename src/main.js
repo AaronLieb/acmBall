@@ -95,5 +95,3 @@ window.addEventListener(
   },
   true
 );
-
-export default game;

@@ -33,15 +33,16 @@ Camera.updateCamera = () => {
   const getBody = () => {
     if (Camera.mode == Camera.modes.fullscreen) return game.centerBody;
     else if (Camera.mode == Camera.modes.ball) return Camera.focusBody;
-    else return game.tiles[game.activeTile].centerBody;
+    else return game.tiles[game.activeTile]?.centerBody ?? game.centerBody;
   };
 
   /* Linear Interpolation only if NOT fullscreen */
   Camera.fullScreen || Camera.lerp();
   /* Adjust padding of viewport */
-  let divisor = Camera.mode == Camera.modes.fullscreen
-    ? { x: game.WIDTH / 2, y: game.HEIGHT / 2 }
-    : { x: game.TILE_WIDTH / Camera.zoom, y: game.TILE_HEIGHT / Camera.zoom };
+  let divisor =
+    Camera.mode == Camera.modes.fullscreen
+      ? { x: game.WIDTH / 2, y: game.HEIGHT / 2 }
+      : { x: game.TILE_WIDTH / Camera.zoom, y: game.TILE_HEIGHT / Camera.zoom };
   Render.lookAt(
     game.render,
     {
