@@ -91,7 +91,6 @@ class Tile {
       b._cache = { ...b };
       Body.setStatic(b, true);
     });
-    // console.log(this.bodies[0]._cache);
   }
 
   testExit() {
