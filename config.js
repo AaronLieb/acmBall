@@ -17,6 +17,7 @@ const config = {
     showMousePosition: true,
     showTileBorder: true,
     showMarkers: true,
+    showBallPositionOnExit: true,
   },
   logging: {
     matter: 0,
