@@ -103,15 +103,6 @@ class Tile {
   }
 
   /**
-   * @method setBackgroundColor
-   * @param {string} color
-   * @returns {void}
-   */
-  setBackgroundColor(color) {
-    game.render.options.background = color;
-  }
-
-  /**
    * @method createRectangle
    * @param {Number} x - the center x value
    * @param {Number} y - the center y value
