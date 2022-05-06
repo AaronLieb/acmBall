@@ -4,12 +4,13 @@ import { sleep } from "../src/helpers.js";
 class Spring extends Button {
   constructor(tile, x, y, width, height, vx, vy, options) {
     let startCollide = (o) => {
-      Matter.Body.setVelocity(o, { x: vx, y: vy });
-      Matter.Body.scale(this.body, 1.0, 0.6);
+      let ball = o.a.label === "ball" ? o.a : o.b;
+      Matter.Body.setVelocity(ball, { x: vx, y: vy });
+      // Matter.Body.scale(this.body, 1.0, 0.6);
     };
     let endCollide = async () => {
       await sleep(1000);
-      Matter.Body.scale(this.body, 1.0, 1.66667);
+      // Matter.Body.scale(this.body, 1.0, 1.66667);
     };
     super(tile, x, y, width, height, startCollide, endCollide, options);
     this.color = "yellow";
