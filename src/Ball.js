@@ -29,14 +29,14 @@ class Ball extends Circle {
    */
   constructor(tile) {
     super(tile, 0, 0, BALL_RADIUS, true, defaultState);
-    this._defaultRender = defaultState.render;
+    this._defaultRender = { ...defaultState.render };
   }
 
   /**
    * Resets the ball to its defualt state
    */
   reset() {
-    Matter.Body.set(this.body, defaultState);
+    Matter.Body.set(this.body, { ...defaultState });
   }
 
   /**

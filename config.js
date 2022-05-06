@@ -1,6 +1,7 @@
 const config = {
   tile_id: 0,
   tests: {
+    pauseOnFailedTest: false,
     exit: {
       position: true,
       velocity: true,
@@ -14,12 +15,13 @@ const config = {
     showTimer: true,
     showCameraMode: true,
     showMousePosition: true,
-    showTileBorder: true,
+    showTileBorder: false,
     showMarkers: true,
   },
   logging: {
     matter: 0,
   },
+  testAllTiles: true,
 };
 
 export default config;

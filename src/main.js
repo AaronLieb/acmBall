@@ -1,6 +1,7 @@
 /* TODO 
 
-    Tile view 
+  double check documentation
+  add bouncineess to entity documentaiotn
 
 */
 

@@ -10,7 +10,7 @@ let { Mouse, Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine
 Render.mousePosition = function (render, mouse, ctx) {
   let currTile = game.tiles[config.tile_id];
   const offset = 38;
-  let mp = {x: mouse.position.x, y: mouse.position.y};
+  let mp = { x: mouse.position.x, y: mouse.position.y };
   let new_x = mp.x - currTile.left - offset;
   let new_y = mp.y - currTile.top - offset;
   if (new_x < -5 || new_x > 505 || new_y < -5 || new_y > 505) return;
@@ -160,7 +160,7 @@ class Game {
 
       if ((config.testAllTiles || oldActiveTile == config.tile_id) && oTile) {
         let passed = oTile._testExit();
-        if (!passed) this.pause();
+        if (!passed && config.pauseOnFailedTeset) this.pause();
       }
 
       if (!aTile || this.activeTile < 0) return;

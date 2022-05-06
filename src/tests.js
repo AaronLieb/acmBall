@@ -60,6 +60,8 @@ export const testBallShape = (ball) => {
 export const testBallRender = (ball) => {
   let flag = true;
   let render = game.ball._defaultRender;
+  console.log(ball.render);
+  console.log(render);
   flag = assertEqual(ball.render.fillStyle, render.fillStyle, "fillStyle") && flag;
   flag = assertEqual(ball.render.lineWidth, render.lineWidth, "lineWidth") && flag;
   flag = assertEqual(ball.render.strokeStyle, render.strokeStyle, "strokeStyle") && flag;

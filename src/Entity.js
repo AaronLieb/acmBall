@@ -165,6 +165,20 @@ class Entity {
   }
 
   /**
+   * @param {Number} bounciness - Default: 1, how bouncy you want the entity to be
+   */
+  set bounciness(bounciness) {
+    this.body.restitution = bounciness;
+  }
+
+  /**
+   * @returns {Number}
+   */
+  get bounciness() {
+    return this.body.restitution;
+  }
+
+  /**
    * Controls the scale
    * @param {Number} scale - default 1
    */

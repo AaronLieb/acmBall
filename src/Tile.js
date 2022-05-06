@@ -92,7 +92,6 @@ class Tile {
     this.ball.position = this.ballStart.position;
     this.ball.velocity = this.ballStart.velocity;
     this.bodies.forEach((b) => Matter.Body.setStatic(b, b._isStatic ?? b.isStatic));
-    console.log(this.id, "newnew: ", this.bodies);
     this.onBallEnter();
   }
 
@@ -249,7 +248,8 @@ class Tile {
    * @param {number} y - the center y value
    * @param {number} width
    * @param {number} height
-   * @param {vector} launchVelocity
+   * @param {number} vx - the launch velocity in the x direction
+   * @param {number} vy - the launch velocity in the y direction
    * @param {Object} options
    * @returns {Entity}
    */
@@ -295,6 +295,8 @@ class Tile {
     });
     end_rect.color = "rgba(245, 14, 2, .6)";
     end_rect.body.render.strokeStyle = "rgba(0,0,0,0)";
+    if (start_rect.position.y % 500 == 0) start_rect.angle = 90;
+    if (end_rect.position.y % 500 == 0) end_rect.angle = 90;
   };
 }
 
