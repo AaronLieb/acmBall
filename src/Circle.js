@@ -6,7 +6,7 @@ class Circle extends Entity {
     options.isStatic = !moveable;
     parseOptions(options);
     let body = Matter.Bodies.circle(x, y, radius, options);
-    super(body, tile, options.addToTile ?? false);
+    super(body, tile, options.addToTile ?? true);
     this.body.label = options.label ?? "circle";
   }
 

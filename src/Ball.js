@@ -9,6 +9,7 @@ const defaultState = {
   restitution: 0.8,
   inertia: Infinity,
   inverseInertia: 0,
+  addToTile: false,
   mass: 2,
   render: {
     fillStyle: "#f99",

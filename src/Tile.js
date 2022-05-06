@@ -92,6 +92,7 @@ class Tile {
     this.ball.position = this.ballStart.position;
     this.ball.velocity = this.ballStart.velocity;
     this.bodies.forEach((b) => Matter.Body.setStatic(b, b._isStatic ?? b.isStatic));
+    console.log(this.id, 'newnew: ', this.bodies);
     this.onBallEnter();
   }
 
@@ -100,6 +101,7 @@ class Tile {
    */
   _setup() {
     this.setup();
+    console.log(this.id, ': ', this.bodies);
     this.bodies.forEach((b) => {
       b._isStatic = b.isStatic;
       Body.setStatic(b, true);
