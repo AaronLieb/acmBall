@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Getting Started](#Getting-Started)
+- [Developing](#Developing)
 
 ## Getting Started
 
@@ -25,17 +26,7 @@ Once you've created a fork of the repository, use git to clone the repository to
 your local machine.
 
 If you need help cloning the repository, refer to [Cloning your
-fork](./cloningYourFork.md).
-
-You can do this by running
-
-```bash
-git clone --depth 1 <your fork url>
-```
-
-You can also clone the repository from VSCode, or GitHub Desktop.
-
-To clone the repo
+fork](./git/howToGit.md).
 
 ## Developing
 
