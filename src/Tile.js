@@ -145,7 +145,7 @@ class Tile {
    * @param {Number} x1  - x position of the first point
    * @param {Number} y1  - y position of the first point
    * @param {Number} x2  - x position of the second point
-   * @param {Number} y2  - y poisition of the second point
+   * @param {Number} y2  - y position of the second point
    * @param {Number} x3  - x position of the third point
    * @param {Number} y3  - y position of the third point
    * @param {bool} moveable
@@ -153,7 +153,17 @@ class Tile {
    * @returns {Triangle}
    */
   createTriangle(x1, y1, x2, y2, x3, y3, moveable = false, options = {}) {
-    return new Triangle(this, x1, y1, x2, y2, x3, y3, moveable, options);
+    return new Triangle(
+      this,
+      this.left + x1,
+      this.top + y1,
+      this.left + x2,
+      this.top + y2,
+      this.left + x3,
+      this.top + y3,
+      moveable,
+      options
+    );
   }
 
   /**
@@ -167,7 +177,7 @@ class Tile {
    * @returns {Ramp}
    */
   createRamp(x1, y1, x2, y2, options = {}) {
-    return new Ramp(this, x1, y1, x2, y2, options);
+    return new Ramp(this, this.left + x1, this.top + y1, this.left + x2, this.top + y2, options);
   }
 
   /**
@@ -199,8 +209,8 @@ class Tile {
 
   createPortals(x1, y1, x2, y2) {
     return [
-      new Portal(this, x1, y1, x2, y2, "rgba(255, 154, 0, 0.6)"),
-      new Portal(this, x2, y2, x1, y1, "rgba(0, 101, 255, 0.6)"),
+      new Portal(this, x1 + this.left, y1 + this.top, x2 + this.left, y2 + this.top, "rgba(255, 154, 0, 0.6)"),
+      new Portal(this, x2 + this.left, y2 + this.top, x1 + this.left, y1 + this.top, "rgba(0, 101, 255, 0.6)"),
     ];
   }
 
