@@ -5,7 +5,7 @@ const BALL_RADIUS = 20;
 const defaultState = {
   label: "ball",
   frictionAir: 0,
-  friction: 0.0006,
+  friction: 0.00006,
   restitution: 0.8,
   inertia: Infinity,
   inverseInertia: 0,
@@ -28,6 +28,7 @@ class Ball extends Circle {
   constructor(tile) {
     super(tile, 0, 0, BALL_RADIUS, true, defaultState);
     this.defaultRender = defaultState.render;
+    const radius = BALL_RADIUS; // read-only
   }
 
   /**

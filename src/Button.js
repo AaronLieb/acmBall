@@ -19,6 +19,7 @@ class Button extends Rectangle {
     this.pressedColor = options.pressedColor ?? "green";
     this.body.label = 'buttonBase'
     this.color = this.unpressedColor;
+    sensor.body.render.strokeStyle = 'rgba(0,0,0,0)';
     sensor.body.ballOnly = options.ballOnly ?? false;
     sensor.body.callback = (o) => {this.color = this.pressedColor; startCollide(o);};
     sensor.body.endCallback = (o) => {this.color = this.unpressedColor; endCollide(o);};
@@ -26,31 +27,28 @@ class Button extends Rectangle {
   }
 
   static buttonLogic(a, b, event) {
-    console.log(a.label, b.label, event);
     if (a.callback && event.name === "collisionStart") {
       if (a.ballOnly && b.label === "ball") {
-        
-        a.callback(b);
-      } else if (!a.ballOnly) a.callback(b);
+        a.callback({a: a, b: b});
+      } else if (!a.ballOnly) a.callback({a: a, b: b});
     }
     
     if (a.endCallback && event.name === "collisionEnd") {
       if (a.ballOnly && b.label === "ball") {
-        a.endCallback(b);
-      } else if (!a.ballOnly) a.endCallback(b);
+        a.endCallback({a: a, b: b});
+      } else if (!a.ballOnly) a.endCallback({a: a, b: b});
     }
     
     if (b.callback && event.name === "collisionStart") {
       if (b.ballOnly && a.label === "ball") {
-        console.log('inside');
-        b.callback(a);
-      } else if (!b.ballOnly) b.callback(a);
+        b.callback({a: a, b: b});
+      } else if (!b.ballOnly) b.callback({a: a, b: b});
     }
 
     if (b.endCallback && event.name === "collisionEnd") {
       if (b.ballOnly && a.label === "ball") {
-        b.endCallback(a);
-      } else if (!b.ballOnly) b.endCallback(a);
+        b.endCallback({a: a, b: b});
+      } else if (!b.ballOnly) b.endCallback({a: a, b: b});
     }
   }
 }

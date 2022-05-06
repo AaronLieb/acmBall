@@ -41,6 +41,7 @@ class Tile {
     this.game = game;
     this.matter = Matter; // for advanced users
     this.bodies = []; // list of objects in this tile
+    this.thin_walls = [];
 
     /* User Defined Member Variables */
     this.ballStart = {};
@@ -221,6 +222,175 @@ class Tile {
   clear() {
     Composite.remove(this.game.engine.world, this.bodies);
   }
+
+  createGate = (walls, pt, wall_thickness, color = "red") => {
+    const gate_margin = 10;
+    const gate_thickness = 2 * this.ball.radius + gate_margin;
+    const gate_size = 10;
+    const disable_id = 12970386909276;
+    const strictness = 25; // how far off the ball is allowed to be to enter next tile
+    const id_snapshot = this.id + 1;
+    let is_horizontal = pt.x <= 20 || pt.x >= this.width - 20;
+
+    let start_gate_width = is_horizontal ? gate_size : gate_thickness;
+    let start_gate_height = is_horizontal ? gate_thickness : gate_size;
+    const disable_walls = (o) => {
+      let delta = Math.abs(o.a.position.y - o.b.position.y);
+      if (delta > strictness) {
+        return;
+      }
+      console.log("ENDING VELOCITY: ", o.a.label === "ball" ? o.a.velocity : o.b.velocity); // write this to user?
+      // startCollide callback
+      walls.forEach((e) => {
+        e.body.collisionFilter.group = disable_id; // disable wall collision for all tiles
+      });
+    };
+    const enable_walls = (o) => {
+      // endCollide callback
+      walls.forEach((e) => {
+        e.body.collisionFilter.group = id_snapshot; // disable wall collision for all tiles
+      });
+    };
+
+    let gate = this.createButton(pt.x, pt.y, start_gate_width, start_gate_height, disable_walls, enable_walls, {
+      unpressedColor: color,
+      pressedColor: color,
+      ballOnly: true,
+      isSensor: true,
+      render: {
+        strokeStyle: "rgba(0,0,0,0)",
+      },
+    });
+  };
+
+  createBoundaries = () => {
+    const wall_thickness = 100;
+    const wm = 0; // wall margin
+
+    const wall_options = {
+      render: { fillStyle: "rgba(255, 0,0, .0)", strokeStyle: "rgba(0,0,0,.0)" },
+      friction: 0.0,
+      label: "set_wall",
+    };
+    const thin_options = {
+      isSensor: true,
+      render: { fillStyle: "rgba(42, 42,42, .06)", strokeStyle: "rgba(42,42,42,0)", visible: false },
+      friction: 0.0,
+    };
+    /* Wall Setups */
+
+    let left_wall = this.createLine(
+      wm - wall_thickness - 19,
+      -40,
+      wm - wall_thickness - 19,
+      this.height,
+      wall_thickness,
+      false,
+      wall_options
+    );
+    let right_wall = this.createLine(
+      this.width + wall_thickness - wm + 19,
+      -40,
+      this.width + wall_thickness - wm + 19,
+      this.height,
+      wall_thickness,
+      false,
+      wall_options
+    );
+    let top_wall = this.createLine(
+      0 - 100,
+      wm - wall_thickness - 19,
+      this.width + 100,
+      wm - wall_thickness - 19,
+      wall_thickness,
+      false,
+      wall_options
+    );
+    let bot_wall = this.createLine(
+      -19,
+      this.height - wm + wall_thickness + 19,
+      this.width,
+      this.height - wm + wall_thickness + 19,
+      wall_thickness,
+      false,
+      wall_options
+    );
+    top_wall.body.label = "top_set_wall";
+    left_wall.body.label = "left_set_wall";
+    right_wall.body.label = "right_set_wall";
+    bot_wall.body.label = "bot_set_wall";
+    let walls = [left_wall, right_wall, top_wall, bot_wall];
+
+    /* Thin walls */
+    const thin_width = 3;
+    let left_thin = this.createLine(
+      wm - thin_width - 19,
+      -20,
+      wm - thin_width - 19,
+      this.height + 20,
+      thin_width,
+      false,
+      thin_options
+    );
+    let right_thin = this.createLine(
+      this.width + thin_width - wm + 19,
+      -20,
+      this.width + thin_width - wm + 19,
+      this.height + 20,
+      thin_width,
+      false,
+      thin_options
+    );
+    let top_thin = this.createLine(
+      -20,
+      wm - thin_width - 19,
+      this.width + 20,
+      wm - thin_width - 19,
+      thin_width,
+      false,
+      thin_options
+    );
+    let bot_thin = this.createLine(
+      -20,
+      this.height - wm + thin_width + 19,
+      this.width + 20,
+      this.height - wm + thin_width + 19,
+      thin_width,
+      false,
+      thin_options
+    );
+    /* Gate Setup */
+    let sp = this.ballStart.position;
+    let ep = this.ballEnd.position;
+
+    this.createGate(walls, sp, wall_thickness, "rgba(0, 15, 255, .7)");
+    this.createGate(walls, ep, wall_thickness, "rgba(255, 0, 0, .6)");
+    this.thin_walls = [top_thin, bot_thin, left_thin, right_thin];
+    if (this.id === config.tile_id) {
+      this.thin_walls.forEach((e) => {
+        e.body.render.visible = true;
+      });
+    }
+  };
+
+  createSoftBody = (x, y, cols, rows, radius) => {
+    var particleOptions = {
+      friction: 0.05,
+      frictionStatic: 0.1,
+      render: { visible: true, fillStyle: 'green' },
+    };
+
+    var constraintOptions = {
+      render: { visible: false },
+    };
+
+    var softBody = Matter.Composites.softBody(this.left + x, this.top + y, cols, rows, 0, 0, true, radius, particleOptions, constraintOptions);
+    let allbodies = Matter.Composite.allBodies(softBody);
+    allbodies.forEach((e) => {
+      e.collisionFilter.group = this.id + 1;
+    });
+    Matter.Composite.add(this.game.engine.world, softBody)
+  };
 }
 
 export default Tile;

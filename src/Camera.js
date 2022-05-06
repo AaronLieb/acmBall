@@ -4,7 +4,7 @@ const Camera = {
   WIDTH: 500 * (16 / 9),
   HEIGHT: 500,
   zoom: 1.5,
-  fullScreen: true,
+  fullScreen: false,
   lerp_coefficient: 0.03,
   /* Dummy object used for lerping */
   focusBody: Bodies.circle(0, 0, 0.1, {

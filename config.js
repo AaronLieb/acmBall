@@ -1,5 +1,5 @@
 const config = {
-  tile_id: 0,
+  tile_id: 1,
   tests: {
     exit: {
       position: true,
@@ -13,7 +13,7 @@ const config = {
     showMasses: false,
     showTimer: true,
     showMousePosition: true,
-    showTileBorder: true,
+    showTileBorder: false,
   },
   logging: {
     matter: 0,
