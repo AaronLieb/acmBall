@@ -2,9 +2,9 @@
 
 ## Table of Contents
 
-- [Lorem Ipsum](.)
+- [Getting Started](#Getting-Started)
 
-## Getting Started
+# Getting Started
 
 Recommended Text Editor:
 
