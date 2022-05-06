@@ -19,9 +19,11 @@ tile.setup = function () {
 
   let rope1 = tile.createRope(250, 100, 10);
 
-  let sb1 = tile.createSoftBody(300, 300, 3, 4, 10);
+  // let sb1 = tile.createSoftBody(300, 300, 3, 4, 10); 
 
-  // let r3 = tile.createRectangle(202, 153, 50, 50, true);
+  let r3 = tile.createRectangle(tile.width/2, 450, 500, 50, false);
+  let spring = tile.createSpring(400, 450, 100, 50, -3, -4);
+
 
   // let spring1 = tile.createSpring( 200, 420, 150, 20, 6, -12, { ballOnly: false });
 };
@@ -29,10 +31,12 @@ tile.setup = function () {
 // This function will run when the ball enters your tile
 tile.onBallEnter = async function () {};
 
-tile.onBallLeave = async function () {};
+tile.onBallLeave = async function () {
+};
 
 // This function will run once every tick while the ball is in your tile
-tile.onTick = function () {};
+tile.onTick = function () {
+};
 
 // This function will run once everey tick, even if the ball is not in your tile
 tile.onTickBackground = function () {};

@@ -24,7 +24,7 @@ class Entity {
     }
     this.body.collisionFilter.mask = 0;
 
-    if (!body.isStatic && addToTile) tile.bodies.push(body);
+    if (addToTile) tile.bodies.push(body);
     addToWorld && Matter.Composite.add(game.engine.world, [this.body]);
   }
 

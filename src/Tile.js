@@ -85,6 +85,7 @@ class Tile {
     this.ball.position = this.ballStart.position;
     this.ball.velocity = this.ballStart.velocity;
     this.bodies.forEach((b) => Matter.Body.setStatic(b, b._isStatic ?? b.isStatic));
+    console.log(this.id, 'newnew: ', this.bodies);
     this.onBallEnter();
   }
 
@@ -93,6 +94,7 @@ class Tile {
    */
   _setup() {
     this.setup();
+    config.debug.showMarkers && this._drawMarkers();
     this.bodies.forEach((b) => {
       b._isStatic = b.isStatic;
       Body.setStatic(b, true);
@@ -300,6 +302,16 @@ class Tile {
     });
     Matter.Composite.add(this.game.engine.world, softBody);
   };
+
+  _drawMarkers = () => {
+    let start_rect = this.createRectangle(this.ballStart.position.x, this.ballStart.position.y, 10, 30, false, {ignore: true});
+    start_rect.color = 'rgba(2, 14, 245, .6)';
+    start_rect.body.render.strokeStyle = 'rgba(0,0,0,0)';
+    let end_rect = this.createRectangle(this.ballEnd.position.x, this.ballEnd.position.y, 10, 30, false, {ignore: true});
+    end_rect.color = 'rgba(245, 14, 2, .6)';
+    end_rect.body.render.strokeStyle = 'rgba(0,0,0,0)';
+
+  }
 }
 
 export default Tile;
