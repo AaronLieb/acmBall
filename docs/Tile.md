@@ -186,7 +186,7 @@ tile.onTick = function () {
 #### Example: Printing the width and height of the tile
 
 ```ts
-console.log(`${tile.width} x ${tile.height}`);
+alert(`${tile.width} x ${tile.height}`);
 // Output:
 // 500 x 500
 ```
