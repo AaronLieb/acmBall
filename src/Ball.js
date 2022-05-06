@@ -27,8 +27,7 @@ class Ball extends Circle {
    */
   constructor(tile) {
     super(tile, 0, 0, BALL_RADIUS, true, defaultState);
-    this.defaultRender = defaultState.render;
-    const radius = BALL_RADIUS; // read-only
+    this._defaultRender = defaultState.render;
   }
 
   /**
