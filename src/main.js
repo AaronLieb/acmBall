@@ -1,16 +1,6 @@
 /* TODO 
 
-    Documentation:
-      code block example, gif showing the result
-
-    Camera:
-      use canvas.style.backgroundPosition to move background when camera moves
-    
     Tile view 
-
-    Fix buttons, they suck still
-
-    Change area of ball for tests cases
 
 */
 
@@ -89,13 +79,13 @@ window.addEventListener(
 
     switch (e.key) {
       case " ":
-        play()
+        play();
         break;
       case "v":
-        switchView()
+        switchView();
         break;
       case "r":
-        restartGame()
+        restartGame();
         break;
       default:
         return;
