@@ -1,5 +1,8 @@
 # Entity
 
+`Entity` describes an object in the game. For example, a rectangle in a tile is
+an entity. The ball is an entity.
+
 ## Properties
 
 ### `mass: number`
@@ -12,7 +15,9 @@
 
 ### `angle: number`
 
-###
+`angle`
+
+### `gravityScale: number`
 
 ## Methods
 
@@ -20,4 +25,6 @@
 
 ### `setVelocity`
 
-### `rotate`
+### `applyForce`
+
+### `scale`

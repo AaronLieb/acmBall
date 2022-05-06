@@ -1,6 +1,12 @@
 # Tile
 
-Tile is...
+`Tile` is the play field of each group. Each group only gets one tile, and they
+mostly only develop that tile only.
+
+A tile may have entities (see [`Entity`](Entity.md)), which are objects within
+it. For example, the ground is an entity created by `createRectangle`. The
+[default template tile `tiles/template.js` file](../tiles/template.js) should
+have this.
 
 ## Coordinate System
 
@@ -13,9 +19,161 @@ on the coordinate grid, a square with its 4 corners at `(10, 10)`, `(30, 10)`,
 `(10, 30)`, and `(30, 30)`.
 
 The coordinates are also relative to each tile. This means that regardless of
-what or where your tile is, you will always have `0 <= x <= tile.width` and `0 <= y <= tile.height`.
+what or where your tile is, you will always have `0 <= x <= tile.width` and
+`0 <= y <= tile.height`.
 
 ## Properties
+
+### `ballStart: object`
+
+`ballStart` describes the position and velocity of the ball when it enters the
+tile. The game will guarantee that, as the ball enters the tile, it will
+**always** be at that position with that velocity. This ensures that nothing
+behaves unexpectedly as they're being developed.
+
+All tile files will already have lines to change `ballStart` at the top.
+
+The object has the following structure:
+
+```ts
+{
+  position: {
+    x: number;
+    y: number;
+  }
+  velocity: {
+    x: number;
+    y: number;
+  }
+}
+```
+
+#### Example: Default `ballStart` values
+
+See [tiles/template.js](../tiles/template.js).
+
+```js
+tile.ballStart.position = { x: 0, y: 0 };
+tile.ballStart.velocity = { x: 0, y: 0 };
+```
+
+### `ballEnd: object`
+
+`ballEnd` describes the position and velocity of the ball when it leaves the
+tile to enter the next tile. For example, if a ball is going from tile A to tile
+B, then **A's `ballEnd` MUST BE B's `ballStart`**. If this is not the case, then
+the game's tests will fail.
+
+The structure of `ballEnd` is similar to `ballStart`.
+
+#### Example: Default `ballEnd` values
+
+See [tiles/template.js](../tiles/template.js). These values are only to act as
+filler. **The developers of a tile should always communicate with their next
+tile to agree on their `ballEnd` and `ballStart`**.
+
+```js
+tile.ballEnd.position = { x: 0, y: 0 };
+tile.ballEnd.velocity = { x: 0, y: 0 };
+```
+
+### `setup: function`
+
+`setup` is a function that's called once when the game first loads, even if it's
+not that tile's turn. It is commonly used to start placing down entities that
+are part of the tile.
+
+`setup` is guaranteed to be called before `onBallEnter` and `onTick` are.
+
+The function must take in no arguments and return nothing.
+
+#### Example: Default `setup` value
+
+See [tiles/template.js](../tiles/template.js). The `setup` function in the
+default template tile creates a rectangle that spans the entire bottom part,
+which acts as the ground.
+
+```js
+tile.setup = function () {
+  tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
+};
+```
+
+### `onBallEnter: function`
+
+`onBallEnter` is a function that's called once when the ball enters the tile. It
+can be used for various use cases, such as changing the color of something when
+the ball enters.
+
+The function must take in no arguments and return nothing. The function can
+either be `async` or not. If `sleep` is used, then the function must be `async`.
+See [Helpers](./helpers.md) for more information.
+
+#### Example: Default `onBallEnter` value
+
+See [tiles/template.js](../tiles/template.js). The `onBallEnter` function is
+`async` by default. It also does nothing by default.
+
+```js
+tile.onBallEnter = async function () {};
+```
+
+### `onBallLeave: function`
+
+`onBallLeave` is a function that's called once when the ball leaves the tile. It
+can be used for various use cases, such as changing the color of something when
+the ball leaves.
+
+The function must take in no arguments and return nothing. The function can
+either be `async` or not. If `sleep` is used, then the function must be `async`.
+See [Helpers](./helpers.md) for more information.
+
+#### Example: Default `onBallLeave` value
+
+See [tiles/template.js](../tiles/template.js). The `onBallLeave` function is
+`async` by default. It also does nothing by default.
+
+```js
+tile.onBallLeave = async function () {};
+```
+
+### `onTick: function`
+
+`onTick` is a function that's called on every game tick. A game tick is every
+time the game decides to process the game. The game processes itself 60 times a
+second (meaning 60 ticks per second, or 60 TPS).
+
+**`onTick` is only called as long as the ball is in the tile**. It is NOT called
+if the ball is outside of the tile.
+
+#### Example: Default `onTick` value
+
+See [tiles/template.js](../tiles/template.js). The `onTick` function does
+nothing by default.
+
+```js
+tile.onTick = function () {};
+```
+
+#### Example: Rotate a square a bit every tick.
+
+```js
+// Define a square variable to nothing on the global scope. This means that all
+// functions below this line can access square.
+let square;
+
+tile.setup = function () {
+  // Initialize the above square variable to a valid rectangle. setup is
+  // guaranteed to be called before onTick is.
+  square = tile.createRectangle(50, 50, 20, 20);
+};
+
+tile.onTick = function () {
+  // Rotate by 1.5deg every tick. With 60 TPS, this means rotating 90deg a
+  // second.
+  square.angle += 1.5;
+};
+```
 
 ### `width: number`
 
@@ -48,8 +206,8 @@ The ball's default values are:
 tile.ball.color = "green";
 tile.ball.radius = 100;
 ```
-<img src="./images/normalBall.png" width="200" height="200" />
-<img src="./images/greenBall.png" width="200" height="200" />
+
+<img src="./images/normalBall.png" height="300" /> <img src="./images/greenBall.png" height="300" />
 
 ## Methods
 
@@ -94,7 +252,7 @@ let rect = tile.createRectangle(
 );
 ```
 
-<img src="./images/createRect.png" width="200" height="200" />
+<img src="./images/createRect.png" width="300" />
 
 #### Example: Create a small box that drops from the top-middle
 
@@ -134,7 +292,7 @@ let diagonal = tile.createLine(0, 0, 500, 500, 8);
 diagonal.color = "red";
 ```
 
-![](./images/createLine.gif)
+<img src="./images/createLine.gif" width="300" />
 
 ### `createTriangle`
 
@@ -168,7 +326,7 @@ tile.setup = function () {
 };
 ```
 
-![](./images/triangle.gif)
+<img src="./images/triangle.gif" width="300" />
 
 #### Example: Create a triangle with an oval in the middle
 
@@ -197,7 +355,7 @@ eye.color = "rgb(0, 117, 0)";
 eye.scale(1, 0.5);
 ```
 
-![](./images/createTriangle.gif)
+<img src="./images/createTriangle.gif" width="300" />
 
 ### `createRamp`
 
@@ -227,7 +385,7 @@ tile.setup = function () {
 };
 ```
 
-![](./images/ramp.gif)
+<img src="./images/ramp.gif" width="300" />
 
 ### `createCircle`
 
@@ -254,7 +412,7 @@ createCircle(x: number, y: number, radius: number, moveable = false): Circle
 tile.createCircle(60, 60, 40);
 ```
 
-<img src="./images/cornerBall.png" width="200" height="200" />
+<img src="./images/cornerBall.png" width="300" />
 
 #### Example: Make a fake ball that drops from the top-middle
 
@@ -272,7 +430,7 @@ let fakeBall = tile.createCircle(
 fakeBall.color = "#f99";
 ```
 
-![](./images/createBall.gif)
+<img src="./images/createBall.gif" width="300" />
 
 ### `createConveyorBelt`
 
@@ -280,7 +438,33 @@ fakeBall.color = "#f99";
 createConveyorBelt(x: number, y: number, width: number, height: number, speed: number): Entity
 ```
 
-![](./images/conveyor.gif)
+`createConveyerBelt` creates a new conveyor belt that launches the ball left or
+right in the direction parallel to the belt.
+
+#### Parameters
+
+- `x`: the middle point of the conveyor belt to be created relative to the
+  horizontal x-axis.
+- `y`: the middle point of the conveyor belt to be created relative to the
+  vertical y-axis.
+- `width`: the width of the conveyor belt.
+- `height`: the height of the conveyor belt.
+- `speed`: the speed (or velocity) at which to set the ball to when it hits the
+  conveyor belt. If `speed` is negative, then the ball gets launched to the left
+  instead of the right.
+
+#### Example: A tile where the ball gets tossed onto a conveyor belt
+
+```js
+tile.ballStart.position = { x: 0, y: 202 };
+tile.ballStart.velocity = { x: 5.825343621579975, y: -5.403626669463045 };
+
+tile.setup = function () {
+  tile.createConveyorBelt(tile.width / 2, 485, 200, 10, true);
+};
+```
+
+<img src="./images/conveyor.gif" width="300" />
 
 ### `createPortals`
 
@@ -379,7 +563,7 @@ tile.createButton(
 );
 ```
 
-![](./images/changeColorOnButton.gif)
+<img src="./images/changeColorOnButton.gif" width="300" />
 
 ### `createSpring`
 
@@ -412,4 +596,4 @@ underneath the anchor.
 tile.createRope(tile.width / 2, 10, 18);
 ```
 
-![](./images/rope.gif)
+<img src="./images/rope.gif" width="300" />

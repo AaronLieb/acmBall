@@ -1,6 +1,8 @@
 # Circle
 
-`Circle` is an [`Entity`](./Entity.md) circle.
+`Circle` is a circle [`Entity`](Entity.md). It _inherits_ from
+[`Entity`](Entity.md), and so it also has all of `Entity`'s properties and
+methods.
 
 ## Properties
 

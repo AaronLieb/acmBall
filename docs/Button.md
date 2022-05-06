@@ -1,7 +1,7 @@
 # Button
 
-`Button` is a rectangle that calls a function when anything presses and
-releases it.
+`Button` is a rectangle that calls a function when anything presses or releases
+it.
 
 ## Properties
 
