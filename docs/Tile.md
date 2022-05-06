@@ -191,7 +191,7 @@ console.log(`${tile.width} x ${tile.height}`);
 // 500 x 500
 ```
 
-### `ball: Ball`
+### `ball: Circle`
 
 `ball` is the game's ball. It has all of [`Circle`](./Circle.md)'s method.
 
