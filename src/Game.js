@@ -104,7 +104,8 @@ class Game {
     if (config.debug.showTileBorder) {
       currTile.createRectangle(currTile.width / 2, currTile.height / 2, currTile.width, currTile.height, false, {
         ignore: true,
-        render: { fillStyle: "rgba(52, 31 ,19, 0.05)" },
+        render: { fillStyle: "rgba(52, 31 ,19, 0.05)",
+      strokeStyle: "rgba(42,42,42,.4)" },
       });
     }
 
