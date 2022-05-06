@@ -77,11 +77,7 @@ class Game {
     this.tiles = [];
     this.activeTile = 0;
 
-    this.centerBody = Bodies.circle(this.WIDTH / 2, this.HEIGHT / 2, 0.1, {
-      isStatic: true,
-      isSensor: true,
-    });
-
+    this.centerBody = Bodies.circle(this.WIDTH / 2, this.HEIGHT / 2, 0.1, { ignore: true });
     /* 
       These functions are passed as arguments
       The reference to "this" is lost when passed
