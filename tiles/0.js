@@ -11,8 +11,6 @@ tile.ballStart.velocity = { x: 5, y: 0 };
 tile.ballEnd.position = { x: 500, y: 202 };
 tile.ballEnd.velocity = { x: 5.825343621579975, y: -5.403626669463045 };
 
-let t;
-
 // This function will run once when the tile loads for the first time
 tile.setup = function () {
   const groundThickness = 20;
@@ -29,7 +27,6 @@ tile.setup = function () {
   let greenCircle = tile.createCircle(tile.width - 100, 40, 20);
   greenCircle.color = "lime";
 
-  let blinked = false;
   let button1 = tile.createButton(
     75,
     100 - (groundThickness - 5) - 5,
@@ -39,12 +36,8 @@ tile.setup = function () {
       greenCircle.color = "red";
     },
     async () => {
-      if (!blinked) {
-        blinked = true;
-
-        await sleep(1000);
-        greenCircle.color = "lime";
-      }
+      await sleep(1000);
+      greenCircle.color = "lime";
     }
   );
   button1.angle += 10;
