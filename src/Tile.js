@@ -73,13 +73,6 @@ class Tile {
   /**
    * @private
    */
-  _onTickBackground() {
-    this.onTickBackground();
-  }
-
-  /**
-   * @private
-   */
   _onBallLeave() {
     this.onBallLeave();
   }

@@ -26,7 +26,7 @@ export let assertDiff = (a, b, delta, msg) => {
     document.getElementById("testbox").style.backgroundColor = "red";
     return false;
   }
-  console.log(`[${msg}] TEST CASE PASSED ${a} = ${b}, delta = ${delta}`);
+  // console.log(`[${msg}] TEST CASE PASSED ${a} = ${b}, delta = ${delta}`);
   return true;
 };
 
