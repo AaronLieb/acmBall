@@ -5,9 +5,6 @@
 
   angle test case
 
-
-  x and y getters and setters
-
 */
 
 import Game from "./Game.js";

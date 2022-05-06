@@ -86,6 +86,16 @@ square.angle = 45; // set the angle to 45deg
 square.angle += 15; // add another 15deg to make 60deg
 ```
 
+### `bounciness: number`
+
+`bounciness` describes the percentage of speed lost everytime the entity bounces. Default: 1
+
+#### Example: Setting the bounciness of the ball
+
+```js
+tile.ball.bounciness = 0.5;
+```
+
 ### `gravityScale: number`
 
 ## Methods
