@@ -43,7 +43,7 @@ class Tile {
     this.bodies = []; // list of objects in this tile
     this.thin_walls = [];
     this.entered = false;
-    this.centerBody = Matter.Bodies.circle(this.left + this.width / 2, this.height + this.height / 2, 0.1, {
+    this.centerBody = Matter.Bodies.circle(this.left + this.width / 2, this.top + this.height / 2, 0.1, {
       ignore: true,
     });
 
