@@ -393,7 +393,7 @@ tile.setup = function () {
 createCircle(x: number, y: number, radius: number, moveable = false): Circle
 ```
 
-`createCircle` creates a circle on the tile.
+`createCircle` creates a [`Circle`](Circle.md) on the tile.
 
 #### Parameters
 
@@ -474,9 +474,9 @@ createPortals(x1: number, y1: number, x2: number, y2: number): Entity[]
 
 `createPortals` creates a pair of portals. It returns an array of 2 entities,
 the first one being the orange portal, and the second one being the blue portal.
-When the ball touches one portal, it will be teleported to the other ball.
+When the ball touches one portal, it will be teleported to the other one.
 
-Note that `createPortals` **only works for the ball**.
+Note that `createPortals` **only works on the ball**.
 
 ### `createButton`
 
