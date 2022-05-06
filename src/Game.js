@@ -142,26 +142,29 @@ class Game {
       Camera.updateCamera();
 
       let oldActiveTile = this.activeTile;
-      this.activeTile = positionToTile(this.ball.body.position);
+      let activeTile = positionToTile(this.ball.body.position);
       let aTile = this.tiles[this.activeTile];
       let oTile = this.tiles[oldActiveTile];
 
-      if (oldActiveTile == this.activeTile || !this.tiles[this.activeTile] || this.activeTile < 0) return;
-      this.ball.tile = this.tiles[this.activeTile];
+      this.activeTile = activeTile;
+      this.aTile = aTile;
+      this.oTile = oTile;
 
-      if (oldActiveTile == config.tile_id && oTile) {
-        oTile.testExit();
-        this.ball.moveTile(this.activeTile);
+      if (oldActiveTile == activeTile || !aTile || this.activeTile < 0) return;
+      this.ball.tile = aTile;
+
+      if ((config.testAllTiles || oldActiveTile == config.tile_id) && oTile) {
+        oTile._testExit();
+        this.ball._moveTile(this.activeTile);
       }
 
-      if (!aTile.entered) {
+      if (!aTile._entered) {
         aTile._onBallEnter();
-        aTile.entered = true;
+        aTile._entered = true;
         this.ball.position = aTile.ballStart.position;
         this.ball.velocity = aTile.ballStart.velocity;
         oTile?._onBallLeave();
       }
-
     });
   }
 

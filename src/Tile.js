@@ -42,7 +42,7 @@ class Tile {
     this.matter = Matter; // for advanced users
     this.bodies = []; // list of objects in this tile
     this.thin_walls = [];
-    this.entered = false;
+    this._entered = false;
     this.centerBody = Matter.Bodies.circle(this.left + this.width / 2, this.top + this.height / 2, 0.1, {
       ignore: true,
     });
@@ -63,37 +63,50 @@ class Tile {
     return this.game.ball;
   }
 
+  /**
+   * @private
+   */
   _onTick() {
     this.onTick();
   }
 
+  /**
+   * @private
+   */
   _onTickBackground() {
     this.onTickBackground();
   }
 
+  /**
+   * @private
+   */
   _onBallLeave() {
     this.onBallLeave();
   }
 
+  /**
+   * @private
+   */
   _onBallEnter() {
-    this.bodies.forEach((b) => {
-      if (b._cache) {
-        console.log(b._cache.isStatic);
-        b = { ...b._cache };
-      }
-    });
+    this.bodies.forEach((b) => Matter.Body.setStatic(b, b._isStatic ?? b.isStatic));
     this.onBallEnter();
   }
 
+  /**
+   * @private
+   */
   _setup() {
     this.setup();
     this.bodies.forEach((b) => {
-      b._cache = { ...b };
+      b._isStatic = b.isStatic;
       Body.setStatic(b, true);
     });
   }
 
-  testExit() {
+  /**
+   * @private
+   */
+  _testExit() {
     let c = config.tests.exit;
     this.testsPassed += !c.position || testBallPosition(game.ball.body, this.ballEnd);
     this.testsPassed += !c.velocity || testBallVelocity(game.ball.body, this.ballEnd);

@@ -9,6 +9,7 @@ const defaultState = {
   restitution: 0.8,
   inertia: Infinity,
   inverseInertia: 0,
+  mass: 2,
   render: {
     fillStyle: "#f99",
     lineWidth: 5,
@@ -33,10 +34,17 @@ class Ball extends Circle {
   /**
    * Resets the ball to its defualt state
    */
-  moveTile(active_tile) {
+  reset() {
+    Matter.Body.set(this.body, defaultState);
+  }
+
+  /**
+   * @private
+   */
+  _moveTile(active_tile) {
     this.body.collisionFilter.group = active_tile + 1;
     this.body.collisionFilter.mask = 0; // don't touch this
-    Matter.Body.set(this.body, defaultState);
+    this.reset();
   }
 }
 
