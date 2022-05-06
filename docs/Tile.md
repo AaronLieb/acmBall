@@ -48,6 +48,8 @@ The ball's default values are:
 tile.ball.color = "green";
 tile.ball.radius = 100;
 ```
+<img src="./images/normalBall.png" width="200" height="200" />
+<img src="./images/greenBall.png" width="200" height="200" />
 
 ## Methods
 
@@ -92,6 +94,8 @@ let rect = tile.createRectangle(
 );
 ```
 
+<img src="./images/createRect.png" width="200" height="200" />
+
 #### Example: Create a small box that drops from the top-middle
 
 ```ts
@@ -130,6 +134,8 @@ let diagonal = tile.createLine(0, 0, 500, 500, 8);
 diagonal.color = "red";
 ```
 
+![](./images/createLine.gif)
+
 ### `createTriangle`
 
 ```ts
@@ -162,6 +168,8 @@ tile.setup = function () {
 };
 ```
 
+![](./images/triangle.gif)
+
 #### Example: Create a triangle with an oval in the middle
 
 The triangle created is an isosceles triangle with 2 points at the bottom and 1
@@ -188,6 +196,8 @@ eye.color = "rgb(0, 117, 0)";
 // Scale the y-axis by 1/2 to make it an oval.
 eye.scale(1, 0.5);
 ```
+
+![](./images/createTriangle.gif)
 
 ### `createRamp`
 
@@ -217,6 +227,8 @@ tile.setup = function () {
 };
 ```
 
+![](./images/ramp.gif)
+
 ### `createCircle`
 
 ```ts
@@ -242,6 +254,8 @@ createCircle(x: number, y: number, radius: number, moveable = false): Circle
 tile.createCircle(60, 60, 40);
 ```
 
+<img src="./images/cornerBall.png" width="200" height="200" />
+
 #### Example: Make a fake ball that drops from the top-middle
 
 ```ts
@@ -258,11 +272,15 @@ let fakeBall = tile.createCircle(
 fakeBall.color = "#f99";
 ```
 
+![](./images/createBall.gif)
+
 ### `createConveyorBelt`
 
 ```ts
 createConveyorBelt(x: number, y: number, width: number, height: number, speed: number): Entity
 ```
+
+![](./images/conveyor.gif)
 
 ### `createPortals`
 
@@ -361,6 +379,8 @@ tile.createButton(
 );
 ```
 
+![](./images/changeColorOnButton.gif)
+
 ### `createSpring`
 
 ```ts
@@ -391,3 +411,5 @@ underneath the anchor.
 ```js
 tile.createRope(tile.width / 2, 10, 18);
 ```
+
+![](./images/rope.gif)
