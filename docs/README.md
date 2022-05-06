@@ -18,19 +18,22 @@ Recommended Web Server:
 
 ### Forking the code
 
-To create a fork of the repository, click "Fork" in the top right of the repository on github.
+To create a fork of the repository, click "Fork" in the top right of the
+repository on GitHub.
 
-Once you've created a fork of the reposity, use git to clone the repository to your local machine.
+Once you've created a fork of the repository, use git to clone the repository to
+your local machine.
 
-If you need help cloning the repository, refer to [Cloning your fork](./cloningYourFork.md)
+If you need help cloning the repository, refer to [Cloning your
+fork](./cloningYourFork.md).
 
 You can do this by running
 
 ```bash
-  git clone <your fork url>
+git clone --depth 1 <your fork url>
 ```
 
-You can also clone the reposity from VSCode, or GitHub desktop.
+You can also clone the repository from VSCode, or GitHub Desktop.
 
 To clone the repo
 
