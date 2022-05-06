@@ -1,16 +1,18 @@
 let { Bodies, Render } = Matter;
 
 const Camera = {
+  modes: {
+    ball: 0,
+    fullscreen: 1,
+    tile: 2,
+  },
   WIDTH: 500 * (16 / 9),
   HEIGHT: 500,
   zoom: 1.5,
-  fullScreen: false,
+  mode: 0,
   lerp_coefficient: 0.03,
   /* Dummy object used for lerping */
-  focusBody: Bodies.circle(0, 0, 0.1, {
-    isStatic: true,
-    isSensor: true,
-  }),
+  focusBody: Bodies.circle(0, 0, 0.1, { ignore: true }),
 };
 
 Camera.setup = () => {
@@ -28,25 +30,23 @@ Camera.lerp = () => {
 
 Camera.updateCamera = () => {
   /* Choose the focus target */
-  let body = Camera.fullScreen ? game.centerBody : Camera.focusBody;
-
-  /* Edit CSS */
-
-  // let c = game.render.canvas;
-  // c.setAttribute("style", "background-position-x:" + body.position.x * 0.55 + "px" + "!important");
-  // c.setAttribute("style", "background-position-y:" + body.position.y * 0.55 + "px" + "!important");
+  const getBody = () => {
+    if (Camera.mode == Camera.modes.fullscreen) return game.centerBody;
+    else if (Camera.mode == Camera.modes.ball) return Camera.focusBody;
+    else return game.tiles[game.activeTile].centerBody;
+  };
 
   /* Linear Interpolation only if NOT fullscreen */
   Camera.fullScreen || Camera.lerp();
   /* Adjust padding of viewport */
-  let divisor = Camera.fullScreen
+  let divisor = Camera.mode == Camera.modes.fullscreen
     ? { x: game.WIDTH / 2, y: game.HEIGHT / 2 }
     : { x: game.TILE_WIDTH / Camera.zoom, y: game.TILE_HEIGHT / Camera.zoom };
   Render.lookAt(
     game.render,
     {
-      x: body.position.x,
-      y: body.position.y,
+      x: getBody().position.x,
+      y: getBody().position.y,
     },
     divisor,
     true
@@ -54,7 +54,7 @@ Camera.updateCamera = () => {
 };
 
 Camera.switchView = () => {
-  Camera.fullScreen = !Camera.fullScreen;
+  Camera.mode = (Camera.mode + 1) % 3;
 };
 
 export default Camera;
