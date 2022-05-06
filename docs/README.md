@@ -12,6 +12,8 @@ Recommended Text Editor:
 Recommended Web Server:
 - Live Server - VSCode Extension
 
+![](./images/installLiveServer.gif)
+
 ### Forking the code
 
 To create a fork of the repository, click "Fork" in the top right of the repository on github.
