@@ -32,7 +32,7 @@ export let assertDiff = (a, b, delta, msg) => {
 
 export const testBallPosition = (ball, end) => {
   let flag = true;
-  let est_pos = findIntersection("y", ball);
+  let est_pos = findIntersection(ball);
   let rel_est_pos = {
     x: ((est_pos.x - 1) % game.TILE_WIDTH) + 1,
     y: ((est_pos.y - 1) % game.TILE_HEIGHT) + 1,
@@ -54,7 +54,7 @@ export const testBallSize = (ball) => {
 };
 
 export const testBallShape = (ball) => {
-  return assertEqual(ball.vertices.length, 26, "Ball Shape");
+  return assertEqual(ball.vertices.length, 20, "Ball Shape");
 };
 
 export const testBallRender = (ball) => {

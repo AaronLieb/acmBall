@@ -7,10 +7,10 @@ export const unitVector = (vec) => {
   return { x: vec.x / mag, y: vec.y / mag };
 };
 
-export const findIntersection = (axis, ball) => {
-  // TODO improve this math and variable names
-  if (!(axis == "y" || axis == "x")) return;
+export const findIntersection = (ball) => {
+  let axis = ball.position.x >= game.TILE_WIDTH || ball.posision.x < 0 ? "y" : "x";
   let opposite = axis == "x" ? "y" : "x";
+  console.log(axis);
   let target = Math.round(ball.position[opposite] / 100) * 100;
   let d = target - ball.position[opposite];
   let unit_vector = unitVector(ball.velocity);

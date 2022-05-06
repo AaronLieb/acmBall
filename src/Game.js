@@ -149,6 +149,11 @@ class Game {
       if (oldActiveTile == this.activeTile || !this.tiles[this.activeTile] || this.activeTile < 0) return;
       this.ball.tile = this.tiles[this.activeTile];
 
+      if (oldActiveTile == config.tile_id && oTile) {
+        oTile.testExit();
+        this.ball.moveTile(this.activeTile);
+      }
+
       if (!aTile.entered) {
         aTile._onBallEnter();
         aTile.entered = true;
@@ -157,23 +162,6 @@ class Game {
         oTile?._onBallLeave();
       }
 
-      if (oldActiveTile != config.tile_id || !this.tiles[oldActiveTile]) return;
-      this.tiles[oldActiveTile].thin_walls.forEach((e) => {
-        // hide walls for old tile
-        e.body.render.visible = false;
-      });
-      this.tiles[oldActiveTile].testExit();
-      this.tiles[this.activeTile].thin_walls.forEach((e) => {
-        // show walls for new tile
-        e.body.render.visible = true;
-      });
-      if (oldActiveTile == config.tile_id && oTile) {
-        oTile.testExit();
-      }
-
-      if (oldActiveTile != config.tile_id || !oTile) return;
-      oTile.testExit();
-      this.ball.moveTile(this.activeTile);
     });
   }
 
