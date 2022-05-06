@@ -5,8 +5,12 @@
 
     Camera:
       use canvas.style.backgroundPosition to move background when camera moves
+    
+    Tile view 
 
     Fix buttons, they suck still
+
+    Change area of ball for tests cases
 
 */
 
