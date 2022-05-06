@@ -4,24 +4,30 @@ html {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
-my-game {
+my-tv {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-#gameView {
-  border: 2vw solid rgb(168, 168, 168);
-  border-width: 2vh 2vw;
-  border-radius: 15px;
-  overflow: hidden;
-  display: inline-block;
+tv-monitor {
+  background-color: rgb(107, 107, 107);
+  border: 15px solid rgb(107, 107, 107);
+  border-radius: 30px;
+  box-shadow: 10px 5px 34px 0px rgba(0, 0, 0, 0.75);
+}
+
+tv-buttons {
+  margin: 50px 0;
 }
 
 canvas {
   background: radial-gradient(#ccc 2px, #eee 2px) !important;
   background-size: 25px 25px !important;
+  border: 15px solid rgb(168, 168, 168);
+  border-radius: 30px;
+  margin: 0;
 }
 
 #tests {
@@ -56,10 +62,6 @@ canvas {
   border-radius: 10px;
   margin: 20px;
   background-color: lime;
-}
-
-#controls {
-  margin: 50px 0;
 }
 
 .button {

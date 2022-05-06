@@ -13,16 +13,16 @@
   </head>
 
   <body>
-    <my-game>
-      <div id="gameView"></div>
-      <div id="controls">
+    <my-tv>
+      <tv-monitor></tv-monitor>
+      <tv-buttons>
         <a class="button" id="play" onclick="play()"> Start </a>
         <a class="button" hidden id="pause" onclick="play()"> Pause </a>
         <a class="button" hidden id="resume" onclick="play()"> Resume </a>
         <a class="button" id="restart" onclick="restartGame()"> Restart </a>
         <a class="button" id="view" onclick="switchView()"> switchView </a>
-      </div>
-    </my-game>
+      </tv-buttons>
+    <my-tv>
     <div id="debug">
       <span id="coords"></span>
       <div id="tests">

@@ -5,15 +5,13 @@ import Camera from "./Camera.js";
 import config from "../config.js";
 let { Mouse, Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine, Events } = Matter;
 
+// Try messing around with the mouse creation, and the html element that it targets
+// there is a mouse.setScale() too, no clue how it works
 Render.mousePosition = function (_, mouse, ctx) {
   ctx.fillStyle = "rgba(0,0,0,1)";
   ctx.font = "30px Monospace";
   let rp = relPosition(mouse.position);
-  ctx.fillText(
-    positionToTile(mouse.position) + ": " + Math.floor(rp.x - 22) + ", " + Math.floor(rp.y - 22),
-    mouse.position.x - 10,
-    mouse.position.y - 50
-  );
+  ctx.fillText(Math.floor(rp.x - 170) + ", " + Math.floor(rp.y - 40), mouse.position.x - 170, mouse.position.y - 40);
 };
 
 Render.timestamp = function (render, engine, ctx) {
@@ -65,10 +63,10 @@ class Game {
       isFixed: true,
       delta: 1000 / FPS,
     });
-    this.mouse = Mouse.create(document.getElementById("gameView"));
+    this.mouse = Mouse.create(document.getElementsByTagName("canvas")[0]);
 
     this.render = Render.create({
-      element: document.getElementById("gameView"),
+      element: document.getElementsByTagName("tv-monitor")[0],
       engine: this.engine,
       mouse: this.mouse,
       options: {
@@ -113,8 +111,7 @@ class Game {
     if (config.debug.showTileBorder) {
       currTile.createRectangle(currTile.width / 2, currTile.height / 2, currTile.width, currTile.height, false, {
         ignore: true,
-        render: { fillStyle: "rgba(52, 31 ,19, 0.05)",
-      strokeStyle: "rgba(42,42,42,.4)" },
+        render: { fillStyle: "rgba(52, 31 ,19, 0.05)", strokeStyle: "rgba(42,42,42,.4)" },
       });
     }
 
