@@ -7,11 +7,16 @@ let { Mouse, Resolver, Body, Bodies, Runner, Render, Composite, Detector, Engine
 
 // Try messing around with the mouse creation, and the html element that it targets
 // there is a mouse.setScale() too, no clue how it works
-Render.mousePosition = function (_, mouse, ctx) {
+Render.mousePosition = function (render, mouse, ctx) {
+  let currTile = game.tiles[config.tile_id];
+  const offset = 38;
+  let mp = {x: mouse.position.x, y: mouse.position.y};
+  let new_x = mp.x - currTile.left - offset;
+  let new_y = mp.y - currTile.top - offset;
+  if (new_x < -5 || new_x > 505 || new_y < -5 || new_y > 505) return;
   ctx.fillStyle = "rgba(0,0,0,1)";
   ctx.font = "30px Monospace";
-  let rp = relPosition(mouse.position);
-  ctx.fillText(Math.floor(rp.x - 170) + ", " + Math.floor(rp.y - 40), mouse.position.x - 170, mouse.position.y - 40);
+  ctx.fillText(`${Math.floor(new_x) + ", " + Math.floor(new_y)}`, mouse.position.x - 10, mouse.position.y - 40);
 };
 
 Render.timestamp = function (render, engine, ctx) {
@@ -63,7 +68,7 @@ class Game {
       isFixed: true,
       delta: 1000 / FPS,
     });
-    this.mouse = Mouse.create(document.getElementsByTagName("canvas")[0]);
+    this.mouse = Mouse.create(document.getElementsByTagName("tv-monitor")[0]);
 
     this.render = Render.create({
       element: document.getElementsByTagName("tv-monitor")[0],
