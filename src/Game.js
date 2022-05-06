@@ -26,7 +26,7 @@ Render.timestamp = function (render, engine, ctx) {
     "s " +
     pad(Math.floor(engine.timing.timestamp % 1000), "0", 3) +
     "ms";
-  ctx.fillText(str, render.canvas.width - 170, render.canvas.height - 20);
+  ctx.fillText(str, render.canvas.width - 170, render.canvas.height - 10);
 };
 
 Render.objectMasses = function (render, bodies = Composite.allBodies(Game.engine.world), context) {
@@ -36,6 +36,13 @@ Render.objectMasses = function (render, bodies = Composite.allBodies(Game.engine
   bodies.forEach((b) => {
     c.fillText(`${b.mass.toFixed(2)} : ${b.collisionFilter.group}`, b.position.x - 20, b.position.y);
   });
+};
+
+Render.cameraMode = function (render, engine, ctx) {
+  ctx.fillStyle = "rgba(0,0,0,1)";
+  ctx.font = "20px Monospace";
+  let name = Object.keys(Camera.modes)[Camera.mode]
+  ctx.fillText(`Camera Mode: ${name}`, 20, render.canvas.height - 10);
 };
 
 const FPS = 60;
@@ -66,6 +73,7 @@ class Game {
         showMousePosition: config.debug.showMousePosition,
         showObjectMasses: config.debug.showMasses,
         showTimestamp: config.debug.showTimer,
+        showCameraMode: config.debug.showCameraMode,
         wireframes: false,
         width: (this.HEIGHT / this.WIDTH) * Camera.WIDTH,
         height: (this.WIDTH / this.HEIGHT) * Camera.HEIGHT,

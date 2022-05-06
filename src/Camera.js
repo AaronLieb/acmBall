@@ -16,6 +16,8 @@ const Camera = {
 };
 
 Camera.setup = () => {
+  let retrieved_camera_mode = localStorage.getItem('cameraMode');
+  if (retrieved_camera_mode) Camera.mode = retrieved_camera_mode;
   Camera.focusBody.position.x = game.ball.body.position.x;
   Camera.focusBody.position.y = game.ball.body.position.y;
 };
@@ -56,6 +58,7 @@ Camera.updateCamera = () => {
 
 Camera.switchView = () => {
   Camera.mode = (Camera.mode + 1) % 3;
+  localStorage.setItem('cameraMode', Camera.mode);
 };
 
 export default Camera;
