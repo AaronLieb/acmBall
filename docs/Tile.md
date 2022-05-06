@@ -71,8 +71,9 @@ shape that you can put on a tile.
   y-axis.
 - `width`: the width of the rectangle.
 - `height`: the height of the rectangle.
-- `moveable`: whether the rectangle is affected by the gravity. The default is
-  false, meaning that the created rectangle stays in place throughout the game.
+- `moveable` (optional): whether the rectangle is affected by the gravity. The
+  default is false, meaning that the created rectangle stays in place throughout
+  the game.
 
 #### Example: Making a basic rectangle at the middle of the tile with the dimensions 100x100
 
@@ -112,8 +113,9 @@ createLine(x1: number, y1: number, x2: number, y2: number, thickness: number, mo
 - `x2`: the X value of the second point.
 - `y2`: the Y value of the second point.
 - `thickness`: the thickness of the line.
-- `moveable`: whether the line is affected by the gravity. The default is
-  false, meaning that the created line stays in place throughout the game.
+- `moveable` (optional): whether the line is affected by the gravity. The
+  default is false, meaning that the created line stays in place throughout the
+  game.
 
 #### Example: Make a platform spanning the bottom of the tile
 
@@ -145,8 +147,20 @@ within a tile.
 - `y2`: the Y value of the second point.
 - `x3`: the X value of the third point.
 - `y3`: the Y value of the third point.
-- `moveable`: whether the triangle is affected by the gravity. The default is
-  false, meaning that the created triangle stays in place throughout the game.
+- `moveable` (optional): whether the triangle is affected by the gravity. The
+  default is false, meaning that the created triangle stays in place throughout
+  the game.
+
+#### Example: A tile that has the ball drop onto a triangle
+
+```js
+tile.ballStart.position = { x: 250, y: 50 };
+tile.ballStart.velocity = { x: 0, y: 0 };
+
+tile.setup = function () {
+  tile.createTriangle(190, 499, 290, 499, 240, 400);
+};
+```
 
 #### Example: Create a triangle with an oval in the middle
 
@@ -192,22 +206,15 @@ either order.
 - `x2`: the X value of the second point (usually ramp exit).
 - `y2`: the Y value of the second point (usually ramp exit).
 
-#### Example: Create the ground and a ramp right above it
-
-This example is best shown inside a completely empty tile (except for these two
-entities).
+#### Example: A tile that has the ball drop onto a ramp
 
 ```js
-tile.createRectangle(
-  // Put the ramp with its midpoint at the center of the tile, but subtract
-  // 20 from the tile height so it barely hovers at the bottom.
-  tile.width / 2,
-  tile.height - 20,
-  // Span the rectangle across the tile, then make it 40 values thick.
-  tile.width,
-  40
-);
-tile.createRamp(10, tile.height - 40, tile.width, tile.height - 200);
+tile.ballStart.position = { x: 250, y: 50 };
+tile.ballStart.velocity = { x: 0, y: 0 };
+
+tile.setup = function () {
+  tile.createRamp(200, 399, 300, 350);
+};
 ```
 
 ### `createCircle`
@@ -225,8 +232,9 @@ createCircle(x: number, y: number, radius: number, moveable = false): Circle
 - `y`: the center of the circle to be created relative to the vertical
   y-axis.
 - `radius`: the radius of the circle.
-- `moveable`: whether the circle is affected by the gravity. The default is
-  false, meaning that the created circle stays in place throughout the game.
+- `moveable` (optional): whether the circle is affected by the gravity. The
+  default is false, meaning that the created circle stays in place throughout
+  the game.
 
 #### Example: Make a circle at the top-left corner
 
@@ -262,8 +270,11 @@ createConveyorBelt(x: number, y: number, width: number, height: number, speed: n
 createPortals(x1: number, y1: number, x2: number, y2: number): Entity[]
 ```
 
-`createPortals` yadda yadda. It returns an array of 2 entities, the first one
-being the orange portal, and the second one being the blue portal.
+`createPortals` creates a pair of portals. It returns an array of 2 entities,
+the first one being the orange portal, and the second one being the blue portal.
+When the ball touches one portal, it will be teleported to the other ball.
+
+Note that `createPortals` **only works for the ball**.
 
 ### `createButton`
 
@@ -283,8 +294,8 @@ calls the given function when anything (including the ball) touches it.
 - `width`: the width of the button.
 - `height`: the height of the button.
 - `callback`: the function to be called when anything hits the button.
-- `endCallback`: the function to be called when the thing no longer hits the
-  button.
+- `endCallback` (optional): the function to be called when the thing no longer
+  hits the button.
 
 #### Example: Change the color of a circle once the ball hits a button
 
