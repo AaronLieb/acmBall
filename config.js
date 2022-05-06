@@ -14,6 +14,7 @@ const config = {
     showTimer: true,
     showMousePosition: true,
     showTileBorder: true,
+    showMarkers: true,
   },
   logging: {
     matter: 0,

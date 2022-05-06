@@ -101,7 +101,7 @@ class Tile {
    */
   _setup() {
     this.setup();
-    this.drawMarkers();
+    config.debug.showMarkers && this._drawMarkers();
     this.bodies.forEach((b) => {
       b._isStatic = b.isStatic;
       Body.setStatic(b, true);
@@ -310,7 +310,7 @@ class Tile {
     Matter.Composite.add(this.game.engine.world, softBody);
   };
 
-  drawMarkers = () => {
+  _drawMarkers = () => {
     let start_rect = this.createRectangle(this.ballStart.position.x, this.ballStart.position.y, 10, 30, false, {ignore: true});
     start_rect.color = 'rgba(2, 14, 245, .6)';
     start_rect.body.render.strokeStyle = 'rgba(0,0,0,0)';
