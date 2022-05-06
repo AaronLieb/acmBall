@@ -4,14 +4,14 @@ class Portal extends Button {
   constructor(tile, x, y, dest_x, dest_y, color) {
     const enterPortal = () => {
       if (tile.ball.portalNausea) return;
-      tile.ball.setPosition(dest_x, dest_y);
+      Matter.Body.setPosition(tile.ball.body, { x: dest_x, y: dest_y });
       tile.ball.portalNausea = true;
     };
     const exitPortal = () => {
       tile.ball.portalNausea = false;
     };
-    super(tile, x, y, 50, 50, enterPortal, exitPortal, { ballOnly: true, render: { visible: false } });
-    let portal = tile.createCircle(x, y, 25, false, { isSensor: true });
+    super(tile, x, y, 5, 30, enterPortal, exitPortal, { ballOnly: true, isSensor: true, render: { visible: false } });
+    let portal = tile.createCircle(x - tile.left, y - tile.top, 25, false, { ignore: true });
     portal.color = color;
     Matter.Body.scale(portal.body, 0.6, 1);
   }
