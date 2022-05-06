@@ -26,7 +26,7 @@ Render.timestamp = function (render, engine, ctx) {
     "s " +
     pad(Math.floor(engine.timing.timestamp % 1000), "0", 3) +
     "ms";
-  ctx.fillText(str, render.canvas.width - 170, render.canvas.height - 10);
+  ctx.fillText(str, render.canvas.width - 200, render.canvas.height - 20);
 };
 
 Render.objectMasses = function (render, bodies = Composite.allBodies(Game.engine.world), context) {
@@ -63,7 +63,7 @@ class Game {
       isFixed: true,
       delta: 1000 / FPS,
     });
-    this.mouse = Mouse.create(document.getElementsByTagName("canvas")[0]);
+    this.mouse = Mouse.create(document.getElementsByTagName("tv-monitor")[0]);
 
     this.render = Render.create({
       element: document.getElementsByTagName("tv-monitor")[0],
