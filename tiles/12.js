@@ -1,20 +1,31 @@
 import { sleep } from "../src/helpers.js";
+import Line from "../src/Line.js";
 import Tile from "../src/Tile.js";
 
 let tile = new Tile();
 
-tile.ballStart.position = { x: 255.93, y: 0 };
-tile.ballStart.velocity = { x: -2, y: 4.42 };
+tile.ballStart.position = { x: 500, y: 440 };
+tile.ballStart.velocity = { x: -6.4, y: 3 };
 
-tile.ballEnd.position = { x: 500, y: 440 };
-tile.ballEnd.velocity = { x: 3, y: 0 };
+tile.ballEnd.position = { x: 0, y: 0 };
+tile.ballEnd.velocity = { x: 0, y: 0 };
 
 // This function will run once when the tile loads for the first time
 tile.setup = function () {
   tile.createRectangle(tile.width / 2, tile.height - 20, tile.width, 40);
-  tile.createRectangle(0, 300, 1, 500);
-  tile.createRectangle(500, 200, 1, 400);
-  tile.createRamp(0, 300, 400, 500);
+  tile.createRectangle(0, 200, 1, 500);
+  // Y
+  tile.createLine(100, 100, 150, 150, 1);
+  tile.createLine(200, 100, 150, 150, 1);
+  tile.createLine(150, 150, 150, 200, 1);
+  //A
+  tile.createLine(200, 200, 250, 100, 1);
+  tile.createLine(300, 200, 250, 100, 1);
+  tile.createLine(215, 150, 300, 150, 1);
+  // Y
+  tile.createLine(100 + 200, 100, 150 + 200, 150, 1);
+  tile.createLine(200 + 200, 100, 150 + 200, 150, 1);
+  tile.createLine(150 + 200, 150, 150 + 200, 200, 1);
 };
 
 // This function will run when the ball enters your tile
