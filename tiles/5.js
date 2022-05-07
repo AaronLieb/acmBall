@@ -39,12 +39,6 @@ tile.setup = function () {
     240,
     2
   )
-  
-  portals = tile.createPortals(
-    280, 485,
-    280, 5
-  );
-  console.log({portals});
 };
 
 // This function will run when the ball enters your tile
@@ -58,15 +52,24 @@ var horizKillerTriggered = false;
 var horizKillerThreshold = 250; // When ball reaches < this x pos, horiz vel killed
 var speedThreshold = 40; // When the ball is this fast, move the orange portal 
 var portalHTrigger = true;
+var firstPortalSpawnTrigger = false;
+
 // This function will run once every tick while the ball is in your tile
 tile.onTick = function () {
+  if(!firstPortalSpawnTrigger){
+    if(this.ball.position.x < 325 && this.ball.position.y > 300){
+      portals = tile.createPortals(
+        280, 485,
+        280, 5
+      );
+      firstPortalSpawnTrigger = true;
+    }
+  }
   if(!horizKillerTriggered){
     if(this.ball.position.x < 280){
-      //this.ball.velocity.x = 0;
       this.ball.color = "green";
       this.ball.setVelocity(0, this.ball.body.velocity.y);
       horizKillerTriggered = true;
-      
     }
   } else {
     if(this.ball.body.velocity.y > speedThreshold){
