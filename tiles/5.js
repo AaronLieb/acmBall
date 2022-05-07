@@ -24,9 +24,9 @@ tile.setup = function () {
   )
   
   tile.createSpring(
-    373,
+    400,
     485,
-    48,
+    100,
     10,
     0,
     -12
@@ -36,28 +36,6 @@ tile.setup = function () {
     340, 450,
     10, 100
   );
-  
-  // thin walls all around
-  tile.createRectangle(
-    250, 0,
-    500, 3
-  ); // top
-  tile.createRectangle(
-    250, 498,
-    500, 3
-  ); // bottom
-  tile.createRectangle(
-    500, 200,
-    3, 390
-  ); // right
-  tile.createRectangle(
-    2, 70,
-    3, 140
-  ); // left
-  tile.createRectangle(
-    2, 430,
-    3, 140
-  ); // left2
 
   tile.createLine(
     340,
@@ -111,7 +89,7 @@ tile.onTick = function () {
     }
     if(!portalHTrigger){
       if((this.ball.body.position.x > 400) && (this.ball.position.y > 110)) {
-        this.ball.setVelocity(-9.5, 0);
+        this.ball.setVelocity(-15, 0);
         this.ball.color = "blue";
         portalHTrigger = true;
       }
