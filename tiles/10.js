@@ -18,6 +18,7 @@ tile.setup = function () {
 
   let platform = tile.createConveyorBelt(280,104,428,50,3)
 
+
   // let platform = tile.createRectangle(350, 450, 40, groundT);
   // platform.angle += 25;
 
