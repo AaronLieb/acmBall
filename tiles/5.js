@@ -32,11 +32,6 @@ tile.setup = function () {
     -12
   )
 
-  tile.createRectangle(
-    340, 450,
-    10, 100
-  );
-
   tile.createLine(
     340,
     220,
