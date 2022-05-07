@@ -18,10 +18,10 @@ tile.setup = function () {
   // guaranteed to be called before onTick is.
   // square = tile.createRectangle(50, 50, 20, 20);
   trampoline = tile.createSpring(30, 318, 50, 8, 1.5, -10);
-  trampoline2 = tile.createSpring(430, 450, 0, 0, 0, 0);
+  trampoline2 = tile.createSpring(430, 450, 100, 8, -10, -14);
+  trampoline2.angle = -45;
   tile.createLine(300, 0, 300, 325, 20);
   tile.createLine(192, 418, 258, 483, 5);
-  tile.createLine(476, 418, 410, 483, 5);
   // let rope = tile.createRope(100,150,10);
 };
 
