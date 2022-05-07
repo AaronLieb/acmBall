@@ -17,14 +17,17 @@ tile.setup = function () {
   tile.createRectangle(125, 215, 250, 50);
   tile.createRamp(310, 188, 360, 130);
   tile.createPortals(265, 85, 490, 200);
+
   let portal1 = tile.createButton(265, 95, 10, 10, () => {
     this.ball.color = "blue";
     this.ball.scale(2);
   }, {isSensor: true});
+
   let belt = tile.createRectangle(425, 300, 20, 200);
   belt.angle = 45
   tile.createPortals(325, 375, 210, 270);
   tile.createRectangle(210, 270, 80, 55);
+
   tile.createPortals(115, 500, 481, 415);
   let endButtom = tile.createButton(427.65, 490, 10, 10, () => {
     this.ball.setVelocity(0, 3.5);
@@ -35,6 +38,7 @@ tile.setup = function () {
     this.ball.scale(2/10);
     this.ball.color = "blue";
   }, {isSensor: true});
+
 };
 
 // This function will run when the ball enters your tile
