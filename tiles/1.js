@@ -18,6 +18,18 @@ let right_paddle_start_follow = false;
 
 let gravity_snapshot = tile.game.engine.gravity.y;
 
+let confetti = [];
+
+const makeConfetti = (x, y, count = 100) => {
+  for (let i = 0; i < count; ++i) {
+    let r = tile.createRectangle(x, y, 15, 15, true, {ignore: true});
+    Matter.Body.setStatic(r.body, false);
+    r.color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255, .8})`;
+    r.velocity = {x: Math.random() * 10 - 5, y: Math.random() * 10 - 7.5};
+    confetti.push(r);
+  }
+}
+
 const createBoundaries = () => {
   let width = 25;
   let top_wall = tile.createRectangle(tile.width/2, 0-width/2, tile.width, width);
@@ -49,6 +61,11 @@ tile.onBallEnter = async function () {
 // This function will run when the ball leaves your tile
 tile.onBallLeave = async function () {
   tile.game.engine.gravity.y = gravity_snapshot;
+  makeConfetti(tile.ball.position.x, tile.ball.position.y);
+  await sleep(1200);
+  confetti.forEach((e) => {
+    tile.matter.Composite.remove(tile.game.engine.world, e.body);
+  });
 };
 
 const lerp_paddle = (paddle, p2, lerp_coefficient) => {
