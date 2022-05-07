@@ -20,6 +20,7 @@ import Ramp from "./Ramp.js";
 import Rope from "./Rope.js";
 import Spring from "./Spring.js";
 import Portal from "./Portal.js";
+import Elevator from "./Elevator.js";
 
 /**
  * A tile in the game grid
@@ -276,6 +277,19 @@ class Tile {
    */
   createRope(x, y, length, options = {}) {
     new Rope(this, this.left + x, this.top + y, length, options);
+  }
+
+  /**
+   * @method createElevator
+   * @param {number} x - the left x value
+   * @param {number} y - the top y value
+   * @param {number} width - width of elevator
+   * @param {number} height - height of elevator
+   * @param {number} speed - distance traveled per step
+   * @param {number} levels - how many levels are there
+   */
+   createElevator(x, y, width, height, speed, levels) {
+     return new Elevator(this, this.left + x, this.top + y, width, height, speed, levels);
   }
 
   createZone(x, y, width, height, start, during, end, options = {}) {
