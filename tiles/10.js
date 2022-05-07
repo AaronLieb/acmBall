@@ -16,12 +16,12 @@ tile.setup = function () {
   let smolBump = tile.createRectangle(68, 10, 20, groundT);
   smolBump.angle -= 0;
 
-  let platform = tile.createConveyorBelt(350,105,500,50,3)
+  let platform = tile.createConveyorBelt(280,104,428,50,3)
 
   // let platform = tile.createRectangle(350, 450, 40, groundT);
   // platform.angle += 25;
 
-  let  ramp =  tile.createRamp(110,122,493,436);
+  // let  ramp =  tile.createRamp(110,122,493,436);
 };
 
 // This function will run when the ball enters your tile
