@@ -22,7 +22,6 @@ tile.setup = function () {
   trampoline2.angle = -45;
   tile.createLine(300, 0, 300, 325, 20);
   tile.createLine(192, 418, 258, 483, 5);
-  // let rope = tile.createRope(100,150,10);
 };
 
 tile.onTick = function () {
