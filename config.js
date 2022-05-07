@@ -1,5 +1,5 @@
 const config = {
-  tile_id: 0,
+  tile_id: 10,
   tests: {
     pauseOnFailedTest: false,
     exit: {
