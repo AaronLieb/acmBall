@@ -6,8 +6,8 @@ let tile = new Tile();
 tile.ballStart.position = { x: 0, y: 215.23 };
 tile.ballStart.velocity = { x: 9.61, y: 0 };
 
-tile.ballEnd.position = { x: 500, y: 127.28 };
-tile.ballEnd.velocity = { x: 10, y: -15.56 };
+tile.ballEnd.position = { x: 500, y: 111.82 };
+tile.ballEnd.velocity = { x: 8, y: -5.39 };
 
 let trampoline;
 let trampoline2;
