@@ -10,15 +10,23 @@ tile.ballEnd.position = { x: 255.93, y: 500 };
 tile.ballEnd.velocity = { x: -2, y: 4.42 };
 
 let lines;
+let spinnerFlipping = false;
 
 const clear = (e) => {
   Matter.Composite.remove(game.engine.world, [e.body]);
 };
 
+
+function launchBall(){
+  tile.ball.velocity = {x: 3.5, y: -14.5};
+  spinnerFlipping = true;
+  blow();
+}
+
 // This function will run once when the tile loads for the first time
 tile.setup = function () {
   let floor = this.createLine(0, 90, 250, 90, 5);
-  this.createButton(
+  let minimizer = this.createButton(
     100,
     58,
     50,
@@ -36,9 +44,11 @@ tile.setup = function () {
     this.createLine(185, 80, 185, 20, 4, true),
     this.createLine(215, 80, 215, 0, 5, true),
   ];
-  this.createButton(270, 150, 30, 5, () => {
+  let btn = this.createButton(270, 150, 30, 5, () => {
     dominoes.forEach((d) => clear(d));
     clear(floor);
+    clear(minimizer);
+    clear(btn);    
   });
 
   tile.ball.radius = 10;
@@ -81,12 +91,37 @@ tile.setup = function () {
 
   tile.createPortals(475, 400, 40, 150);
 
+  tile.createButton(30, 450, 60, 20, launchBall);
+
+  let belt = tile.createSpring(250, 470, 500, 20, 2.5, 0);
+  belt.color = 'lime';
+
 };
 
-function spin(){
+let spinAmount = 2.95;
+
+function spin() {
+  if (spinnerFlipping) {
+    spinAmount -= 0.03;
+  }
+  if (spinAmount < -1) {
+    spinnerFlipping = false;
+  }
   lines.forEach(element => {
-    element.angle += 2.95;
+    element.angle += spinAmount;
   });
+}
+
+let confetti = [];
+
+function blow(){
+  for(let i = 0; i < 50; i += 1){
+    let t = tile.createRectangle(250, 250, 10, 10, true, {isSnesor: true});
+    Matter.Body.setStatic(t.body, false);
+    t.color = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+    t.velocity = {x: (Math.random() * 10) - 5, y: (Math.random() * 10) - 5};
+    confetti.push(t);
+  }
 }
 
 // This function will run when the ball enters your tile
